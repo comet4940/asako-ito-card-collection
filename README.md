@@ -1,10 +1,10 @@
 # PokeChecklist
 
-A fan-made Pokémon TCG checklist for collecting cards by illustrator. Choose an artist, track your binder, download the cards you are missing, or send them to TCGplayer Mass Entry.
+A fan-made Pokémon TCG checklist for collecting cards by illustrator. Browse artist pages, track your binder, download the cards you are missing, or send them to TCGplayer Mass Entry.
 
 ## Current behavior
 
-- Switch among artist checklists; each artist has a separate saved binder.
+- Browse artist checklists from the home page; every artist has a direct, shareable page and a separate saved binder.
 - Check and uncheck owned cards; progress is saved in the visitor's browser with local storage. Card art appears beside each card's set and collector number.
 - Search by Pokémon or set and filter to all, missing, or owned cards.
 - Download a CSV containing only missing cards, with their set, collector number, and TCGplayer search link.
@@ -19,7 +19,9 @@ Asako Ito's existing card IDs remain stable so saved binder progress carries for
 
 ## Hosting
 
-The public site is deployed to [GitHub Pages](https://comet4940.github.io/asako-ito-card-collection/) by GitHub Actions from the `dist/` folder whenever a commit is pushed to `main`. The site is buildless: edit the static files in `dist/`, commit, and push. The workflow is in `.github/workflows/deploy.yml`.
+The public site is deployed to [GitHub Pages](https://comet4940.github.io/asako-ito-card-collection/) by GitHub Actions whenever a commit is pushed to `main`. The workflow runs `node scripts/build-site.mjs` to generate the artist pages, canonical URLs, `sitemap.xml`, and `robots.txt`, then deploys the `dist/` folder. The generated artist URLs work directly at paths such as `/asako-ito/`, including on refresh. The build uses the current GitHub Pages address; once a custom domain is ready, set `POKECHECKLIST_SITE_URL` in the workflow to that domain and connect it in GitHub Pages settings.
+
+To preview the generated static files locally, run `node scripts/build-site.mjs` and serve the `dist/` directory with any static file server.
 
 ## Shopping and affiliate setup
 

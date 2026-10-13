@@ -1,20 +1,17 @@
 (() => {
   const artists = window.ARTIST_REGISTRY || [];
-  const firstArtist = artists[0];
   const ownedStorageKey = "pokechecklist-owned-v1";
   const legacyAsakoKeys = [
     "asako-ito-card-collection-owned-v2",
     "asako-ito-card-collection-owned-v1"
   ];
   const massEntryBaseUrl = window.AFFILIATE_MASS_ENTRY_URL || "https://www.tcgplayer.com/massentry";
-  const loadedCards = new Map();
   let currentArtist = null;
   let cards = [];
   let owned = new Set();
   let activeFilter = "all";
   let searchTerm = "";
   let toastTimeout;
-  let loadVersion = 0;
 
   const els = {
     list: document.getElementById("card-list"),
@@ -23,9 +20,6 @@
     dialog: document.getElementById("shopping-dialog"),
     massText: document.getElementById("mass-entry-text"),
     toast: document.getElementById("toast"),
-    artistSelect: document.getElementById("artist-select"),
-    artistHeading: document.getElementById("artist-heading-name"),
-    heroIntro: document.getElementById("hero-intro"),
     progressTrack: document.querySelector(".progress-track")
   };
 
@@ -270,95 +264,6 @@
     toastTimeout = setTimeout(() => els.toast.classList.remove("visible"), 2600);
   }
 
-  function updateArtistCopy(artist) {
-    els.artistHeading.textContent = artist.name + "’s";
-    els.heroIntro.textContent = "A handy checklist bringing " + artist.name + "’s Pokémon cards together in one place. Mark what’s in your binder, then send the cards you’re missing straight to TCGplayer.";
-    document.title = "PokeChecklist — " + artist.name + " Card Collection";
-    document.querySelector('meta[name="description"]').content = "Track the " + artist.name + " Pokémon TCG collection and send missing cards to TCGplayer.";
-  }
-
-  function loadArtistCards(artist) {
-    if (loadedCards.has(artist.id)) return Promise.resolve(loadedCards.get(artist.id));
-    return new Promise((resolve, reject) => {
-      const script = document.createElement("script");
-      script.src = artist.dataFile;
-      script.dataset.artistId = artist.id;
-      script.onload = () => {
-        const payload = window.ARTIST_CARD_DATA;
-        if (!payload || payload.artistId !== artist.id || !Array.isArray(payload.cards)) {
-          reject(new Error("The artist card file did not match the selected artist."));
-          return;
-        }
-        loadedCards.set(artist.id, payload.cards);
-        resolve(payload.cards);
-      };
-      script.onerror = () => reject(new Error("The artist card file could not be loaded."));
-      document.head.append(script);
-    });
-  }
-
-  function updateAddress(artist, addHistory) {
-    const url = new URL(window.location.href);
-    if (artist.id === firstArtist.id) url.searchParams.delete("artist");
-    else url.searchParams.set("artist", artist.id);
-    if (addHistory) window.history.pushState({}, "", url);
-    else window.history.replaceState({}, "", url);
-  }
-
-  async function switchArtist(artist, options = {}) {
-    if (!artist) return;
-    const version = ++loadVersion;
-    currentArtist = artist;
-    els.artistSelect.value = artist.id;
-    updateArtistCopy(artist);
-    if (options.updateAddress !== false) updateAddress(artist, options.addHistory === true);
-    activeFilter = "all";
-    searchTerm = "";
-    els.search.value = "";
-    document.querySelectorAll(".filter-button").forEach(button => {
-      button.classList.toggle("active", button.dataset.filter === "all");
-    });
-    cards = [];
-    owned = new Set();
-    els.empty.querySelector("h3").textContent = "No cards found";
-    els.empty.querySelector("p").textContent = "Try another Pokémon or set name.";
-    updateProgress();
-    els.list.hidden = false;
-    els.empty.hidden = true;
-    els.list.innerHTML = '<p class="loading-message">Loading ' + escapeHtml(artist.name) + "’s cards…</p>";
-    try {
-      const artistCards = await loadArtistCards(artist);
-      if (version !== loadVersion) return;
-      cards = artistCards;
-      owned = readOwned(artist, cards);
-      updateProgress();
-      renderList();
-    } catch {
-      if (version !== loadVersion) return;
-      cards = [];
-      owned = new Set();
-      updateProgress();
-      els.list.hidden = true;
-      els.empty.hidden = false;
-      els.empty.querySelector("h3").textContent = "Cards couldn’t be loaded";
-      els.empty.querySelector("p").textContent = "Refresh the page and try again.";
-    }
-  }
-
-  if (!artists.length) return;
-
-  els.artistSelect.innerHTML = artists.map(artist =>
-    '<option value="' + escapeHtml(artist.id) + '">' + escapeHtml(artist.name) + "</option>"
-  ).join("");
-  els.artistSelect.addEventListener("change", () => {
-    const artist = artists.find(item => item.id === els.artistSelect.value);
-    switchArtist(artist, { addHistory: true });
-  });
-  window.addEventListener("popstate", () => {
-    const artistId = new URL(window.location.href).searchParams.get("artist");
-    switchArtist(artists.find(item => item.id === artistId) || firstArtist, { updateAddress: false });
-  });
-
   document.querySelectorAll(".filter-button").forEach(button => {
     button.addEventListener("click", () => {
       activeFilter = button.dataset.filter;
@@ -393,7 +298,17 @@
     }
   });
 
-  const requestedArtist = new URL(window.location.href).searchParams.get("artist");
-  const initialArtist = artists.find(artist => artist.id === requestedArtist) || firstArtist;
-  switchArtist(initialArtist, { updateAddress: false });
+  currentArtist = artists.find(artist => artist.id === window.CURRENT_ARTIST_ID);
+  const catalog = window.ARTIST_CARD_DATA;
+  if (!currentArtist || !catalog || catalog.artistId !== currentArtist.id || !Array.isArray(catalog.cards)) {
+    els.list.hidden = true;
+    els.empty.hidden = false;
+    els.empty.querySelector("h3").textContent = "This checklist isn’t available";
+    els.empty.querySelector("p").textContent = "Return to the artist directory and choose another collection.";
+  } else {
+    cards = catalog.cards;
+    owned = readOwned(currentArtist, cards);
+    updateProgress();
+    renderList();
+  }
 })();

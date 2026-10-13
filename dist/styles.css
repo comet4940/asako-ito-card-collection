@@ -51,6 +51,13 @@ button:focus-visible, a:focus-visible, input:focus-visible {
   font-size: 13px;
   letter-spacing: .025em;
 }
+.topbar-note, .topbar-link {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 600;
+}
+.topbar-link { text-decoration: none; }
+.topbar-link:hover { color: var(--green-dark); text-decoration: underline; }
 .brand-mark { position: relative; display: inline-block; width: 25px; height: 25px; }
 .brand-mark i {
   position: absolute;
@@ -119,9 +126,6 @@ h1 {
 }
 h1 em { color: #6b8770; font-weight: 500; }
 .hero-intro { max-width: 440px; margin: 19px 0 20px; color: #67756d; font-size: 14px; line-height: 1.75; }
-.artist-picker { margin: 0 0 15px; display: flex; align-items: center; gap: 10px; }
-.artist-picker label { color: #6f7d73; font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
-.artist-picker select { min-width: 190px; max-width: 100%; padding: 8px 30px 8px 10px; border: 1px solid #dfe5dc; border-radius: 6px; background: rgba(255,255,255,.78); color: #405c4a; font-size: 11px; font-weight: 600; cursor: pointer; }
 .hero-meta { display: flex; align-items: center; gap: 9px; color: #758077; font-size: 11px; font-weight: 600; }
 .meta-spark { color: #bf8870; font-size: 15px; }
 .meta-divider { color: #bdc1b5; }
@@ -160,6 +164,59 @@ h1 em { color: #6b8770; font-weight: 500; }
   transform: rotate(3deg);
 }
 .art-label b { color: #536f5d; font-size: 12px; }
+
+.home-hero { min-height: 330px; }
+.home-hero .hero-copy { max-width: 580px; }
+.home-hero h1 { font-size: clamp(48px, 5.8vw, 72px); }
+.artist-directory { margin: 42px 0 29px; }
+.directory-heading {
+  margin-bottom: 19px;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+}
+.directory-heading .eyebrow { margin-bottom: 7px; }
+.directory-intro { max-width: 340px; margin: 0 0 2px; color: var(--muted); font-size: 12px; }
+.artist-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.artist-tile {
+  min-height: 166px;
+  padding: 16px 48px 16px 17px;
+  display: grid;
+  grid-template-columns: 119px minmax(0, 1fr);
+  align-items: center;
+  gap: 17px;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid rgba(63, 75, 61, .11);
+  border-radius: 12px;
+  color: var(--ink);
+  text-decoration: none;
+  box-shadow: 0 5px 20px rgba(49, 61, 53, .035);
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+.artist-tile:hover { transform: translateY(-3px); border-color: rgba(70, 111, 93, .32); box-shadow: var(--shadow); }
+.tile-sage { background: linear-gradient(112deg, #eaf0e8, #f6f6ef 72%); }
+.tile-rose { background: linear-gradient(112deg, #f4e7e2, #faf6f1 72%); }
+.tile-lilac { background: linear-gradient(112deg, #eceaf3, #f7f5f4 72%); }
+.tile-gold { background: linear-gradient(112deg, #f4efd9, #fbf8ef 72%); }
+.tile-sky { background: linear-gradient(112deg, #e5eef0, #f4f7f3 72%); }
+.tile-art { width: 119px; height: 128px; display: block; position: relative; }
+.tile-card { width: 73px; height: 103px; position: absolute; top: 12px; left: 17px; object-fit: cover; border: 3px solid #fff; border-radius: 6px; background: #fff; box-shadow: 0 5px 14px rgba(43, 55, 48, .18); }
+.tile-card-1 { z-index: 3; left: 2px; top: 17px; transform: rotate(-9deg); }
+.tile-card-2 { z-index: 2; left: 25px; top: 6px; transform: rotate(2deg); }
+.tile-card-3 { z-index: 1; left: 46px; top: 19px; transform: rotate(10deg); }
+.tile-copy { min-width: 0; display: flex; align-items: flex-start; flex-direction: column; }
+.tile-eyebrow { margin-bottom: 6px; color: #7c897e; font-size: 9px; font-weight: 700; letter-spacing: .11em; }
+.tile-name { color: #344b43; font: 500 25px/1.1 Fraunces, Georgia, serif; letter-spacing: -.025em; }
+.tile-count { margin-top: 6px; color: var(--muted); font-size: 11px; font-weight: 600; }
+.tile-action { margin-top: 14px; color: var(--green-dark); font-size: 10px; font-weight: 700; }
+.tile-action span { margin-left: 3px; font-size: 13px; }
+.tile-arrow { position: absolute; top: 15px; right: 17px; color: #839184; font-size: 14px; }
+.home-note { margin: 31px 0 35px; padding: 17px 20px; display: flex; align-items: center; gap: 12px; border: 1px solid var(--line); border-radius: 9px; background: #fff; }
+.home-note-mark { color: #bb8b71; font-size: 18px; }
+.home-note p { margin: 0; color: var(--muted); font-size: 11px; }
+.no-script-note { grid-column: 1 / -1; padding: 12px; border-radius: 6px; background: #f5f1e8; color: var(--muted); font-size: 11px; }
 
 .collection-panel {
   padding: 26px 31px 25px;
@@ -410,6 +467,8 @@ h2 { margin: 0; color: #304740; font-size: 25px; line-height: 1.15; }
   .card-list { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
   .footer { grid-template-columns: 1fr 1fr; }
   .footer p { order: 3; grid-column: 1 / -1; }
+  .artist-tile { grid-template-columns: 103px minmax(0, 1fr); gap: 12px; }
+  .tile-art { transform: scale(.88); transform-origin: center; margin-left: -7px; }
 }
 
 @media (max-width: 620px) {
@@ -418,17 +477,28 @@ h2 { margin: 0; color: #304740; font-size: 25px; line-height: 1.15; }
   .topbar { height: 62px; }
   .brand { font-size: 11px; }
   .brand-mark { transform: scale(.85); transform-origin: left center; width: 22px; }
+  .topbar-note { font-size: 9px; }
+  .topbar-link { font-size: 10px; }
   .hero { min-height: 0; margin-top: 18px; padding: 31px 24px 27px; display: block; }
   .hero-copy { position: relative; z-index: 1; max-width: 100%; }
   h1 { font-size: 49px; }
   .hero-intro { max-width: 370px; margin: 14px 0 14px; font-size: 12px; }
-  .artist-picker { align-items: start; flex-direction: column; gap: 5px; margin-bottom: 12px; }
-  .artist-picker select { width: min(100%, 230px); }
+  .home-hero h1 { font-size: 45px; }
   .hero-art { position: absolute; top: 2px; right: -2px; width: 155px; height: 167px; min-height: 0; opacity: .38; }
   .yarn-one { width: 102px; height: 102px; top: 21px; right: 35px; box-shadow: inset 0 0 0 4px rgba(242,232,209,.7), inset 0 0 0 6px rgba(108,119,96,.25), inset 0 0 0 13px rgba(242,232,209,.6), inset 0 0 0 15px rgba(108,119,96,.22), inset 0 0 0 22px rgba(242,232,209,.6); }
   .yarn-two, .art-label { display: none; }
   .needle-one { width: 104px; top: 76px; right: 54px; }
   .needle-two { width: 87px; top: 104px; right: 23px; }
+  .artist-directory { margin-top: 31px; }
+  .directory-heading { align-items: start; flex-direction: column; gap: 8px; }
+  .directory-heading h2 { font-size: 24px; }
+  .directory-intro { font-size: 11px; }
+  .artist-grid { grid-template-columns: 1fr; gap: 10px; }
+  .artist-tile { min-height: 143px; padding: 12px 43px 12px 12px; grid-template-columns: 100px minmax(0, 1fr); gap: 11px; }
+  .tile-art { transform: scale(.82); transform-origin: center; margin-left: -10px; }
+  .tile-name { font-size: 23px; }
+  .tile-action { margin-top: 10px; }
+  .home-note { margin: 23px 0 28px; padding: 14px; }
   .collection-panel { padding: 20px 17px 18px; }
   .panel-heading { align-items: start; }
   .panel-heading h2 { font-size: 21px; }
