@@ -4,7 +4,7 @@ A simple fan-made collector page that gathers Asako Ito Pokémon TCG cards into 
 
 ## Current behavior
 
-- Check and uncheck owned cards; progress is saved in the visitor's browser with local storage.
+- Check and uncheck owned cards; progress is saved in the visitor's browser with local storage. Card art appears in a responsive image grid beside each card's set and collector number.
 - Search by Pokémon or set and filter to all, missing, or owned cards.
 - Download a CSV containing only missing cards, with their set, collector number, and TCGplayer search link.
 - Open TCGplayer Mass Entry with the missing-card list already filled in; copy and download the list are also available as fallbacks.
