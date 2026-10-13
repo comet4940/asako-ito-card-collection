@@ -1,12 +1,12 @@
 # Asako Ito Card Collection
 
-A buildless static collection checklist based on the 37 cards listed on [PkmnCards](https://pkmncards.com/artist/asako-ito/) as of October 12, 2026.
+A simple fan-made collector page that gathers Asako Ito Pokémon TCG cards into one checklist. Track cards in your binder, download the ones you are missing, or open them in TCGplayer Mass Entry.
 
 ## Current behavior
 
 - Check and uncheck owned cards; progress is saved in the visitor's browser with local storage.
 - Search by Pokémon or set and filter to all, missing, or owned cards.
-- Download a CSV containing only missing cards, with their set, collector number, and PkmnCards URL.
+- Download a CSV containing only missing cards, with their set, collector number, and TCGplayer search link.
 - Open TCGplayer Mass Entry with the missing-card list already filled in; copy and download the list are also available as fallbacks.
 - Review the matches, choose Near Mint, add them, and compare seller and shipping options with Cart Optimizer.
 - Pokémon Mass Entry lines include the complete collector number (including the set total); cards whose names repeat in a set use TCGplayer's disambiguated name-number order.
@@ -24,4 +24,4 @@ After joining TCGplayer's Affiliate Program through Impact, set AFFILIATE_MASS_E
 
 ## Data refresh
 
-The master list is a dated snapshot. Recheck the linked PkmnCards artist page before adding later releases; keep cards sorted by expansion release date.
+The card list is maintained as new releases appear and sorted by expansion release date.
