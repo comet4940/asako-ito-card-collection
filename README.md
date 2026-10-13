@@ -14,9 +14,7 @@ A buildless static collection checklist based on the 37 cards listed on [PkmnCar
 
 ## Hosting
 
-The public site is deployed to GitHub Pages by GitHub Actions from the `dist/` folder whenever a commit is pushed to `main`. The site is buildless: edit the static files in `dist/`, commit, and push. The workflow is in `.github/workflows/deploy.yml`.
-
-To configure a new repository, select **Settings → Pages → Build and deployment → GitHub Actions** once. GitHub Pages serves the site at `https://<account>.github.io/<repository>/`.
+The public site is deployed to [GitHub Pages](https://comet4940.github.io/asako-ito-card-collection/) by GitHub Actions from the `dist/` folder whenever a commit is pushed to `main`. The site is buildless: edit the static files in `dist/`, commit, and push. The workflow is in `.github/workflows/deploy.yml`.
 
 ## Shopping and affiliate setup
 
