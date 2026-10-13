@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f6ef">
+  <meta name="description" content="A cozy checklist for tracking Asako Ito Pokémon TCG cards and making a list of the cards you still need.">
+  <title>Asako Ito Card Collection</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="cards.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div class="site-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Asako Ito card collection home">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+        <span>little stitch collection</span>
+      </a>
+      <a class="source-link" href="https://pkmncards.com/artist/asako-ito/" target="_blank" rel="noopener noreferrer">Artist card source <span aria-hidden="true">↗</span></a>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="eyebrow-dot"></span> A Pokémon card checklist</p>
+          <h1>Asako Ito’s<br><em>little world</em></h1>
+          <p class="hero-intro">A soft spot for handmade-looking Pokémon. Keep track of the cards in your binder, then make a tidy list of the ones still missing.</p>
+          <div class="hero-meta"><span class="meta-spark" aria-hidden="true">✳</span><span id="master-count">37 cards</span><span class="meta-divider">·</span><span>oldest to newest</span></div>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="yarn yarn-one"></div><div class="yarn yarn-two"></div>
+          <div class="needle needle-one"></div><div class="needle needle-two"></div>
+          <div class="art-label">made with<br><b>care &amp; yarn</b></div>
+        </div>
+      </section>
+
+      <section class="collection-panel" aria-labelledby="collection-title">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow muted">YOUR BINDER, AT A GLANCE</p>
+            <h2 id="collection-title">Collection progress</h2>
+          </div>
+          <span class="save-note"><span class="save-dot"></span> Saved on this device</span>
+        </div>
+        <div class="progress-layout">
+          <div class="progress-main">
+            <div class="progress-numbers"><strong><span id="owned-count">0</span><small> / <span id="total-count">37</span> owned</small></strong><span id="progress-percent">0%</span></div>
+            <div class="progress-track" role="progressbar" aria-label="Collection progress" aria-valuemin="0" aria-valuemax="37" aria-valuenow="0"><span id="progress-fill"></span></div>
+            <div class="progress-caption"><span id="missing-count">37 still to find</span><span>Every little card counts</span></div>
+          </div>
+          <div class="progress-actions">
+            <button class="button button-primary" id="download-missing"><span aria-hidden="true">↓</span> Download missing list</button>
+            <button class="button button-secondary" id="open-shopping"><span aria-hidden="true">↗</span> Shop missing cards</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="cards-section" aria-labelledby="cards-title">
+        <div class="cards-heading">
+          <div><p class="eyebrow muted">THE CHECKLIST</p><h2 id="cards-title">Find your next favorite</h2></div>
+          <div class="list-tools">
+            <label class="search-box"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Search Pokémon or set" aria-label="Search Pokémon or set"><kbd>⌘ K</kbd></label>
+          </div>
+        </div>
+        <div class="filter-bar" role="group" aria-label="Filter cards">
+          <button class="filter-button active" data-filter="all">All cards <span id="all-filter-count">37</span></button>
+          <button class="filter-button" data-filter="missing">Still need <span id="need-filter-count">37</span></button>
+          <button class="filter-button" data-filter="owned">In my binder <span id="owned-filter-count">0</span></button>
+          <span class="sort-note"><span aria-hidden="true">↟</span> Release order</span>
+        </div>
+        <div id="card-list" class="card-list" aria-live="polite"></div>
+        <div id="empty-state" class="empty-state" hidden>
+          <span class="empty-flower" aria-hidden="true">✿</span>
+          <h3>No cards found</h3>
+          <p>Try another Pokémon or set name.</p>
+          <button class="text-button" id="clear-search">Clear search</button>
+        </div>
+      </section>
+
+      <section class="shopping-note">
+        <div class="shopping-note-icon" aria-hidden="true">↗</div>
+        <div><h2>A little help with the hunt</h2><p>Make a TCGplayer Mass Entry list from the cards you’re missing. Add the list to your cart, then use TCGplayer’s Cart Optimizer to compare seller and shipping options.</p></div>
+        <button class="text-button" id="open-shopping-note">Make my list <span aria-hidden="true">→</span></button>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-brand"><span class="brand-mark small" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>little stitch collection</span></div>
+      <p>Fan-made checklist for collectors. Pokémon and card artwork belong to their respective owners. Not affiliated with Pokémon or TCGplayer.</p>
+      <a href="https://pkmncards.com/artist/asako-ito/" target="_blank" rel="noopener noreferrer">Card list verified at PkmnCards · October 2026 ↗</a>
+    </footer>
+  </div>
+
+  <dialog id="shopping-dialog" class="shopping-dialog" aria-labelledby="shopping-title">
+    <form method="dialog" class="dialog-top"><button class="close-button" aria-label="Close shopping list">×</button></form>
+    <div class="dialog-content">
+      <p class="eyebrow muted">YOUR MISSING CARDS</p>
+      <h2 id="shopping-title">Ready for the hunt?</h2>
+      <p class="dialog-intro">Open your missing cards directly in TCGplayer Mass Entry, already filled in. Review the matches, choose Near Mint, and let Cart Optimizer compare ways to fill your cart.</p>
+      <div class="shopping-summary"><span class="shopping-count"><b id="shopping-missing-count">37</b> cards</span><span class="condition-chip"><span></span> Choose Near Mint in TCGplayer</span></div>
+      <div class="mass-entry-preview"><div class="preview-head"><span>TCGPLAYER MASS ENTRY LIST</span><button id="copy-list" class="copy-button"><span aria-hidden="true">▢</span> Copy</button></div><pre id="mass-entry-text"></pre></div>
+      <div class="dialog-actions">
+        <button class="button button-primary" id="open-tcg-mass-entry"><span aria-hidden="true">↗</span> Open prefilled in TCGplayer</button>
+        <button class="button button-secondary" id="download-tcg-text">Download text list</button>
+      </div>
+      <div id="affiliate-disclosure" class="affiliate-disclosure" hidden>Affiliate link: we may earn a commission from qualifying purchases.</div>
+      <ol class="shopping-steps">
+        <li><span>1</span><p>Check the card matches TCGplayer found for your list.</p></li>
+        <li><span>2</span><p>Open the preferences menu and choose <b>Near Mint</b> (and your preferred printing).</p></li>
+        <li><span>3</span><p>Add cards to your cart, then run <b>Cart Optimizer</b> to compare Direct, Verified Sellers, and Any Seller.</p></li>
+      </ol>
+      <p class="dialog-footnote">Prices, stock, seller count, and shipping are set by TCGplayer and may change before checkout. This page never places an order.</p>
+      <a class="help-link" href="https://help.tcgplayer.com/hc/en-us/articles/360055768913-Getting-Started-With-Mass-Entry" target="_blank" rel="noopener noreferrer">How Mass Entry works <span aria-hidden="true">↗</span></a>
+    </div>
+  </dialog>
+  <div id="toast" role="status" aria-live="polite" class="toast"></div>
+</body>
+</html>

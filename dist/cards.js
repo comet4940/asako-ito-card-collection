@@ -1,0 +1,43 @@
+// Card data checked against the artist page on October 12, 2026.
+// `tcgCode` values follow TCGplayer Mass Entry's Show Set/Series Codes list.
+// Add the Impact-generated TCGplayer destination after the affiliate account is ready.
+window.AFFILIATE_MASS_ENTRY_URL = "";
+window.ASAKO_CARDS = [
+  { name:"Poliwag", set:"Sun & Moon", no:"#30", year:2017, tcgCode:"SM01", tcgNumber:"30/149", url:"https://pkmncards.com/card/poliwag-sun-moon-sum-30/" },
+  { name:"Goomy", set:"Guardians Rising", no:"#94", year:2017, tcgCode:"SM02", tcgNumber:"94/145", url:"https://pkmncards.com/card/goomy-guardians-rising-gri-94/" },
+  { name:"Marill", set:"Burning Shadows", no:"#34", year:2017, tcgCode:"SM03", tcgNumber:"34/147", url:"https://pkmncards.com/card/marill-burning-shadows-bus-34/" },
+  { name:"Tynamo", set:"Burning Shadows", no:"#44", year:2017, tcgCode:"SM03", tcgNumber:"44/147", url:"https://pkmncards.com/card/tynamo-burning-shadows-bus-44/" },
+  { name:"Cherubi", set:"Ultra Prism", no:"#10", year:2018, tcgCode:"SM05", tcgNumber:"10/156", url:"https://pkmncards.com/card/cherubi-ultra-prism-upr-10/" },
+  { name:"Drifloon", set:"Ultra Prism", no:"#51", year:2018, tcgCode:"SM05", tcgNumber:"51/156", url:"https://pkmncards.com/card/drifloon-ultra-prism-upr-51/" },
+  { name:"Luvdisc", set:"Celestial Storm", no:"#44", year:2018, tcgCode:"CES", tcgNumber:"44/168", url:"https://pkmncards.com/card/luvdisc-celestial-storm-ces-44/" },
+  { name:"Shelgon", set:"Celestial Storm", no:"#105", year:2018, tcgCode:"CES", tcgNumber:"105/168", url:"https://pkmncards.com/card/shelgon-celestial-storm-ces-105/" },
+  { name:"Whismur", set:"Celestial Storm", no:"#117", year:2018, tcgCode:"CES", tcgNumber:"117/168", tcgMassEntryName:"Whismur (117)", url:"https://pkmncards.com/card/whismur-celestial-storm-ces-117/" },
+  { name:"Litwick", set:"Lost Thunder", no:"#101", year:2018, tcgCode:"SM8", tcgNumber:"101/214", url:"https://pkmncards.com/card/litwick-lost-thunder-lot-101/" },
+  { name:"Phanpy", set:"Lost Thunder", no:"#111", year:2018, tcgCode:"SM8", tcgNumber:"111/214", url:"https://pkmncards.com/card/phanpy-lost-thunder-lot-111/" },
+  { name:"Electrode", set:"Team Up", no:"#39", year:2019, tcgCode:"SM9", tcgNumber:"39/181", url:"https://pkmncards.com/card/electrode-team-up-teu-39/" },
+  { name:"Oddish", set:"Unbroken Bonds", no:"#6", year:2019, tcgCode:"SM10", tcgNumber:"006/214", tcgMassEntryName:"Oddish (6)", url:"https://pkmncards.com/card/oddish-unbroken-bonds-unb-6/" },
+  { name:"Pyukumuku", set:"Unbroken Bonds", no:"#53", year:2019, tcgCode:"SM10", tcgNumber:"53/214", url:"https://pkmncards.com/card/pyukumuku-unbroken-bonds-unb-53/" },
+  { name:"Gible", set:"Unified Minds", no:"#112", year:2019, tcgCode:"SM11", tcgNumber:"112/236", url:"https://pkmncards.com/card/gible-unified-minds-unm-112/" },
+  { name:"Cottonee", set:"Unified Minds", no:"#143", year:2019, tcgCode:"SM11", tcgNumber:"143/236", url:"https://pkmncards.com/card/cottonee-unified-minds-unm-143/" },
+  { name:"Tympole", set:"Cosmic Eclipse", no:"#58", year:2019, tcgCode:"SM12", tcgNumber:"58/236", url:"https://pkmncards.com/card/tympole-cosmic-eclipse-cec-58/" },
+  { name:"Azurill", set:"Cosmic Eclipse", no:"#146", year:2019, tcgCode:"SM12", tcgNumber:"146/236", url:"https://pkmncards.com/card/azurill-cosmic-eclipse-cec-146/" },
+  { name:"Munna", set:"Sword & Shield", no:"#087", year:2020, tcgCode:"SWSH01", tcgNumber:"087/202", url:"https://pkmncards.com/card/munna-sword-shield-ssh-087/" },
+  { name:"Metapod", set:"Rebel Clash", no:"#002", year:2020, tcgCode:"SWSH02", tcgNumber:"002/192", url:"https://pkmncards.com/card/metapod-rebel-clash-rcl-002/" },
+  { name:"Trapinch", set:"Darkness Ablaze", no:"#089", year:2020, tcgCode:"SWSH03", tcgNumber:"089/189", url:"https://pkmncards.com/card/trapinch-darkness-ablaze-daa-089/" },
+  { name:"Chimecho", set:"Vivid Voltage", no:"#072", year:2020, tcgCode:"SWSH04", tcgNumber:"072/185", url:"https://pkmncards.com/card/chimecho-vivid-voltage-viv-072/" },
+  { name:"Zubat", set:"Battle Styles", no:"#089", year:2021, tcgCode:"SWSH05", tcgNumber:"089/163", url:"https://pkmncards.com/card/zubat-battle-styles-bst-089/" },
+  { name:"Castform", set:"Chilling Reign", no:"#121", year:2021, tcgCode:"SWSH06", tcgNumber:"121/198", url:"https://pkmncards.com/card/castform-chilling-reign-cre-121/" },
+  { name:"Grubbin", set:"Fusion Strike", no:"#018", year:2021, tcgCode:"SWSH08", tcgNumber:"018/264", url:"https://pkmncards.com/card/grubbin-fusion-strike-fst-018/" },
+  { name:"Wigglytuff", set:"Fusion Strike", no:"#111", year:2021, tcgCode:"SWSH08", tcgNumber:"111/264", url:"https://pkmncards.com/card/wigglytuff-fusion-strike-fst-111/" },
+  { name:"Blipbug", set:"Lost Origin", no:"#018", year:2022, tcgCode:"SWSH11", tcgNumber:"018/196", url:"https://pkmncards.com/card/blipbug-lost-origin-lor-018/" },
+  { name:"Espurr", set:"Silver Tempest", no:"#081", year:2022, tcgCode:"SWSH12", tcgNumber:"081/195", url:"https://pkmncards.com/card/espurr-silver-tempest-sit-081/" },
+  { name:"Swirlix", set:"Silver Tempest", no:"#083", year:2022, tcgCode:"SWSH12", tcgNumber:"083/195", url:"https://pkmncards.com/card/swirlix-silver-tempest-sit-083/" },
+  { name:"Snorlax", set:"Crown Zenith", no:"#109", year:2023, tcgCode:"CRZ", tcgNumber:"109/159", url:"https://pkmncards.com/card/snorlax-crown-zenith-crz-109/" },
+  { name:"Altaria", set:"Crown Zenith: Galarian Gallery", no:"#GG19", year:2023, tcgCode:"CRZ:GG", tcgNumber:"GG19/GG70", url:"https://pkmncards.com/card/altaria-crown-zenith-crz-gg19/" },
+  { name:"Seedot", set:"Temporal Forces", no:"#003", year:2024, tcgCode:"TEF", tcgNumber:"003/162", url:"https://pkmncards.com/card/seedot-temporal-forces-tef-003/" },
+  { name:"Sandygast", set:"Twilight Masquerade", no:"#091", year:2024, tcgCode:"TWM", tcgNumber:"091/167", url:"https://pkmncards.com/card/sandygast-twilight-masquerade-twm-091/" },
+  { name:"Dunsparce", set:"Journey Together", no:"#120", year:2025, tcgCode:"JTG", tcgNumber:"120/159", url:"https://pkmncards.com/card/dunsparce-journey-together-jtg-120/" },
+  { name:"Audino", set:"Black Bolt", no:"#151", year:2025, tcgCode:"BLK", tcgNumber:"151/086", tcgDashNumber:true, url:"https://pkmncards.com/card/audino-black-bolt-blk-151/" },
+  { name:"Wailmer", set:"Pitch Black", no:"#015", year:2026, tcgCode:"PBL", tcgNumber:"015/084", url:"https://pkmncards.com/card/wailmer-pitch-black-pbl-015/" },
+  { name:"Pikachu", set:"30th Celebration", no:"#027", year:2026, tcgCode:"30C", tcgNumber:"027/128", tcgDashNumber:true, url:"https://pkmncards.com/card/pikachu-30th-celebration-30c-027/" }
+];
