@@ -1,6 +1,7 @@
 (() => {
   const cards = window.ASAKO_CARDS || [];
-  const storageKey = "asako-ito-card-collection-owned-v1";
+  const storageKey = "asako-ito-card-collection-owned-v2";
+  const previousStorageKey = "asako-ito-card-collection-owned-v1";
   const massEntryBaseUrl = window.AFFILIATE_MASS_ENTRY_URL || "https://www.tcgplayer.com/massentry";
   const owned = new Set(readOwned());
   let activeFilter = "all";
@@ -18,8 +19,20 @@
 
   function readOwned() {
     try {
-      const value = JSON.parse(localStorage.getItem(storageKey) || "[]");
-      return Array.isArray(value) ? value : [];
+      const saved = localStorage.getItem(storageKey);
+      if (saved !== null) {
+        const value = JSON.parse(saved);
+        return Array.isArray(value) ? value.filter(id => cards.some(card => card.id === id)) : [];
+      }
+      const previous = JSON.parse(localStorage.getItem(previousStorageKey) || "[]");
+      if (!Array.isArray(previous)) return [];
+      const migrated = previous.map(value => {
+        if (typeof value !== "string") return null;
+        const id = value.split(/[?#]/, 1)[0].split("/").filter(Boolean).pop();
+        return cards.some(card => card.id === id) ? id : null;
+      }).filter(Boolean);
+      localStorage.setItem(storageKey, JSON.stringify(migrated));
+      return migrated;
     } catch {
       return [];
     }
@@ -30,7 +43,7 @@
   }
 
   function missingCards() {
-    return cards.filter(card => !owned.has(card.url));
+    return cards.filter(card => !owned.has(card.id));
   }
 
   function escapeHtml(value) {
@@ -62,25 +75,24 @@
   }
 
   function renderCard(card) {
-    const isOwned = owned.has(card.url);
+    const isOwned = owned.has(card.id);
     return '<article class="card-row ' + (isOwned ? "is-owned" : "") + '">' +
       '<label class="own-toggle" aria-label="Mark ' + escapeHtml(card.name) + " as " + (isOwned ? "not owned" : "owned") + '">' +
-        '<input type="checkbox" data-card-url="' + escapeHtml(card.url) + '" ' + (isOwned ? "checked" : "") + '>' +
+        '<input type="checkbox" data-card-id="' + escapeHtml(card.id) + '" ' + (isOwned ? "checked" : "") + '>' +
         '<span class="checkmark" aria-hidden="true">' + (isOwned ? "✓" : "") + "</span>" +
       "</label>" +
       '<div class="card-copy"><div class="card-title-line"><h3>' + escapeHtml(card.name) + '</h3><span class="owned-tag">' + (isOwned ? "In binder" : "Need") + "</span></div>" +
         "<p>" + escapeHtml(card.set) + ' <span class="row-dot">·</span> ' + card.year + "</p></div>" +
       '<div class="collector-number">' + escapeHtml(card.no) + "</div>" +
       '<div class="card-links">' +
-        '<a href="' + escapeHtml(card.url) + '" target="_blank" rel="noopener noreferrer" title="View ' + escapeHtml(card.name) + ' on PkmnCards">Card details <span aria-hidden="true">↗</span></a>' +
-        '<a href="' + escapeHtml(tcgSearchUrl(card)) + '" target="_blank" rel="noopener noreferrer" title="Search ' + escapeHtml(card.name) + ' on TCGplayer">TCGplayer <span aria-hidden="true">↗</span></a>' +
+        '<a href="' + escapeHtml(tcgSearchUrl(card)) + '" target="_blank" rel="noopener noreferrer" title="Shop for ' + escapeHtml(card.name) + ' on TCGplayer">Shop on TCGplayer <span aria-hidden="true">↗</span></a>' +
       "</div></article>";
   }
 
   function renderList() {
     const query = searchTerm.trim().toLocaleLowerCase();
     const filtered = cards.filter(card => {
-      const isOwned = owned.has(card.url);
+      const isOwned = owned.has(card.id);
       const matchesFilter = activeFilter === "all" ||
         (activeFilter === "owned" && isOwned) ||
         (activeFilter === "missing" && !isOwned);
@@ -103,9 +115,9 @@
     els.list.hidden = filtered.length === 0;
     els.list.querySelectorAll('input[type="checkbox"]').forEach(input => {
       input.addEventListener("change", () => {
-        const url = input.dataset.cardUrl;
-        if (input.checked) owned.add(url);
-        else owned.delete(url);
+        const id = input.dataset.cardId;
+        if (input.checked) owned.add(id);
+        else owned.delete(id);
         saveOwned();
         updateProgress();
         renderList();
@@ -116,7 +128,7 @@
 
   function updateProgress() {
     const total = cards.length;
-    const count = cards.filter(card => owned.has(card.url)).length;
+    const count = cards.filter(card => owned.has(card.id)).length;
     const missing = total - count;
     const percentage = total ? Math.round((count / total) * 100) : 0;
     document.getElementById("owned-count").textContent = count;
@@ -157,8 +169,8 @@
       return;
     }
     const rows = [
-      ["Pokémon", "Set", "Collector number", "PkmnCards URL"],
-      ...missing.map(card => [card.name, card.set, card.no, card.url])
+      ["Pokémon", "Set", "Collector number", "TCGplayer search URL"],
+      ...missing.map(card => [card.name, card.set, card.no, tcgSearchUrl(card)])
     ];
     downloadFile("asako-ito-cards-still-missing.csv", rows.map(row => row.map(csvCell).join(",")).join("\r\n"), "text/csv;charset=utf-8");
     toast("Downloaded " + missing.length + " missing " + (missing.length === 1 ? "card." : "cards."));

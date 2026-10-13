@@ -65,14 +65,7 @@ button:focus-visible, a:focus-visible, input:focus-visible {
 .brand-mark i:nth-child(3) { left: 2px; top: 11px; }
 .brand-mark i:nth-child(4) { left: 11px; top: 11px; }
 .brand-mark.small { transform: scale(.82); transform-origin: left center; width: 21px; }
-.source-link {
-  font-size: 12px;
-  font-weight: 600;
-  color: #68776f;
-  text-decoration: none;
-}
-.source-link span { color: var(--green); margin-left: 3px; }
-.source-link:hover, .card-links a:hover, .help-link:hover { color: var(--green-dark); text-decoration: underline; }
+.card-links a:hover, .help-link:hover { color: var(--green-dark); text-decoration: underline; }
 
 .hero {
   min-height: 352px;
@@ -317,8 +310,7 @@ h2 { margin: 0; color: #304740; font-size: 25px; line-height: 1.15; }
 .footer { padding: 19px 0 27px; display: grid; grid-template-columns: auto 1fr auto; gap: 20px; align-items: center; border-top: 1px solid var(--line); color: #9ba29a; }
 .footer-brand { color: #718076; font-size: 10px; }
 .footer-brand .brand-mark i { border-color: #829780; }
-.footer p, .footer > a { margin: 0; font-size: 9px; line-height: 1.5; }
-.footer > a { color: #899588; text-align: right; text-decoration: none; }
+.footer p { margin: 0; font-size: 9px; line-height: 1.5; }
 
 .shopping-dialog {
   width: min(555px, calc(100vw - 26px));
@@ -397,7 +389,6 @@ h2 { margin: 0; color: #304740; font-size: 25px; line-height: 1.15; }
   .topbar { height: 62px; }
   .brand { font-size: 11px; }
   .brand-mark { transform: scale(.85); transform-origin: left center; width: 22px; }
-  .source-link { font-size: 10px; }
   .hero { min-height: 0; margin-top: 18px; padding: 31px 24px 27px; display: block; }
   .hero-copy { position: relative; z-index: 1; max-width: 100%; }
   h1 { font-size: 49px; }
@@ -433,7 +424,6 @@ h2 { margin: 0; color: #304740; font-size: 25px; line-height: 1.15; }
   .shopping-note .text-button { margin-left: 41px; }
   .footer { display: flex; align-items: flex-start; flex-direction: column; gap: 9px; padding: 16px 0 23px; }
   .footer p { order: initial; }
-  .footer > a { text-align: left; }
   .dialog-content { padding: 30px 19px 23px; }
   .dialog-content h2 { font-size: 26px; }
   .dialog-actions { flex-direction: column; }
