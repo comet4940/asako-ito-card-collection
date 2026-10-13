@@ -1,8 +1,6 @@
-// Stable card IDs preserve saved collection progress when card links change.
-// `tcgCode` values follow TCGplayer Mass Entry's Show Set/Series Codes list.
-// Add the Impact-generated TCGplayer destination after the affiliate account is ready.
-window.AFFILIATE_MASS_ENTRY_URL = "";
-window.ASAKO_CARDS = [
+window.ARTIST_CARD_DATA = {
+  artistId: "asako-ito",
+  cards: [
   { name:"Poliwag", set:"Sun & Moon", no:"#30", year:2017, tcgCode:"SM01", tcgNumber:"30/149", image:"https://images.pokemontcg.io/sm1/30.png", id:"poliwag-sun-moon-sum-30" },
   { name:"Goomy", set:"Guardians Rising", no:"#94", year:2017, tcgCode:"SM02", tcgNumber:"94/145", image:"https://images.pokemontcg.io/sm2/94.png", id:"goomy-guardians-rising-gri-94" },
   { name:"Marill", set:"Burning Shadows", no:"#34", year:2017, tcgCode:"SM03", tcgNumber:"34/147", image:"https://images.pokemontcg.io/sm3/34.png", id:"marill-burning-shadows-bus-34" },
@@ -40,4 +38,5 @@ window.ASAKO_CARDS = [
   { name:"Audino", set:"Black Bolt", no:"#151", year:2025, tcgCode:"BLK", tcgNumber:"151/086", tcgDashNumber:true, image:"https://images.pokemontcg.io/zsv10pt5/151.png", id:"audino-black-bolt-blk-151" },
   { name:"Wailmer", set:"Pitch Black", no:"#015", year:2026, tcgCode:"PBL", tcgNumber:"015/084", image:"https://assets.pokemon.com/static-assets/content-assets/cms2/img/cards/web/ME05/ME05_EN_15.png", id:"wailmer-pitch-black-pbl-015" },
   { name:"Pikachu", set:"30th Celebration", no:"#027", year:2026, tcgCode:"30C", tcgNumber:"027/128", tcgDashNumber:true, image:"https://tcgplayer-cdn.tcgplayer.com/product/716310_in_1000x1000.jpg", id:"pikachu-30th-celebration-30c-027" },
-];
+]
+};

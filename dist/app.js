@@ -1,12 +1,20 @@
 (() => {
-  const cards = window.ASAKO_CARDS || [];
-  const storageKey = "asako-ito-card-collection-owned-v2";
-  const previousStorageKey = "asako-ito-card-collection-owned-v1";
+  const artists = window.ARTIST_REGISTRY || [];
+  const firstArtist = artists[0];
+  const ownedStorageKey = "pokechecklist-owned-v1";
+  const legacyAsakoKeys = [
+    "asako-ito-card-collection-owned-v2",
+    "asako-ito-card-collection-owned-v1"
+  ];
   const massEntryBaseUrl = window.AFFILIATE_MASS_ENTRY_URL || "https://www.tcgplayer.com/massentry";
-  const owned = new Set(readOwned());
+  const loadedCards = new Map();
+  let currentArtist = null;
+  let cards = [];
+  let owned = new Set();
   let activeFilter = "all";
   let searchTerm = "";
   let toastTimeout;
+  let loadVersion = 0;
 
   const els = {
     list: document.getElementById("card-list"),
@@ -14,32 +22,59 @@
     search: document.getElementById("search"),
     dialog: document.getElementById("shopping-dialog"),
     massText: document.getElementById("mass-entry-text"),
-    toast: document.getElementById("toast")
+    toast: document.getElementById("toast"),
+    artistSelect: document.getElementById("artist-select"),
+    artistHeading: document.getElementById("artist-heading-name"),
+    heroIntro: document.getElementById("hero-intro"),
+    progressTrack: document.querySelector(".progress-track")
   };
 
-  function readOwned() {
+  function parseStoredMap() {
     try {
-      const saved = localStorage.getItem(storageKey);
-      if (saved !== null) {
-        const value = JSON.parse(saved);
-        return Array.isArray(value) ? value.filter(id => cards.some(card => card.id === id)) : [];
-      }
-      const previous = JSON.parse(localStorage.getItem(previousStorageKey) || "[]");
-      if (!Array.isArray(previous)) return [];
-      const migrated = previous.map(value => {
-        if (typeof value !== "string") return null;
-        const id = value.split(/[?#]/, 1)[0].split("/").filter(Boolean).pop();
-        return cards.some(card => card.id === id) ? id : null;
-      }).filter(Boolean);
-      localStorage.setItem(storageKey, JSON.stringify(migrated));
-      return migrated;
+      const value = JSON.parse(localStorage.getItem(ownedStorageKey) || "{}");
+      return value && typeof value === "object" && !Array.isArray(value) ? value : {};
     } catch {
-      return [];
+      return {};
     }
   }
 
+  function readLegacyAsakoOwned(asakoCards) {
+    for (const key of legacyAsakoKeys) {
+      try {
+        const value = JSON.parse(localStorage.getItem(key) || "null");
+        if (!Array.isArray(value)) continue;
+        const migrated = value.map(item => {
+          if (typeof item !== "string") return null;
+          if (asakoCards.some(card => card.id === item)) return item;
+          const id = item.split(/[?#]/, 1)[0].split("/").filter(Boolean).pop();
+          return asakoCards.some(card => card.id === id) ? id : null;
+        }).filter(Boolean);
+        if (migrated.length || key === legacyAsakoKeys[0]) return migrated;
+      } catch {
+        // Try the next older storage version.
+      }
+    }
+    return [];
+  }
+
+  function readOwned(artist, artistCards) {
+    const saved = parseStoredMap();
+    let values = saved[artist.id];
+    if (!Array.isArray(values) && artist.id === "asako-ito") {
+      values = readLegacyAsakoOwned(artistCards);
+    }
+    if (!Array.isArray(values)) return new Set();
+    return new Set(values.filter(id => artistCards.some(card => card.id === id)));
+  }
+
   function saveOwned() {
-    localStorage.setItem(storageKey, JSON.stringify(Array.from(owned)));
+    try {
+      const saved = parseStoredMap();
+      saved[currentArtist.id] = Array.from(owned);
+      localStorage.setItem(ownedStorageKey, JSON.stringify(saved));
+    } catch {
+      toast("Your browser couldn’t save this checklist on this device.");
+    }
   }
 
   function missingCards() {
@@ -60,10 +95,12 @@
 
   function makeMassEntryList(list) {
     return list.map(card => {
-      if (card.tcgMassEntryName) return "1 " + card.tcgMassEntryName + " [" + card.tcgCode + "]";
-      if (!card.tcgNumber) return "1 " + card.name + " [" + card.tcgCode + "]";
-      if (card.tcgDashNumber) return "1 " + card.name + " - " + card.tcgNumber + " [" + card.tcgCode + "]";
-      return "1 " + card.name + " [" + card.tcgCode + "] " + card.tcgNumber;
+      const name = card.tcgMassEntryName || card.name;
+      if (!card.tcgCode) return "1 " + name;
+      if (!card.tcgNumber) return "1 " + name + " [" + card.tcgCode + "]";
+      if (card.tcgDashNumber) return "1 " + name + " - " + card.tcgNumber + " [" + card.tcgCode + "]";
+      if (card.tcgMassEntryName) return "1 " + name + " [" + card.tcgCode + "]";
+      return "1 " + name + " [" + card.tcgCode + "] " + card.tcgNumber;
     }).join("\n");
   }
 
@@ -77,15 +114,18 @@
   function renderCard(card) {
     const isOwned = owned.has(card.id);
     const imageAlt = card.name + " card from " + card.set;
+    const image = card.image
+      ? '<img class="card-image" src="' + escapeHtml(card.image) + '" alt="' + escapeHtml(imageAlt) + '" loading="lazy" decoding="async">'
+      : '<span>Card image unavailable</span>';
     return '<article class="card-row ' + (isOwned ? "is-owned" : "") + '">' +
       '<label class="own-toggle card-own-toggle" aria-label="Mark ' + escapeHtml(card.name) + " as " + (isOwned ? "not owned" : "owned") + '">' +
         '<input type="checkbox" data-card-id="' + escapeHtml(card.id) + '" ' + (isOwned ? "checked" : "") + '>' +
         '<span class="checkmark" aria-hidden="true">' + (isOwned ? "✓" : "") + "</span>" +
       "</label>" +
-      '<div class="card-image-frame"><img class="card-image" src="' + escapeHtml(card.image) + '" alt="' + escapeHtml(imageAlt) + '" loading="lazy" decoding="async"></div>' +
+      '<div class="card-image-frame' + (card.image ? '' : ' image-unavailable') + '">' + image + "</div>" +
       '<div class="card-info">' +
         '<div class="card-copy"><div class="card-title-line"><h3>' + escapeHtml(card.name) + '</h3><span class="owned-tag">' + (isOwned ? "In binder" : "Need") + "</span></div>" +
-          "<p>" + escapeHtml(card.set) + ' <span class="row-dot">·</span> ' + card.year + "</p></div>" +
+          "<p>" + escapeHtml(card.set) + ' <span class="row-dot">·</span> ' + escapeHtml(card.year) + "</p></div>" +
         '<div class="collector-number">' + escapeHtml(card.no) + "</div>" +
       "</div>" +
       '<div class="card-links">' +
@@ -110,7 +150,7 @@
     for (const card of filtered) {
       if (card.year !== currentYear) {
         currentYear = card.year;
-        chunks.push('<div class="year-heading"><span>' + card.year + "</span><i></i></div>");
+        chunks.push('<div class="year-heading"><span>' + escapeHtml(card.year) + "</span><i></i></div>");
       }
       chunks.push(renderCard(card));
     }
@@ -120,7 +160,7 @@
         const frame = image.closest(".card-image-frame");
         if (frame) {
           frame.classList.add("image-unavailable");
-          frame.innerHTML = '<span>Card image unavailable</span>';
+          frame.innerHTML = "<span>Card image unavailable</span>";
         }
       }, { once: true });
     });
@@ -149,13 +189,13 @@
     document.getElementById("missing-count").textContent = missing + (missing === 1 ? " card still to find" : " cards still to find");
     document.getElementById("progress-percent").textContent = percentage + "%";
     document.getElementById("progress-fill").style.width = percentage + "%";
-    const bar = document.querySelector(".progress-track");
-    bar.setAttribute("aria-valuemax", total);
-    bar.setAttribute("aria-valuenow", count);
+    els.progressTrack.setAttribute("aria-label", currentArtist.name + " collection progress");
+    els.progressTrack.setAttribute("aria-valuemax", total);
+    els.progressTrack.setAttribute("aria-valuenow", count);
     document.getElementById("all-filter-count").textContent = total;
     document.getElementById("need-filter-count").textContent = missing;
     document.getElementById("owned-filter-count").textContent = count;
-    document.getElementById("master-count").textContent = total + " cards";
+    document.getElementById("master-count").textContent = total + (total === 1 ? " card" : " cards");
     document.getElementById("shopping-missing-count").textContent = missing;
     document.getElementById("affiliate-disclosure").hidden = !window.AFFILIATE_MASS_ENTRY_URL;
   }
@@ -185,7 +225,7 @@
       ["Pokémon", "Set", "Collector number", "TCGplayer search URL"],
       ...missing.map(card => [card.name, card.set, card.no, tcgSearchUrl(card)])
     ];
-    downloadFile("asako-ito-cards-still-missing.csv", rows.map(row => row.map(csvCell).join(",")).join("\r\n"), "text/csv;charset=utf-8");
+    downloadFile(currentArtist.id + "-cards-still-missing.csv", rows.map(row => row.map(csvCell).join(",")).join("\r\n"), "text/csv;charset=utf-8");
     toast("Downloaded " + missing.length + " missing " + (missing.length === 1 ? "card." : "cards."));
   }
 
@@ -206,7 +246,7 @@
       await navigator.clipboard.writeText(text);
       toast("TCGplayer list copied. Paste it into Mass Entry.");
     } catch {
-      downloadFile("asako-ito-tcgplayer-list.txt", text, "text/plain;charset=utf-8");
+      downloadFile(currentArtist.id + "-tcgplayer-list.txt", text, "text/plain;charset=utf-8");
       toast("Downloaded your TCGplayer list.");
     }
   }
@@ -219,11 +259,8 @@
     }
     const url = makePrefilledMassEntryUrl(missing);
     const popup = window.open(url, "_blank");
-    if (popup) {
-      popup.opener = null;
-    } else {
-      window.location.href = url;
-    }
+    if (popup) popup.opener = null;
+    else window.location.href = url;
   }
 
   function toast(message) {
@@ -232,6 +269,95 @@
     els.toast.classList.add("visible");
     toastTimeout = setTimeout(() => els.toast.classList.remove("visible"), 2600);
   }
+
+  function updateArtistCopy(artist) {
+    els.artistHeading.textContent = artist.name + "’s";
+    els.heroIntro.textContent = "A handy checklist bringing " + artist.name + "’s Pokémon cards together in one place. Mark what’s in your binder, then send the cards you’re missing straight to TCGplayer.";
+    document.title = "PokeChecklist — " + artist.name + " Card Collection";
+    document.querySelector('meta[name="description"]').content = "Track the " + artist.name + " Pokémon TCG collection and send missing cards to TCGplayer.";
+  }
+
+  function loadArtistCards(artist) {
+    if (loadedCards.has(artist.id)) return Promise.resolve(loadedCards.get(artist.id));
+    return new Promise((resolve, reject) => {
+      const script = document.createElement("script");
+      script.src = artist.dataFile;
+      script.dataset.artistId = artist.id;
+      script.onload = () => {
+        const payload = window.ARTIST_CARD_DATA;
+        if (!payload || payload.artistId !== artist.id || !Array.isArray(payload.cards)) {
+          reject(new Error("The artist card file did not match the selected artist."));
+          return;
+        }
+        loadedCards.set(artist.id, payload.cards);
+        resolve(payload.cards);
+      };
+      script.onerror = () => reject(new Error("The artist card file could not be loaded."));
+      document.head.append(script);
+    });
+  }
+
+  function updateAddress(artist, addHistory) {
+    const url = new URL(window.location.href);
+    if (artist.id === firstArtist.id) url.searchParams.delete("artist");
+    else url.searchParams.set("artist", artist.id);
+    if (addHistory) window.history.pushState({}, "", url);
+    else window.history.replaceState({}, "", url);
+  }
+
+  async function switchArtist(artist, options = {}) {
+    if (!artist) return;
+    const version = ++loadVersion;
+    currentArtist = artist;
+    els.artistSelect.value = artist.id;
+    updateArtistCopy(artist);
+    if (options.updateAddress !== false) updateAddress(artist, options.addHistory === true);
+    activeFilter = "all";
+    searchTerm = "";
+    els.search.value = "";
+    document.querySelectorAll(".filter-button").forEach(button => {
+      button.classList.toggle("active", button.dataset.filter === "all");
+    });
+    cards = [];
+    owned = new Set();
+    els.empty.querySelector("h3").textContent = "No cards found";
+    els.empty.querySelector("p").textContent = "Try another Pokémon or set name.";
+    updateProgress();
+    els.list.hidden = false;
+    els.empty.hidden = true;
+    els.list.innerHTML = '<p class="loading-message">Loading ' + escapeHtml(artist.name) + "’s cards…</p>";
+    try {
+      const artistCards = await loadArtistCards(artist);
+      if (version !== loadVersion) return;
+      cards = artistCards;
+      owned = readOwned(artist, cards);
+      updateProgress();
+      renderList();
+    } catch {
+      if (version !== loadVersion) return;
+      cards = [];
+      owned = new Set();
+      updateProgress();
+      els.list.hidden = true;
+      els.empty.hidden = false;
+      els.empty.querySelector("h3").textContent = "Cards couldn’t be loaded";
+      els.empty.querySelector("p").textContent = "Refresh the page and try again.";
+    }
+  }
+
+  if (!artists.length) return;
+
+  els.artistSelect.innerHTML = artists.map(artist =>
+    '<option value="' + escapeHtml(artist.id) + '">' + escapeHtml(artist.name) + "</option>"
+  ).join("");
+  els.artistSelect.addEventListener("change", () => {
+    const artist = artists.find(item => item.id === els.artistSelect.value);
+    switchArtist(artist, { addHistory: true });
+  });
+  window.addEventListener("popstate", () => {
+    const artistId = new URL(window.location.href).searchParams.get("artist");
+    switchArtist(artists.find(item => item.id === artistId) || firstArtist, { updateAddress: false });
+  });
 
   document.querySelectorAll(".filter-button").forEach(button => {
     button.addEventListener("click", () => {
@@ -258,7 +384,7 @@
       toast("You have the full list. No cards left to shop for.");
       return;
     }
-    downloadFile("asako-ito-tcgplayer-list.txt", makeMassEntryList(missing), "text/plain;charset=utf-8");
+    downloadFile(currentArtist.id + "-tcgplayer-list.txt", makeMassEntryList(missing), "text/plain;charset=utf-8");
   });
   document.addEventListener("keydown", event => {
     if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
@@ -267,6 +393,7 @@
     }
   });
 
-  updateProgress();
-  renderList();
+  const requestedArtist = new URL(window.location.href).searchParams.get("artist");
+  const initialArtist = artists.find(artist => artist.id === requestedArtist) || firstArtist;
+  switchArtist(initialArtist, { updateAddress: false });
 })();

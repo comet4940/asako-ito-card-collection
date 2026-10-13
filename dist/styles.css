@@ -119,6 +119,9 @@ h1 {
 }
 h1 em { color: #6b8770; font-weight: 500; }
 .hero-intro { max-width: 440px; margin: 19px 0 20px; color: #67756d; font-size: 14px; line-height: 1.75; }
+.artist-picker { margin: 0 0 15px; display: flex; align-items: center; gap: 10px; }
+.artist-picker label { color: #6f7d73; font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.artist-picker select { min-width: 190px; max-width: 100%; padding: 8px 30px 8px 10px; border: 1px solid #dfe5dc; border-radius: 6px; background: rgba(255,255,255,.78); color: #405c4a; font-size: 11px; font-weight: 600; cursor: pointer; }
 .hero-meta { display: flex; align-items: center; gap: 9px; color: #758077; font-size: 11px; font-weight: 600; }
 .meta-spark { color: #bf8870; font-size: 15px; }
 .meta-divider { color: #bdc1b5; }
@@ -248,6 +251,7 @@ h2 { margin: 0; color: #304740; font-size: 25px; line-height: 1.15; }
 .sort-note { margin-left: auto; padding-bottom: 9px; color: #9aa198; font-size: 10px; }
 .sort-note span { margin-right: 5px; color: #7d9780; font-size: 13px; }
 .card-list { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.loading-message { grid-column: 1 / -1; padding: 24px; color: #78867b; font-size: 13px; text-align: center; }
 .year-heading { grid-column: 1 / -1; margin: 17px 0 -2px; display: flex; align-items: center; gap: 12px; color: #90998f; font-size: 10px; font-weight: 700; letter-spacing: .11em; }
 .year-heading:first-child { margin-top: 2px; }
 .year-heading i { height: 1px; flex: 1; background: #e9ebe5; }
@@ -418,6 +422,8 @@ h2 { margin: 0; color: #304740; font-size: 25px; line-height: 1.15; }
   .hero-copy { position: relative; z-index: 1; max-width: 100%; }
   h1 { font-size: 49px; }
   .hero-intro { max-width: 370px; margin: 14px 0 14px; font-size: 12px; }
+  .artist-picker { align-items: start; flex-direction: column; gap: 5px; margin-bottom: 12px; }
+  .artist-picker select { width: min(100%, 230px); }
   .hero-art { position: absolute; top: 2px; right: -2px; width: 155px; height: 167px; min-height: 0; opacity: .38; }
   .yarn-one { width: 102px; height: 102px; top: 21px; right: 35px; box-shadow: inset 0 0 0 4px rgba(242,232,209,.7), inset 0 0 0 6px rgba(108,119,96,.25), inset 0 0 0 13px rgba(242,232,209,.6), inset 0 0 0 15px rgba(108,119,96,.22), inset 0 0 0 22px rgba(242,232,209,.6); }
   .yarn-two, .art-label { display: none; }
