@@ -76,14 +76,18 @@
 
   function renderCard(card) {
     const isOwned = owned.has(card.id);
+    const imageAlt = card.name + " card from " + card.set;
     return '<article class="card-row ' + (isOwned ? "is-owned" : "") + '">' +
-      '<label class="own-toggle" aria-label="Mark ' + escapeHtml(card.name) + " as " + (isOwned ? "not owned" : "owned") + '">' +
+      '<label class="own-toggle card-own-toggle" aria-label="Mark ' + escapeHtml(card.name) + " as " + (isOwned ? "not owned" : "owned") + '">' +
         '<input type="checkbox" data-card-id="' + escapeHtml(card.id) + '" ' + (isOwned ? "checked" : "") + '>' +
         '<span class="checkmark" aria-hidden="true">' + (isOwned ? "✓" : "") + "</span>" +
       "</label>" +
-      '<div class="card-copy"><div class="card-title-line"><h3>' + escapeHtml(card.name) + '</h3><span class="owned-tag">' + (isOwned ? "In binder" : "Need") + "</span></div>" +
-        "<p>" + escapeHtml(card.set) + ' <span class="row-dot">·</span> ' + card.year + "</p></div>" +
-      '<div class="collector-number">' + escapeHtml(card.no) + "</div>" +
+      '<div class="card-image-frame"><img class="card-image" src="' + escapeHtml(card.image) + '" alt="' + escapeHtml(imageAlt) + '" loading="lazy" decoding="async"></div>' +
+      '<div class="card-info">' +
+        '<div class="card-copy"><div class="card-title-line"><h3>' + escapeHtml(card.name) + '</h3><span class="owned-tag">' + (isOwned ? "In binder" : "Need") + "</span></div>" +
+          "<p>" + escapeHtml(card.set) + ' <span class="row-dot">·</span> ' + card.year + "</p></div>" +
+        '<div class="collector-number">' + escapeHtml(card.no) + "</div>" +
+      "</div>" +
       '<div class="card-links">' +
         '<a href="' + escapeHtml(tcgSearchUrl(card)) + '" target="_blank" rel="noopener noreferrer" title="Shop for ' + escapeHtml(card.name) + ' on TCGplayer">Shop on TCGplayer <span aria-hidden="true">↗</span></a>' +
       "</div></article>";
@@ -111,6 +115,15 @@
       chunks.push(renderCard(card));
     }
     els.list.innerHTML = chunks.join("");
+    els.list.querySelectorAll(".card-image").forEach(image => {
+      image.addEventListener("error", () => {
+        const frame = image.closest(".card-image-frame");
+        if (frame) {
+          frame.classList.add("image-unavailable");
+          frame.innerHTML = '<span>Card image unavailable</span>';
+        }
+      }, { once: true });
+    });
     els.empty.hidden = filtered.length > 0;
     els.list.hidden = filtered.length === 0;
     els.list.querySelectorAll('input[type="checkbox"]').forEach(input => {
