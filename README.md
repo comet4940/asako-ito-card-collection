@@ -1,16 +1,21 @@
-# Asako Ito Card Collection
+# PokeChecklist
 
-A simple fan-made collector page that gathers Asako Ito Pokémon TCG cards into one checklist. Track cards in your binder, download the ones you are missing, or open them in TCGplayer Mass Entry.
+A fan-made Pokémon TCG checklist for collecting cards by illustrator. Choose an artist, track your binder, download the cards you are missing, or send them to TCGplayer Mass Entry.
 
 ## Current behavior
 
-- Check and uncheck owned cards; progress is saved in the visitor's browser with local storage. Card art appears in a responsive image grid beside each card's set and collector number.
+- Switch among artist checklists; each artist has a separate saved binder.
+- Check and uncheck owned cards; progress is saved in the visitor's browser with local storage. Card art appears beside each card's set and collector number.
 - Search by Pokémon or set and filter to all, missing, or owned cards.
 - Download a CSV containing only missing cards, with their set, collector number, and TCGplayer search link.
 - Open TCGplayer Mass Entry with the missing-card list already filled in; copy and download the list are also available as fallbacks.
-- Review the matches, choose Near Mint, add them, and compare seller and shipping options with Cart Optimizer.
-- Pokémon Mass Entry lines include the complete collector number (including the set total); cards whose names repeat in a set use TCGplayer's disambiguated name-number order.
-- The card list is ordered by set release from oldest to newest.
+- Sort cards by set release date from oldest to newest.
+
+## Artist data
+
+The initial artists are Asako Ito, Yuka Morii, Akira Egawa, Tomokazu Komiya, and Shinji Kanda. English physical card catalogs use card, illustrator, image, and set-date data from [TCGdex](https://tcgdex.dev/), with the digital Pokémon TCG Pocket series excluded. Artist catalog files are kept separate in `dist/data/`; add an artist in its own change by adding one data file and one entry in `dist/artists.js`.
+
+Asako Ito's existing card IDs remain stable so saved binder progress carries forward. Older local-storage values are migrated the first time her checklist is opened.
 
 ## Hosting
 
@@ -18,10 +23,10 @@ The public site is deployed to [GitHub Pages](https://comet4940.github.io/asako-
 
 ## Shopping and affiliate setup
 
-TCGplayer documents Mass Entry and its Cart Optimizer as the buyer-facing route for bulk lists. New TCGplayer developer API keys are not currently being granted, so this version hands the matched list to TCGplayer for its own inventory, condition, seller, and shipping choices.
+TCGplayer's [Mass Entry guide](https://help.tcgplayer.com/hc/en-us/articles/360055768913-Getting-Started-With-Mass-Entry) documents the list format and its card-set codes. The app hands the missing-card list to TCGplayer for inventory, condition, seller, and shipping choices.
 
-After joining TCGplayer's Affiliate Program through Impact, set AFFILIATE_MASS_ENTRY_URL in dist/cards.js to the exact Impact-generated link whose destination is the Pokémon Mass Entry page. The shopping button will use that destination and display the affiliate disclosure. Do not use another site's tracking link.
+After joining TCGplayer's Affiliate Program through Impact, set `AFFILIATE_MASS_ENTRY_URL` in `dist/artists.js` to the exact Impact-generated link whose destination is the Pokémon Mass Entry page. The shopping button will use that destination and display the affiliate disclosure. Do not use another site's tracking link.
 
 ## Data refresh
 
-The card list is maintained as new releases appear and sorted by expansion release date.
+Artist card files are sorted by set release date. Add a new artist as a separate commit with a file under `dist/data/` and a matching registry entry in `dist/artists.js`.

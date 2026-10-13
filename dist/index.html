@@ -4,21 +4,21 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f8f6ef">
-  <meta name="description" content="A handy fan-made checklist for Asako Ito Pokémon TCG cards. Track your binder and send missing cards to TCGplayer.">
-  <title>Asako Ito Card Collection</title>
+  <meta name="description" content="Choose a Pokémon card artist, track your collection, and send missing cards to TCGplayer.">
+  <title>PokeChecklist — Artist Card Collection</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
-  <script src="cards.js" defer></script>
+  <script src="artists.js" defer></script>
   <script src="app.js" defer></script>
 </head>
 <body>
   <div class="site-shell">
     <header class="topbar">
-      <a class="brand" href="#" aria-label="Asako Ito card collection home">
+      <a class="brand" href="#" aria-label="PokeChecklist home">
         <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-        <span>little stitch collection</span>
+        <span>PokeChecklist</span>
       </a>
     </header>
 
@@ -26,14 +26,15 @@
       <section class="hero">
         <div class="hero-copy">
           <p class="eyebrow"><span class="eyebrow-dot"></span> A Pokémon card checklist</p>
-          <h1>Asako Ito’s<br><em>little world</em></h1>
-          <p class="hero-intro">A handy checklist bringing Asako Ito’s Pokémon cards together in one place. Mark what’s in your binder, then send the cards you’re missing straight to TCGplayer.</p>
+          <h1><span id="artist-heading-name">Asako Ito’s</span><br><em>little world</em></h1>
+          <p class="hero-intro" id="hero-intro">A handy checklist bringing Pokémon cards together in one place. Mark what’s in your binder, then send the cards you’re missing straight to TCGplayer.</p>
+          <div class="artist-picker"><label for="artist-select">Choose an artist</label><select id="artist-select" aria-label="Choose an artist"></select></div>
           <div class="hero-meta"><span class="meta-spark" aria-hidden="true">✳</span><span id="master-count">37 cards</span><span class="meta-divider">·</span><span>oldest to newest</span></div>
         </div>
         <div class="hero-art" aria-hidden="true">
           <div class="yarn yarn-one"></div><div class="yarn yarn-two"></div>
           <div class="needle needle-one"></div><div class="needle needle-two"></div>
-          <div class="art-label">made with<br><b>care &amp; yarn</b></div>
+          <div class="art-label">collect a little<br><b>art &amp; joy</b></div>
         </div>
       </section>
 
@@ -88,7 +89,7 @@
     </main>
 
     <footer class="footer">
-      <div class="footer-brand"><span class="brand-mark small" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>little stitch collection</span></div>
+      <div class="footer-brand"><span class="brand-mark small" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>PokeChecklist</span></div>
       <p>Fan-made checklist for collectors. Pokémon and card artwork belong to their respective owners. Not affiliated with Pokémon or TCGplayer.</p>
     </footer>
   </div>
