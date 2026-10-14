@@ -157,10 +157,10 @@ h1 em { color: #6b8770; font-weight: 500; }
 
 .asako-hero {
   min-height: 0;
-  padding: 35px 42px;
+  padding: 18px 32px;
   grid-template-columns: minmax(0, 1.65fr) minmax(300px, .85fr);
   align-items: center;
-  gap: 42px;
+  gap: 28px;
   border-radius: 22px;
   border-color: #e8e2d7;
   background:
@@ -182,7 +182,6 @@ h1 em { color: #6b8770; font-weight: 500; }
 .asako-badge-medium { border-color: #d5e7d7; background: #edf5ed; color: #315d3e; }
 .asako-feature { width: min(100%, 410px); margin: 0 auto; }
 .asako-feature-image { width: 100%; height: auto; display: block; object-fit: contain; filter: drop-shadow(0 12px 14px rgba(50, 45, 37, .09)); }
-.asako-hero { padding: 18px 32px; gap: 28px; }
 .asako-hero h1 { margin-top: 14px; font-size: clamp(40px, 4.3vw, 56px); }
 .asako-intro { margin: 10px 0 11px; line-height: 1.45; }
 .asako-hero + .collection-panel { padding: 13px 20px; }
