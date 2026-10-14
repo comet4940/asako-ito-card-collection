@@ -13,7 +13,7 @@
   --lilac: #e9e6f2;
   --yellow: #f5edcf;
   --shadow: 0 20px 55px rgba(49, 61, 53, .07);
-  font-family: "DM Sans", "Avenir Next", Avenir, sans-serif;
+  font-family: "Plus Jakarta Sans", "Avenir Next", Avenir, sans-serif;
 }
 
 * { box-sizing: border-box; }
@@ -51,20 +51,15 @@ button:focus-visible, a:focus-visible, input:focus-visible {
   font-size: 13px;
   letter-spacing: .025em;
 }
-.brand-mark { position: relative; display: inline-block; width: 25px; height: 25px; }
-.brand-mark i {
-  position: absolute;
-  display: block;
-  width: 11px;
-  height: 11px;
-  border: 2px solid var(--green);
-  border-radius: 50%;
+.topbar-note, .topbar-link {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 600;
 }
-.brand-mark i:nth-child(1) { left: 2px; top: 2px; }
-.brand-mark i:nth-child(2) { left: 11px; top: 2px; }
-.brand-mark i:nth-child(3) { left: 2px; top: 11px; }
-.brand-mark i:nth-child(4) { left: 11px; top: 11px; }
-.brand-mark.small { transform: scale(.82); transform-origin: left center; width: 21px; }
+.topbar-link { text-decoration: none; }
+.topbar-link:hover { color: var(--green-dark); text-decoration: underline; }
+.brand-mark { display: inline-block; width: 31px; height: 31px; flex: 0 0 auto; image-rendering: pixelated; }
+.brand-mark.small { width: 24px; height: 24px; }
 .card-links a:hover, .help-link:hover { color: var(--green-dark); text-decoration: underline; }
 
 .hero {
@@ -119,13 +114,12 @@ h1 {
 }
 h1 em { color: #6b8770; font-weight: 500; }
 .hero-intro { max-width: 440px; margin: 19px 0 20px; color: #67756d; font-size: 14px; line-height: 1.75; }
-.artist-picker { margin: 0 0 15px; display: flex; align-items: center; gap: 10px; }
-.artist-picker label { color: #6f7d73; font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
-.artist-picker select { min-width: 190px; max-width: 100%; padding: 8px 30px 8px 10px; border: 1px solid #dfe5dc; border-radius: 6px; background: rgba(255,255,255,.78); color: #405c4a; font-size: 11px; font-weight: 600; cursor: pointer; }
 .hero-meta { display: flex; align-items: center; gap: 9px; color: #758077; font-size: 11px; font-weight: 600; }
 .meta-spark { color: #bf8870; font-size: 15px; }
 .meta-divider { color: #bdc1b5; }
 .hero-art { min-height: 255px; position: relative; }
+.home-still-life { min-height: 270px; display: grid; place-items: center; }
+.still-life-artwork { display: block; width: min(100%, 500px); height: auto; }
 .yarn {
   position: absolute;
   width: 156px;
@@ -156,10 +150,110 @@ h1 em { color: #6b8770; font-weight: 500; }
   border-radius: 6px;
   background: rgba(251, 249, 241, .75);
   color: #798177;
-  font: 11px/1.45 "DM Sans", sans-serif;
+  font: 11px/1.45 "Plus Jakarta Sans", sans-serif;
   transform: rotate(3deg);
 }
 .art-label b { color: #536f5d; font-size: 12px; }
+
+.asako-hero {
+  min-height: 0;
+  padding: 18px 32px;
+  grid-template-columns: minmax(0, 1.65fr) minmax(300px, .85fr);
+  align-items: center;
+  gap: 28px;
+  border-radius: 22px;
+  border-color: #e8e2d7;
+  background:
+    radial-gradient(circle, rgba(162, 145, 119, .17) .7px, transparent .9px) 0 0 / 21px 21px,
+    #f3efea;
+}
+.asako-hero::after { display: none; }
+.asako-copy { min-width: 0; }
+.asako-breadcrumbs { display: flex; align-items: center; flex-wrap: wrap; gap: 11px; color: #8c877e; font-size: 12px; }
+.asako-breadcrumbs a { color: inherit; text-decoration: none; }
+.asako-breadcrumbs a:hover { color: #3d7653; text-decoration: underline; }
+.asako-breadcrumbs span[aria-current="page"] { color: #26231f; font-weight: 700; }
+.asako-hero h1 { margin: 23px 0 0; color: #1e1c19; font-size: clamp(44px, 5vw, 66px); line-height: .98; }
+.asako-hero h1 span, .asako-hero h1 em { display: block; }
+.asako-hero h1 em { margin-top: 3px; color: #3d7653; font-weight: 500; }
+.asako-intro { max-width: 740px; margin: 21px 0 19px; color: #5c5851; font-size: clamp(15px, 1.35vw, 19px); line-height: 1.5; }
+.asako-badges { display: flex; flex-wrap: wrap; gap: 8px; }
+.asako-badge { min-height: 34px; padding: 7px 12px; display: inline-flex; align-items: center; gap: 5px; border: 1px solid #e8e2d7; border-radius: 999px; background: #fff; color: #5c5851; font-size: 11px; font-weight: 600; line-height: 1.3; }
+.asako-badge-medium { border-color: #d5e7d7; background: #edf5ed; color: #315d3e; }
+.asako-feature { width: min(100%, 410px); margin: 0 auto; }
+.asako-feature-image { width: 100%; height: auto; display: block; object-fit: contain; filter: drop-shadow(0 12px 14px rgba(50, 45, 37, .09)); }
+.asako-hero h1 { margin-top: 14px; font-size: clamp(40px, 4.3vw, 56px); }
+.asako-intro { margin: 10px 0 11px; line-height: 1.45; }
+.asako-hero + .collection-panel { padding: 13px 20px; }
+.asako-hero + .collection-panel .panel-heading { margin-bottom: 8px; }
+.asako-hero + .collection-panel .panel-heading .eyebrow { display: none; }
+.asako-hero + .collection-panel h2 { font-size: 21px; }
+.asako-hero + .collection-panel .progress-numbers { margin-bottom: 6px; }
+.asako-hero + .collection-panel .progress-numbers strong { font-size: 23px; }
+.asako-hero + .collection-panel .progress-numbers small { font-size: 13px; }
+.asako-hero + .collection-panel .progress-caption { margin-top: 5px; }
+.asako-hero + .collection-panel + .cards-section { padding-top: 24px; }
+.asako-hero + .collection-panel + .cards-section .filter-bar { margin-top: 14px; }
+.asako-hero + .collection-panel + .cards-section .cards-heading h2 { font-size: 27px; }
+
+.home-hero { min-height: 330px; background: #f3efea; }
+.home-hero::after { display: none; }
+.home-hero .hero-copy { max-width: 580px; }
+.home-hero .hero-meta { margin-top: 23px; padding-top: 14px; border-top: 1px dashed #d8cec0; }
+.home-hero h1 { font-size: clamp(48px, 5.8vw, 72px); }
+.artist-directory { margin: 42px 0 29px; }
+.directory-heading {
+  margin-bottom: 19px;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+}
+.directory-heading .eyebrow { margin-bottom: 7px; }
+.directory-intro { max-width: 340px; margin: 0 0 2px; color: var(--muted); font-size: 12px; }
+.artist-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.artist-tile {
+  min-height: 0;
+  padding: 21px 24px 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid #e8e2d7;
+  border-radius: 19px;
+  color: #1e1c19;
+  background: #fff;
+  box-shadow: 0 6px 22px rgba(50, 45, 37, .035);
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+.artist-tile:hover { transform: translateY(-3px); border-color: rgba(61, 118, 83, .32); box-shadow: 0 18px 40px rgba(49, 61, 53, .09); }
+.tile-topline { min-height: 31px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.tile-medium { display: inline-flex; align-items: center; gap: 5px; max-width: 78%; padding: 5px 11px; border-radius: 9px; font-size: 12px; font-weight: 700; line-height: 1.2; }
+.tile-medium span { font-size: 13px; }
+.tile-years { flex: 0 0 auto; color: #8c877e; font: 11px/1.3 "Space Mono", ui-monospace, monospace; }
+.tile-sage .tile-medium { background: #edf5ed; color: #315d3e; }
+.tile-rose .tile-medium { background: #fbf0eb; color: #a64d2d; }
+.tile-lilac .tile-medium { background: #f2eef9; color: #584680; }
+.tile-gold .tile-medium { background: #f8f2df; color: #89620a; }
+.tile-sky .tile-medium { background: #edf2f6; color: #304c66; }
+.tile-name { margin: 12px 0 5px; color: #26231f; font: 600 32px/1.1 Fraunces, Georgia, serif; letter-spacing: -.035em; }
+.tile-description { margin: 0 0 13px; overflow: hidden; color: #5c5851; font-size: 13px; line-height: 1.5; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+.tile-progress { margin-top: auto; padding: 11px 14px 10px; border-radius: 12px; background: #f3efea; }
+.tile-progress-numbers { margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between; gap: 10px; color: #69645c; font-size: 12px; }
+.tile-owned-count { color: #3d7653; }
+.tile-total-count { color: #5c5851; }
+.tile-percent { color: #8c877e; font: 700 11px/1 "Space Mono", ui-monospace, monospace; }
+.tile-progress-track { height: 7px; overflow: hidden; border-radius: 99px; background: #d9d1c4; }
+.tile-progress-fill { width: 0; height: 100%; display: block; border-radius: inherit; background: #3d7653; transition: width .25s ease; }
+.tile-footer { min-height: 55px; margin-top: 12px; display: flex; align-items: center; justify-content: space-between; gap: 12px; border-top: 1px solid #e8e2d7; }
+.tile-action { color: #27241f; text-decoration: none; font-size: 13px; font-weight: 700; }
+.tile-action:hover { color: #3d7653; }
+.tile-action span { margin-left: 3px; font-size: 16px; }
+.tile-tcg { min-height: 34px; padding: 6px 13px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid #e8e2d7; border-radius: 10px; color: #5c5851; background: #fff; text-decoration: none; font-size: 11px; font-weight: 700; white-space: nowrap; }
+.tile-tcg:hover { border-color: #3d7653; color: #315d3e; }
+.home-note { margin: 31px 0 35px; padding: 17px 20px; display: flex; align-items: center; gap: 12px; border: 1px solid var(--line); border-radius: 9px; background: #fff; }
+.home-note-mark { color: #bb8b71; font-size: 18px; }
+.home-note p { margin: 0; color: var(--muted); font-size: 11px; }
+.no-script-note { grid-column: 1 / -1; padding: 12px; border-radius: 6px; background: #f5f1e8; color: var(--muted); font-size: 11px; }
 
 .collection-panel {
   padding: 26px 31px 25px;
@@ -300,6 +394,7 @@ h2 { margin: 0; color: #304740; font-size: 25px; line-height: 1.15; }
 .checkmark { width: 21px; height: 21px; display: grid; place-items: center; border: 1.5px solid #c9d1c6; border-radius: 6px; background: #fff; color: #fff; font-size: 13px; font-weight: 700; transition: all .15s ease; }
 .own-toggle input:focus-visible + .checkmark { outline: 3px solid rgba(91, 135, 109, .38); outline-offset: 3px; }
 .own-toggle input:checked + .checkmark { border-color: #6e9474; background: #6e9474; }
+.own-toggle input:checked + .checkmark::after { content: "✓"; }
 .card-info { min-width: 0; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: start; gap: 8px; }
 .card-copy { min-width: 0; }
 .card-title-line { display: flex; align-items: baseline; justify-content: space-between; gap: 6px; }
@@ -338,7 +433,6 @@ h2 { margin: 0; color: #304740; font-size: 25px; line-height: 1.15; }
 
 .footer { padding: 19px 0 27px; display: grid; grid-template-columns: auto 1fr auto; gap: 20px; align-items: center; border-top: 1px solid var(--line); color: #9ba29a; }
 .footer-brand { color: #718076; font-size: 10px; }
-.footer-brand .brand-mark i { border-color: #829780; }
 .footer p { margin: 0; font-size: 9px; line-height: 1.5; }
 
 .shopping-dialog {
@@ -401,15 +495,21 @@ h2 { margin: 0; color: #304740; font-size: 25px; line-height: 1.15; }
 @media (max-width: 900px) {
   .site-shell { padding: 0 26px; }
   .hero { padding: 38px 38px; grid-template-columns: 1fr .65fr; }
+  .asako-hero { padding: 18px 25px; gap: 25px; }
   .yarn-one { right: 74px; }
   .yarn-two { right: 8px; }
   .needle-one { right: 87px; }
   .needle-two { right: 62px; }
   .progress-layout { align-items: stretch; flex-direction: column; gap: 17px; }
+  .asako-hero + .collection-panel .progress-layout { align-items: center; flex-direction: row; gap: 18px; }
   .progress-actions { justify-content: flex-end; }
   .card-list { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
   .footer { grid-template-columns: 1fr 1fr; }
   .footer p { order: 3; grid-column: 1 / -1; }
+  .artist-grid { gap: 13px; }
+  .artist-tile { min-height: 0; padding: 19px 20px 0; }
+  .tile-name { font-size: 29px; }
+  .tile-description { margin-bottom: 11px; font-size: 12px; }
 }
 
 @media (max-width: 620px) {
@@ -417,30 +517,72 @@ h2 { margin: 0; color: #304740; font-size: 25px; line-height: 1.15; }
   .site-shell { padding: 0 16px; }
   .topbar { height: 62px; }
   .brand { font-size: 11px; }
-  .brand-mark { transform: scale(.85); transform-origin: left center; width: 22px; }
+  .brand-mark { width: 27px; height: 27px; }
+  .topbar-note { font-size: 9px; }
+  .topbar-link { font-size: 10px; }
   .hero { min-height: 0; margin-top: 18px; padding: 31px 24px 27px; display: block; }
+  .asako-hero { margin: 18px 0 14px; padding: 21px 18px 16px; }
+  .asako-breadcrumbs { gap: 8px; font-size: 10px; }
+  .asako-hero h1 { margin-top: 14px; font-size: clamp(37px, 10vw, 46px); }
+  .asako-intro { margin: 12px 0 12px; font-size: 14px; line-height: 1.45; }
+  .asako-badges { gap: 6px; }
+  .asako-badge { min-height: 29px; padding: 5px 9px; font-size: 10px; }
+  .asako-feature { width: min(100%, 200px); margin-top: 10px; }
   .hero-copy { position: relative; z-index: 1; max-width: 100%; }
   h1 { font-size: 49px; }
   .hero-intro { max-width: 370px; margin: 14px 0 14px; font-size: 12px; }
-  .artist-picker { align-items: start; flex-direction: column; gap: 5px; margin-bottom: 12px; }
-  .artist-picker select { width: min(100%, 230px); }
+  .home-hero h1 { font-size: 45px; }
   .hero-art { position: absolute; top: 2px; right: -2px; width: 155px; height: 167px; min-height: 0; opacity: .38; }
+  .hero-art.home-still-life { position: relative; top: auto; right: auto; width: 100%; height: 172px; min-height: 0; margin: 15px auto 0; opacity: 1; }
+  .still-life-artwork { width: min(100%, 230px); max-height: none; }
   .yarn-one { width: 102px; height: 102px; top: 21px; right: 35px; box-shadow: inset 0 0 0 4px rgba(242,232,209,.7), inset 0 0 0 6px rgba(108,119,96,.25), inset 0 0 0 13px rgba(242,232,209,.6), inset 0 0 0 15px rgba(108,119,96,.22), inset 0 0 0 22px rgba(242,232,209,.6); }
-  .yarn-two, .art-label { display: none; }
+  .yarn-two, .art-label, .home-still-life .art-label { display: none; }
   .needle-one { width: 104px; top: 76px; right: 54px; }
   .needle-two { width: 87px; top: 104px; right: 23px; }
-  .collection-panel { padding: 20px 17px 18px; }
-  .panel-heading { align-items: start; }
-  .panel-heading h2 { font-size: 21px; }
-  .save-note { margin-top: 5px; font-size: 9px; white-space: nowrap; }
+  .artist-directory { margin-top: 31px; }
+  .directory-heading { align-items: start; flex-direction: column; gap: 8px; }
+  .directory-heading h2 { font-size: 24px; }
+  .directory-intro { font-size: 11px; }
+  .artist-grid { grid-template-columns: 1fr; gap: 12px; }
+  .artist-tile { min-height: 0; padding: 18px 18px 0; border-radius: 16px; }
+  .tile-medium { max-width: 74%; font-size: 10px; }
+  .tile-years { font-size: 9px; }
+  .tile-name { margin-top: 11px; font-size: 27px; }
+  .tile-description { margin-bottom: 11px; font-size: 11px; }
+  .tile-progress { padding: 10px 12px; }
+  .tile-progress-numbers { font-size: 11px; }
+  .tile-footer { min-height: 52px; margin-top: 10px; }
+  .tile-action { font-size: 11px; }
+  .tile-tcg { min-height: 32px; padding: 5px 10px; font-size: 10px; }
+  .home-note { margin: 23px 0 28px; padding: 14px; }
+  .collection-panel { padding: 14px 15px 13px; }
+  .asako-hero + .collection-panel { padding: 14px 15px 13px; }
+  .panel-heading { align-items: center; margin-bottom: 10px; }
+  .panel-heading .eyebrow { display: none; }
+  .panel-heading h2 { font-size: 18px; }
+  .asako-hero + .collection-panel h2 { font-size: 18px; }
+  .save-note { margin-top: 0; font-size: 9px; white-space: nowrap; }
+  .progress-layout { gap: 10px; }
+  .asako-hero + .collection-panel .progress-layout { align-items: stretch; flex-direction: column; gap: 10px; }
+  .progress-numbers { margin-bottom: 6px; }
+  .progress-numbers strong { font-size: 21px; }
+  .progress-numbers small { font-size: 12px; }
+  .asako-hero + .collection-panel .progress-numbers strong { font-size: 21px; }
+  .asako-hero + .collection-panel .progress-numbers small { font-size: 12px; }
+  .progress-track { height: 7px; }
+  .progress-caption { margin-top: 5px; }
+  .progress-caption span:nth-child(2) { display: none; }
   .progress-actions { display: grid; grid-template-columns: 1fr 1fr; }
-  .button { min-height: 39px; padding: 0 8px; font-size: 10px; }
-  .cards-section { padding-top: 40px; }
-  .cards-heading { align-items: stretch; flex-direction: column; gap: 14px; }
-  .cards-heading h2 { font-size: 26px; }
+  .button { min-height: 36px; padding: 0 7px; font-size: 9px; }
+  .cards-section { padding-top: 24px; }
+  .asako-hero + .collection-panel + .cards-section { padding-top: 24px; }
+  .cards-heading { align-items: stretch; flex-direction: column; gap: 8px; }
+  .cards-heading .eyebrow { margin-bottom: 3px; }
+  .cards-heading h2 { font-size: 23px; }
+  .asako-hero + .collection-panel + .cards-section .cards-heading h2 { font-size: 23px; }
   .search-box { width: 100%; }
   .list-tools { width: 100%; }
-  .filter-bar { gap: 1px; margin-top: 13px; }
+  .filter-bar { gap: 1px; margin-top: 10px; }
   .filter-button { padding: 8px 6px 9px; font-size: 10px; }
   .filter-button span { margin-left: 3px; font-size: 9px; }
   .sort-note { font-size: 0; }

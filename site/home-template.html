@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f6ef">
+  <link rel="icon" type="image/svg+xml" href="assets/pokechecklist-icon.svg">
+  <meta name="description" content="Browse Pokémon card checklists by illustrator. Track the cards in your binder and send missing cards to TCGplayer.">
+  <link rel="canonical" href="{{CANONICAL_URL}}">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="PokeChecklist — Pokémon Card Checklists by Artist">
+  <meta property="og:description" content="Browse illustrator checklists, track your binder, and find missing Pokémon cards.">
+  <meta property="og:url" content="{{CANONICAL_URL}}">
+  <title>PokeChecklist — Pokémon Card Checklists by Artist</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="artists.js" defer></script>
+  <script src="home.js" defer></script>
+</head>
+<body class="home-page">
+  <div class="site-shell">
+    <header class="topbar">
+      <a class="brand" href="./" aria-label="PokeChecklist home">
+        <img class="brand-mark" src="assets/pokechecklist-icon.svg" alt="">
+        <span>PokeChecklist</span>
+      </a>
+      <span class="topbar-note">Collect a little art &amp; joy</span>
+    </header>
+
+    <main>
+      <section class="hero home-hero">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="eyebrow-dot"></span> A Pokémon card checklist</p>
+          <h1>PokeChecklist<br><em>collect by artist</em></h1>
+          <p class="hero-intro">Find an illustrator, explore their Pokémon cards, and keep track of the ones in your binder. When you’re ready, send your missing cards to TCGplayer.</p>
+          <div class="hero-meta">
+            <span class="meta-spark" aria-hidden="true">✳</span>
+            <span>{{ARTIST_COUNT}} artist checklists</span>
+            <span class="meta-divider">·</span>
+            <span>{{CARD_COUNT}} cards to collect</span>
+          </div>
+        </div>
+        <div class="hero-art home-still-life" aria-hidden="true">
+          <img class="still-life-artwork" src="assets/homepage-art.png" alt="" fetchpriority="high" decoding="async">
+        </div>
+      </section>
+
+      <section class="artist-directory" aria-labelledby="artists-title">
+        <div class="directory-heading">
+          <div>
+            <p class="eyebrow muted">THE CHECKLISTS</p>
+            <h2 id="artists-title">Choose an illustrator</h2>
+          </div>
+          <p class="directory-intro">Pick an artist to open their collection page and start checking off cards.</p>
+        </div>
+        <div class="artist-grid">
+          {{ARTIST_TILES}}
+        </div>
+      </section>
+
+      <section class="home-note">
+        <span class="home-note-mark" aria-hidden="true">✳</span>
+        <p>Your checklist is saved on this device, so you can pick up where you left off.</p>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-brand"><img class="brand-mark small" src="assets/pokechecklist-icon.svg" alt=""><span>PokeChecklist</span></div>
+      <p>Fan-made checklists for collectors. Pokémon and card artwork belong to their respective owners. Not affiliated with Pokémon or TCGplayer.</p>
+    </footer>
+  </div>
+</body>
+</html>
