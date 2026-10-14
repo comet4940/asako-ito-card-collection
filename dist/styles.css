@@ -395,6 +395,7 @@ h2 { margin: 0; color: #304740; font-size: 25px; line-height: 1.15; }
 .checkmark { width: 21px; height: 21px; display: grid; place-items: center; border: 1.5px solid #c9d1c6; border-radius: 6px; background: #fff; color: #fff; font-size: 13px; font-weight: 700; transition: all .15s ease; }
 .own-toggle input:focus-visible + .checkmark { outline: 3px solid rgba(91, 135, 109, .38); outline-offset: 3px; }
 .own-toggle input:checked + .checkmark { border-color: #6e9474; background: #6e9474; }
+.own-toggle input:checked + .checkmark::after { content: "✓"; }
 .card-info { min-width: 0; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: start; gap: 8px; }
 .card-copy { min-width: 0; }
 .card-title-line { display: flex; align-items: baseline; justify-content: space-between; gap: 6px; }

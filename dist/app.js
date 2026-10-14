@@ -114,7 +114,7 @@
     return '<article class="card-row ' + (isOwned ? "is-owned" : "") + '">' +
       '<label class="own-toggle card-own-toggle" aria-label="Mark ' + escapeHtml(card.name) + " as " + (isOwned ? "not owned" : "owned") + '">' +
         '<input type="checkbox" data-card-id="' + escapeHtml(card.id) + '" ' + (isOwned ? "checked" : "") + '>' +
-        '<span class="checkmark" aria-hidden="true">' + (isOwned ? "✓" : "") + "</span>" +
+        '<span class="checkmark" aria-hidden="true"></span>' +
       "</label>" +
       '<div class="card-image-frame' + (card.image ? '' : ' image-unavailable') + '">' + image + "</div>" +
       '<div class="card-info">' +
@@ -160,18 +160,33 @@
     });
     els.empty.hidden = filtered.length > 0;
     els.list.hidden = filtered.length === 0;
-    els.list.querySelectorAll('input[type="checkbox"]').forEach(input => {
-      input.addEventListener("change", () => {
-        const id = input.dataset.cardId;
-        if (input.checked) owned.add(id);
-        else owned.delete(id);
-        saveOwned();
-        updateProgress();
-        renderList();
-        toast(input.checked ? "Added to your binder." : "Moved back to your missing list.");
-      });
-    });
   }
+
+  els.list.addEventListener("change", event => {
+    const input = event.target;
+    if (!(input instanceof HTMLInputElement) || !input.matches('input[type="checkbox"][data-card-id]')) return;
+    const id = input.dataset.cardId;
+    const card = cards.find(item => item.id === id);
+    if (input.checked) owned.add(id);
+    else owned.delete(id);
+    saveOwned();
+    updateProgress();
+
+    const row = input.closest(".card-row");
+    if (row && card) {
+      row.classList.toggle("is-owned", input.checked);
+      const toggle = input.closest(".own-toggle");
+      if (toggle) toggle.setAttribute("aria-label", "Mark " + card.name + " as " + (input.checked ? "not owned" : "owned"));
+      const status = row.querySelector(".owned-tag");
+      if (status) status.textContent = input.checked ? "In binder" : "Need";
+    }
+
+    const matchesFilter = activeFilter === "all" ||
+      (activeFilter === "owned" && input.checked) ||
+      (activeFilter === "missing" && !input.checked);
+    if (!matchesFilter) renderList();
+    toast(input.checked ? "Added to your binder." : "Moved back to your missing list.");
+  });
 
   function updateProgress() {
     const total = cards.length;

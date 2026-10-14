@@ -108,13 +108,20 @@ function renderCardIndex(cards) {
     const image = card.image
       ? '<img class="card-image" src="' + escapeHtml(card.image) + '" alt="' + escapeHtml(card.name + ' Pokémon card from ' + card.set) + '" loading="lazy" decoding="async">'
       : '<span>Card image unavailable</span>';
+    const searchQuery = card.name + " " + card.set + " " + card.no.replace("#", "");
+    const shopUrl = "https://www.tcgplayer.com/search/pokemon/product?productLineName=pokemon&q=" + encodeURIComponent(searchQuery) + "&view=grid";
     pieces.push([
       '<article class="card-row">',
+        '<label class="own-toggle card-own-toggle" aria-label="Mark ' + escapeHtml(card.name) + ' as owned">',
+          '<input type="checkbox" data-card-id="' + escapeHtml(card.id) + '">',
+          '<span class="checkmark" aria-hidden="true"></span>',
+        '</label>',
         '<div class="card-image-frame' + (card.image ? '' : ' image-unavailable') + '">' + image + '</div>',
         '<div class="card-info">',
-          '<div class="card-copy"><h3>' + escapeHtml(card.name) + '</h3><p>' + escapeHtml(card.set) + ' <span class="row-dot">·</span> ' + escapeHtml(card.year) + '</p></div>',
+          '<div class="card-copy"><div class="card-title-line"><h3>' + escapeHtml(card.name) + '</h3><span class="owned-tag">Need</span></div><p>' + escapeHtml(card.set) + ' <span class="row-dot">·</span> ' + escapeHtml(card.year) + '</p></div>',
           '<div class="collector-number">' + escapeHtml(card.no) + '</div>',
         '</div>',
+        '<div class="card-links"><a href="' + escapeHtml(shopUrl) + '" target="_blank" rel="noopener noreferrer" title="Shop for ' + escapeHtml(card.name) + ' on TCGplayer">Shop on TCGplayer <span aria-hidden="true">↗</span></a></div>',
       '</article>'
     ].join(""));
     return pieces.join("");
