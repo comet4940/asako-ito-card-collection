@@ -16,11 +16,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=3">
   <script>window.CURRENT_ARTIST_ID = "{{ARTIST_ID}}";</script>
   <script src="artists.js" defer></script>
   <script src="data/{{ARTIST_ID}}.js" defer></script>
-  <script src="app.js?v=2" defer></script>
+  <script src="app.js?v=4" defer></script>
 </head>
 <body>
   <div class="site-shell">
@@ -45,9 +45,16 @@
         </div>
         <div class="progress-layout">
           <div class="progress-main">
-            <div class="progress-numbers"><strong><span id="owned-count">0</span><small> / <span id="total-count">{{CARD_COUNT}}</span> owned</small></strong><span id="progress-percent">0%</span></div>
+            <div class="progress-numbers"><strong><span id="owned-count">0</span><small> of <span id="total-count">{{CARD_COUNT}}</span> collected</small></strong><span id="progress-percent">0%</span></div>
             <div class="progress-track" role="progressbar" aria-label="Collection progress" aria-valuemin="0" aria-valuemax="{{CARD_COUNT}}" aria-valuenow="0"><span id="progress-fill"></span></div>
-            <div class="progress-caption"><span id="missing-count">{{CARD_COUNT}} still to find</span><span>Every little card counts</span></div>
+            <div class="progress-caption">
+              <button class="missing-filter-button" id="missing-filter-toggle" type="button" aria-pressed="false" aria-label="Show only cards not in my binder">
+                <span id="missing-filter-label">Show cards not in my binder</span>
+                <span class="missing-filter-count" id="missing-filter-count">{{CARD_COUNT}}</span>
+                <span class="missing-filter-arrow" aria-hidden="true">→</span>
+              </button>
+              <span class="progress-note">Every little card counts</span>
+            </div>
           </div>
           <div class="progress-actions">
             <button class="button button-primary" id="download-missing"><span aria-hidden="true">↓</span> Download missing list</button>
@@ -62,12 +69,6 @@
           <div class="list-tools">
             <label class="search-box"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Search Pokémon or set" aria-label="Search Pokémon or set"><kbd>⌘ K</kbd></label>
           </div>
-        </div>
-        <div class="filter-bar" role="group" aria-label="Filter cards">
-          <button class="filter-button active" data-filter="all">All cards <span id="all-filter-count">{{CARD_COUNT}}</span></button>
-          <button class="filter-button" data-filter="missing">Still need <span id="need-filter-count">{{CARD_COUNT}}</span></button>
-          <button class="filter-button" data-filter="owned">In my binder <span id="owned-filter-count">0</span></button>
-          <span class="sort-note"><span aria-hidden="true">↟</span> Release order</span>
         </div>
         <div id="card-list" class="card-list" aria-live="polite">{{CARD_LIST}}</div>
         <noscript><p class="no-script-note">The full card list is shown above. Turn on JavaScript to mark cards, track progress, or build a shopping list.</p></noscript>
