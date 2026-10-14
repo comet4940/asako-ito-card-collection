@@ -310,5 +310,6 @@
     owned = readOwned(currentArtist, cards);
     updateProgress();
     renderList();
+    if (new URLSearchParams(window.location.search).get("shop") === "1") openShoppingDialog();
   }
 })();

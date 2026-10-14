@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <base href="../">
   <meta name="theme-color" content="#f8f6ef">
+  <link rel="icon" type="image/svg+xml" href="assets/pokechecklist-icon.svg">
   <meta name="description" content="{{DESCRIPTION}}">
   <link rel="canonical" href="{{CANONICAL_URL}}">
   <meta property="og:type" content="website">
@@ -14,7 +15,7 @@
   <title>{{PAGE_TITLE}}</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <script>window.CURRENT_ARTIST_ID = "{{ARTIST_ID}}";</script>
   <script src="artists.js" defer></script>
@@ -25,26 +26,14 @@
   <div class="site-shell">
     <header class="topbar">
       <a class="brand" href="../" aria-label="PokeChecklist home">
-        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+        <img class="brand-mark" src="assets/pokechecklist-icon.svg" alt="">
         <span>PokeChecklist</span>
       </a>
       <a class="topbar-link" href="../">Browse artists <span aria-hidden="true">↗</span></a>
     </header>
 
     <main>
-      <section class="hero">
-        <div class="hero-copy">
-          <p class="eyebrow"><span class="eyebrow-dot"></span> A Pokémon card checklist</p>
-          <h1><span>{{ARTIST_NAME}}’s</span><br><em>little world</em></h1>
-          <p class="hero-intro">{{ARTIST_NAME}}’s Pokémon card checklist, all in one place. Mark the cards in your binder, then send the ones you’re missing to TCGplayer.</p>
-          <div class="hero-meta"><span class="meta-spark" aria-hidden="true">✳</span><span id="master-count">{{CARD_COUNT}} cards</span><span class="meta-divider">·</span><span>oldest to newest</span></div>
-        </div>
-        <div class="hero-art" aria-hidden="true">
-          <div class="yarn yarn-one"></div><div class="yarn yarn-two"></div>
-          <div class="needle needle-one"></div><div class="needle needle-two"></div>
-          <div class="art-label">collect a little<br><b>art &amp; joy</b></div>
-        </div>
-      </section>
+      {{ARTIST_HERO}}
 
       <section class="collection-panel" aria-labelledby="collection-title">
         <div class="panel-heading">
@@ -98,7 +87,7 @@
     </main>
 
     <footer class="footer">
-      <div class="footer-brand"><span class="brand-mark small" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>PokeChecklist</span></div>
+      <div class="footer-brand"><img class="brand-mark small" src="assets/pokechecklist-icon.svg" alt=""><span>PokeChecklist</span></div>
       <p>Fan-made checklist for collectors. Pokémon and card artwork belong to their respective owners. Not affiliated with Pokémon or TCGplayer.</p>
     </footer>
   </div>

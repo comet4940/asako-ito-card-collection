@@ -28,24 +28,73 @@ function readBrowserData(source, filename) {
   return sandbox.window;
 }
 
-function renderTile(artist, cards, index) {
-  const sampleIndexes = [0, Math.floor((cards.length - 1) / 2), cards.length - 1];
-  const samples = [...new Set(sampleIndexes)].map(cardIndex => cards[cardIndex]).filter(card => card && card.image);
-  const preview = samples.map((card, cardIndex) =>
-    '<img class="tile-card tile-card-' + (cardIndex + 1) + '" src="' + escapeHtml(card.image) + '" alt="" loading="lazy" decoding="async">'
-  ).join("");
-  const color = ["sage", "rose", "lilac", "gold", "sky"][index % 5];
+function renderTile(artist, cards) {
+  const years = cards.map(card => Number(card.year)).filter(Number.isFinite);
+  const firstYear = years.length ? Math.min(...years) : null;
+  const lastYear = years.length ? Math.max(...years) : null;
+  const yearRange = firstYear === null ? "" : firstYear === lastYear ? String(firstYear) : firstYear + "–" + lastYear;
+  const cardIds = JSON.stringify(cards.map(card => card.id)).replace(/</g, "\\u003c");
   return [
-    '<a class="artist-tile tile-' + color + '" href="' + escapeHtml(artist.id) + '/" aria-label="Explore ' + escapeHtml(artist.name) + '’s checklist, ' + cards.length + ' cards">',
-      '<span class="tile-art" aria-hidden="true">' + preview + '</span>',
-      '<span class="tile-copy">',
-        '<span class="tile-eyebrow">ILLUSTRATOR CHECKLIST</span>',
-        '<span class="tile-name">' + escapeHtml(artist.name) + '</span>',
-        '<span class="tile-count">' + cards.length + (cards.length === 1 ? ' card' : ' cards') + '</span>',
-        '<span class="tile-action">View collection <span aria-hidden="true">→</span></span>',
-      '</span>',
-      '<span class="tile-arrow" aria-hidden="true">↗</span>',
-    '</a>'
+    '<article class="artist-tile tile-' + escapeHtml(artist.mediumTone) + '" data-artist-id="' + escapeHtml(artist.id) + '" data-card-ids="' + escapeHtml(cardIds) + '">',
+      '<div class="tile-topline">',
+        '<span class="tile-medium"><span aria-hidden="true">' + escapeHtml(artist.mediumIcon) + '</span> ' + escapeHtml(artist.medium) + '</span>',
+        '<span class="tile-years" aria-label="Cards from ' + escapeHtml(firstYear || "") + ' to ' + escapeHtml(lastYear || "") + '">' + escapeHtml(yearRange) + '</span>',
+      '</div>',
+      '<h3 class="tile-name">' + escapeHtml(artist.name) + '</h3>',
+      '<p class="tile-description">' + escapeHtml(artist.description) + '</p>',
+      '<div class="tile-progress" aria-label="Collection progress">',
+        '<div class="tile-progress-numbers"><span><strong class="tile-owned-count">0</strong> / <span class="tile-total-count">' + cards.length + '</span> collected</span><strong class="tile-percent">0%</strong></div>',
+        '<div class="tile-progress-track" role="progressbar" aria-label="' + escapeHtml(artist.name) + ' collection progress" aria-valuemin="0" aria-valuemax="' + cards.length + '" aria-valuenow="0"><span class="tile-progress-fill"></span></div>',
+      '</div>',
+      '<div class="tile-footer">',
+        '<a class="tile-action" href="' + escapeHtml(artist.id) + '/">View collection checklist <span aria-hidden="true">→</span></a>',
+        '<a class="tile-tcg" href="' + escapeHtml(artist.id) + '/?shop=1" aria-label="Shop missing ' + escapeHtml(artist.name) + ' cards on TCGplayer">TCGplayer</a>',
+      '</div>',
+    '</article>'
+  ].join("");
+}
+
+function renderStandardHero(artist, cards) {
+  return [
+    '<section class="hero">',
+    '        <div class="hero-copy">',
+    '          <p class="eyebrow"><span class="eyebrow-dot"></span> A Pokémon card checklist</p>',
+    '          <h1><span>' + escapeHtml(artist.name) + '’s</span><br><em>little world</em></h1>',
+    '          <p class="hero-intro">' + escapeHtml(artist.name) + '’s Pokémon card checklist, all in one place. Mark the cards in your binder, then send the ones you’re missing to TCGplayer.</p>',
+    '          <div class="hero-meta"><span class="meta-spark" aria-hidden="true">✳</span><span id="master-count">' + cards.length + ' cards</span><span class="meta-divider">·</span><span>oldest to newest</span></div>',
+    '        </div>',
+    '        <div class="hero-art" aria-hidden="true">',
+    '          <div class="yarn yarn-one"></div><div class="yarn yarn-two"></div>',
+    '          <div class="needle needle-one"></div><div class="needle needle-two"></div>',
+    '          <div class="art-label">collect a little<br><b>art &amp; joy</b></div>',
+    '        </div>',
+    '      </section>'
+  ].join("\n");
+}
+
+function renderAsakoHero(artist, cards) {
+  const years = cards.map(card => Number(card.year)).filter(Number.isFinite);
+  const earliestYear = years.length ? Math.min(...years) : "";
+  const setCount = new Set(cards.map(card => card.set)).size;
+  return [
+    '<section class="hero asako-hero" aria-labelledby="artist-title">',
+      '<div class="asako-copy">',
+        '<nav class="asako-breadcrumbs" aria-label="Breadcrumb">',
+          '<a href="../">Artists</a><span aria-hidden="true">/</span><span>Fiber &amp; Crochet</span><span aria-hidden="true">/</span><span aria-current="page">Asako Ito</span>',
+        '</nav>',
+        '<h1 id="artist-title"><span>Asako Ito’s</span><em>' + escapeHtml(artist.pageHeading || "Stitched Stories") + '</em></h1>',
+        '<p class="asako-intro">' + escapeHtml(artist.pageBlurb) + '</p>',
+        '<div class="asako-badges">',
+          '<span class="asako-badge asako-badge-medium"><span aria-hidden="true">🧶</span> ' + escapeHtml(artist.pageMedium || "Amigurumi Crochet") + '</span>',
+          '<span class="asako-badge"><span aria-hidden="true">📍</span> ' + escapeHtml(artist.pageOrigin || "Japan") + '</span>',
+          '<span class="asako-badge"><span aria-hidden="true">📅</span> Cards since ' + escapeHtml(earliestYear) + '</span>',
+          '<span class="asako-badge"><span aria-hidden="true">🗂️</span> ' + cards.length + ' cards across ' + setCount + ' sets</span>',
+        '</div>',
+      '</div>',
+      '<div class="asako-feature" aria-hidden="true">',
+        '<img class="asako-feature-image" src="assets/asako-ito-amigurumi.png" alt="" fetchpriority="high" decoding="async">',
+      '</div>',
+    '</section>'
   ].join("");
 }
 
@@ -95,7 +144,7 @@ const homePage = replaceTokens(homeTemplate, {
   CANONICAL_URL: escapeHtml(siteUrl + "/"),
   ARTIST_COUNT: catalogs.length,
   CARD_COUNT: totalCards,
-  ARTIST_TILES: catalogs.map((item, index) => renderTile(item.artist, item.cards, index)).join("\n          ")
+  ARTIST_TILES: catalogs.map(item => renderTile(item.artist, item.cards)).join("\n          ")
 });
 await writeFile(path.join(distDir, "index.html"), homePage);
 
@@ -119,7 +168,7 @@ for (const entry of oldEntries) {
 }
 
 for (const { artist, cards } of catalogs) {
-  const description = "Browse the " + artist.name + " Pokémon card checklist with " + cards.length + " cards. Track your collection and make a list of the cards you still need.";
+  const description = artist.pageBlurb || ("Browse the " + artist.name + " Pokémon card checklist with " + cards.length + " cards. Track your collection and make a list of the cards you still need.");
   const pageTitle = artist.name + " Pokémon Card Checklist | PokeChecklist";
   const pageUrl = siteUrl + "/" + artist.id + "/";
   const outputDir = path.join(distDir, artist.id);
@@ -127,6 +176,7 @@ for (const { artist, cards } of catalogs) {
   const page = "<!-- Generated by PokeChecklist: " + artist.id + " -->\n" + replaceTokens(artistTemplate, {
     ARTIST_ID: escapeHtml(artist.id),
     ARTIST_NAME: escapeHtml(artist.name),
+    ARTIST_HERO: artist.id === "asako-ito" ? renderAsakoHero(artist, cards) : renderStandardHero(artist, cards),
     CARD_COUNT: cards.length,
     CARD_LIST: renderCardIndex(cards),
     DESCRIPTION: escapeHtml(description),
