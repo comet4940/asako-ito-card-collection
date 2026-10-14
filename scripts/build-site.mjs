@@ -86,7 +86,6 @@ function renderAsakoHero(artist, cards) {
         '<p class="asako-intro">' + escapeHtml(artist.pageBlurb) + '</p>',
         '<div class="asako-badges">',
           '<span class="asako-badge asako-badge-medium"><span aria-hidden="true">🧶</span> ' + escapeHtml(artist.pageMedium || "Amigurumi Crochet") + '</span>',
-          '<span class="asako-badge"><span aria-hidden="true">📍</span> ' + escapeHtml(artist.pageOrigin || "Japan") + '</span>',
           '<span class="asako-badge"><span aria-hidden="true">📅</span> Cards since ' + escapeHtml(earliestYear) + '</span>',
           '<span class="asako-badge"><span aria-hidden="true">🗂️</span> ' + cards.length + ' cards across ' + setCount + ' sets</span>',
         '</div>',
