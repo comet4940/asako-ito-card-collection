@@ -80,7 +80,7 @@ function renderAsakoHero(artist, cards) {
     '<section class="hero asako-hero" aria-labelledby="artist-title">',
       '<div class="asako-copy">',
         '<nav class="asako-breadcrumbs" aria-label="Breadcrumb">',
-          '<a href="../">Artists</a><span aria-hidden="true">/</span><span>Fiber &amp; Crochet</span><span aria-hidden="true">/</span><span aria-current="page">Asako Ito</span>',
+          '<a href="./">Artists</a><span aria-hidden="true">/</span><span>Fiber &amp; Crochet</span><span aria-hidden="true">/</span><span aria-current="page">Asako Ito</span>',
         '</nav>',
         '<h1 id="artist-title"><span>Asako Ito’s</span><em>' + escapeHtml(artist.pageHeading || "Stitched Stories") + '</em></h1>',
         '<p class="asako-intro">' + escapeHtml(artist.pageBlurb) + '</p>',
