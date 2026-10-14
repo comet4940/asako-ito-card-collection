@@ -9,7 +9,7 @@
   let currentArtist = null;
   let cards = [];
   let owned = new Set();
-  let activeFilter = "all";
+  let showMissingOnly = false;
   let searchTerm = "";
   let toastTimeout;
 
@@ -105,20 +105,28 @@
     return url.toString();
   }
 
+  function renderAsakoOwnedStamp() {
+    return '<span class="owned-stamp caught-stamp" aria-hidden="true"><svg viewBox="0 0 100 100" focusable="false"><path class="ball-top" d="M14 50a36 36 0 0 1 72 0H14Z"></path><g class="ball-wear"><circle cx="25" cy="31" r="1.6"></circle><circle cx="34" cy="21" r="1.1"></circle><circle cx="46" cy="17" r="1.4"></circle><circle cx="68" cy="20" r="1.5"></circle><circle cx="78" cy="29" r="1.1"></circle><circle cx="19" cy="41" r="1"></circle><circle cx="60" cy="29" r="1"></circle><circle cx="39" cy="36" r=".8"></circle><path d="M28 26l2-1m31-8 2 1m13 14 2-1M45 22l1-2m-25 18 1-1"></path></g><path class="ball-band" d="M14 50h72"></path><path class="ball-outline" d="M50 14c20 0 36 16 36 36 0 19-16 36-36 36S14 69 14 50c0-20 16-36 36-36Z"></path><circle class="ball-button-ring" cx="50" cy="50" r="11"></circle><circle class="ball-button" cx="50" cy="50" r="4.5"></circle></svg></span>';
+  }
+
   function renderCard(card) {
     const isOwned = owned.has(card.id);
+    const hasYarnStamp = currentArtist.id === "asako-ito";
     const imageAlt = card.name + " card from " + card.set;
     const image = card.image
       ? '<img class="card-image" src="' + escapeHtml(card.image) + '" alt="' + escapeHtml(imageAlt) + '" loading="lazy" decoding="async">'
       : '<span>Card image unavailable</span>';
+    const ownedStamp = hasYarnStamp && isOwned
+      ? renderAsakoOwnedStamp()
+      : "";
     return '<article class="card-row ' + (isOwned ? "is-owned" : "") + '">' +
       '<label class="own-toggle card-own-toggle" aria-label="Mark ' + escapeHtml(card.name) + " as " + (isOwned ? "not owned" : "owned") + '">' +
         '<input type="checkbox" data-card-id="' + escapeHtml(card.id) + '" ' + (isOwned ? "checked" : "") + '>' +
-        '<span class="checkmark" aria-hidden="true"></span>' +
+        '<span class="checkmark" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M4.8 12.4c1.8 1.1 3.4 3.2 4.8 4.8 2.8-4.5 5.6-7.8 10.2-10.1"></path></svg></span>' +
       "</label>" +
-      '<div class="card-image-frame' + (card.image ? '' : ' image-unavailable') + '">' + image + "</div>" +
+      '<div class="card-image-frame' + (card.image ? '' : ' image-unavailable') + '">' + image + ownedStamp + "</div>" +
       '<div class="card-info">' +
-        '<div class="card-copy"><div class="card-title-line"><h3>' + escapeHtml(card.name) + '</h3><span class="owned-tag">' + (isOwned ? "In binder" : "Need") + "</span></div>" +
+        '<div class="card-copy"><div class="card-title-line"><h3>' + escapeHtml(card.name) + '</h3><span class="owned-tag">' + (isOwned ? "In binder" : "Not in binder") + "</span></div>" +
           "<p>" + escapeHtml(card.set) + ' <span class="row-dot">·</span> ' + escapeHtml(card.year) + "</p></div>" +
         '<div class="collector-number">' + escapeHtml(card.no) + "</div>" +
       "</div>" +
@@ -131,9 +139,7 @@
     const query = searchTerm.trim().toLocaleLowerCase();
     const filtered = cards.filter(card => {
       const isOwned = owned.has(card.id);
-      const matchesFilter = activeFilter === "all" ||
-        (activeFilter === "owned" && isOwned) ||
-        (activeFilter === "missing" && !isOwned);
+      const matchesFilter = !showMissingOnly || !isOwned;
       const matchesSearch = !query ||
         (card.name + " " + card.set + " " + card.no).toLocaleLowerCase().includes(query);
       return matchesFilter && matchesSearch;
@@ -160,6 +166,12 @@
     });
     els.empty.hidden = filtered.length > 0;
     els.list.hidden = filtered.length === 0;
+    const noCardsToFind = showMissingOnly && missingCards().length === 0 && !query;
+    els.empty.querySelector("h3").textContent = noCardsToFind ? "All caught up!" : "No cards found";
+    els.empty.querySelector("p").textContent = noCardsToFind
+      ? "Every card in this collection is in your binder."
+      : "Try another Pokémon or set name.";
+    document.getElementById("clear-search").hidden = noCardsToFind || !query;
   }
 
   els.list.addEventListener("change", event => {
@@ -178,12 +190,19 @@
       const toggle = input.closest(".own-toggle");
       if (toggle) toggle.setAttribute("aria-label", "Mark " + card.name + " as " + (input.checked ? "not owned" : "owned"));
       const status = row.querySelector(".owned-tag");
-      if (status) status.textContent = input.checked ? "In binder" : "Need";
+      if (status) status.textContent = input.checked ? "In binder" : "Not in binder";
+      if (currentArtist.id === "asako-ito") {
+        const frame = row.querySelector(".card-image-frame");
+        const stamp = frame && frame.querySelector(".owned-stamp");
+        if (input.checked && frame && !stamp) {
+          frame.insertAdjacentHTML("beforeend", renderAsakoOwnedStamp());
+        } else if (!input.checked && stamp) {
+          stamp.remove();
+        }
+      }
     }
 
-    const matchesFilter = activeFilter === "all" ||
-      (activeFilter === "owned" && input.checked) ||
-      (activeFilter === "missing" && !input.checked);
+    const matchesFilter = !showMissingOnly || !input.checked;
     if (!matchesFilter) renderList();
     toast(input.checked ? "Added to your binder." : "Moved back to your missing list.");
   });
@@ -195,16 +214,21 @@
     const percentage = total ? Math.round((count / total) * 100) : 0;
     document.getElementById("owned-count").textContent = count;
     document.getElementById("total-count").textContent = total;
-    document.getElementById("missing-count").textContent = missing + (missing === 1 ? " card still to find" : " cards still to find");
+    const filterButton = document.getElementById("missing-filter-toggle");
+    document.getElementById("missing-filter-label").textContent = showMissingOnly ? "Show all cards" : "Show cards not in my binder";
+    document.getElementById("missing-filter-count").textContent = showMissingOnly ? total : missing;
+    filterButton.setAttribute("aria-pressed", String(showMissingOnly));
+    filterButton.setAttribute("aria-label", showMissingOnly
+      ? "Show all " + total + " cards"
+      : "Show only the " + missing + " cards not in my binder");
+    filterButton.disabled = missing === 0 && !showMissingOnly;
     document.getElementById("progress-percent").textContent = percentage + "%";
     document.getElementById("progress-fill").style.width = percentage + "%";
     els.progressTrack.setAttribute("aria-label", currentArtist.name + " collection progress");
     els.progressTrack.setAttribute("aria-valuemax", total);
     els.progressTrack.setAttribute("aria-valuenow", count);
-    document.getElementById("all-filter-count").textContent = total;
-    document.getElementById("need-filter-count").textContent = missing;
-    document.getElementById("owned-filter-count").textContent = count;
-    document.getElementById("master-count").textContent = total + (total === 1 ? " card" : " cards");
+    const masterCount = document.getElementById("master-count");
+    if (masterCount) masterCount.textContent = total + (total === 1 ? " card" : " cards");
     document.getElementById("shopping-missing-count").textContent = missing;
     document.getElementById("affiliate-disclosure").hidden = !window.AFFILIATE_MASS_ENTRY_URL;
   }
@@ -279,12 +303,10 @@
     toastTimeout = setTimeout(() => els.toast.classList.remove("visible"), 2600);
   }
 
-  document.querySelectorAll(".filter-button").forEach(button => {
-    button.addEventListener("click", () => {
-      activeFilter = button.dataset.filter;
-      document.querySelectorAll(".filter-button").forEach(item => item.classList.toggle("active", item === button));
-      renderList();
-    });
+  document.getElementById("missing-filter-toggle").addEventListener("click", () => {
+    showMissingOnly = !showMissingOnly;
+    updateProgress();
+    renderList();
   });
   els.search.addEventListener("input", () => { searchTerm = els.search.value; renderList(); });
   document.getElementById("clear-search").addEventListener("click", () => {
