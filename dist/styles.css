@@ -249,6 +249,35 @@ h1 em { color: #6b8770; font-weight: 500; }
   filter: drop-shadow(0 16px 18px rgba(28, 39, 46, .2));
 }
 
+.artist-profile--tomokazu-komiya {
+  border-color: #e5ddd0;
+  background:
+    radial-gradient(circle, rgba(160, 127, 83, .12) .7px, transparent .9px) 0 0 / 21px 21px,
+    #f3efe8;
+}
+.artist-profile--tomokazu-komiya h1 em { color: #b44f3c; }
+.artist-profile--tomokazu-komiya .profile-badge-medium {
+  border-color: #ead9b8;
+  background: #faf1dd;
+  color: #8c5624;
+}
+.artist-profile--tomokazu-komiya .profile-feature {
+  width: min(100%, 470px);
+  overflow: visible;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  transform: none;
+}
+.artist-profile--tomokazu-komiya .profile-feature-image {
+  aspect-ratio: auto;
+  border: 0;
+  border-radius: 0;
+  object-fit: contain;
+  transform: perspective(1000px) rotateY(-2deg) rotateX(1deg);
+  filter: drop-shadow(0 5px 4px rgba(76, 61, 37, .12)) drop-shadow(0 19px 14px rgba(76, 61, 37, .15)) drop-shadow(0 32px 25px rgba(76, 61, 37, .1));
+}
+
 .home-hero { min-height: 330px; background: #f3efea; }
 .home-hero::after { display: none; }
 .home-hero .hero-copy { max-width: 580px; }
@@ -633,6 +662,7 @@ h2 { margin: 0; color: #304740; font-size: 25px; line-height: 1.15; }
   .profile-badges { gap: 6px; }
   .profile-badge { min-height: 29px; padding: 5px 9px; font-size: 10px; }
   .profile-feature { width: min(100%, 200px); margin-top: 10px; }
+  .artist-profile--tomokazu-komiya .profile-feature { width: min(100%, 330px); margin: 12px auto 8px; }
   .artist-profile--yuka-morii .profile-feature { width: min(100%, 290px); }
   .artist-profile--shinji-kanda .profile-feature { width: min(100%, 300px); }
   .hero-copy { position: relative; z-index: 1; max-width: 100%; }
