@@ -12,6 +12,19 @@ if (gaMeasurementId && !/^G-[A-Z0-9]+$/i.test(gaMeasurementId)) {
   throw new Error("POKECHECKLIST_GA_MEASUREMENT_ID must be a GA4 web Measurement ID beginning with G-.");
 }
 
+// Materialize the text-encoded hero source as a JPEG in the deployable site output.
+const akiraHeroBase64 = (await readFile(path.join(projectRoot, "site/akira-egawa-grand-canvases.jpg.base64"), "utf8")).trim();
+if (!/^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(akiraHeroBase64)) {
+  throw new Error("Akira Egawa hero image source is not valid base64.");
+}
+await writeFile(path.join(distDir, "assets/akira-egawa-grand-canvases.jpg"), Buffer.from(akiraHeroBase64, "base64"));
+
+const akiraHeroWebpBase64 = (await readFile(path.join(projectRoot, "site/akira-egawa-grand-canvases-hero.webp.base64"), "utf8")).trim();
+if (!/^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(akiraHeroWebpBase64)) {
+  throw new Error("Akira Egawa transparent hero image source is not valid base64.");
+}
+await writeFile(path.join(distDir, "assets/akira-egawa-grand-canvases-hero.webp"), Buffer.from(akiraHeroWebpBase64, "base64"));
+
 function escapeHtml(value) {
   return String(value).replace(/[&<>"']/g, character => ({
     "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
