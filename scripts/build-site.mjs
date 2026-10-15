@@ -54,6 +54,25 @@ function renderTile(artist, cards) {
   ].join("");
 }
 
+function renderAlbumCards(catalogs) {
+  const available = catalogs.filter(item => item.cards.some(card => card.image));
+  if (!available.length) return { left: "", right: "" };
+  const count = Math.min(2, available.length);
+  const indexes = count === 1
+    ? [0]
+    : Array.from({ length: count }, (_, index) => Math.round(index * (available.length - 1) / (count - 1)));
+  const samples = indexes.map(index => {
+    const cards = available[index].cards.filter(card => card.image);
+    return cards[Math.floor((cards.length - 1) * 0.62)];
+  }).filter(Boolean);
+  const renderCard = card => '<div class="home-album-sleeve"><img src="' + escapeHtml(card.image) + '" alt="" loading="eager" decoding="async"></div>';
+  const middle = Math.ceil(samples.length / 2);
+  return {
+    left: samples.slice(0, middle).map(renderCard).join(""),
+    right: samples.slice(middle).map(renderCard).join("")
+  };
+}
+
 function renderStandardHero(artist, cards) {
   return [
     '<section class="hero">',
@@ -150,11 +169,14 @@ for (const artist of artists) {
 const totalCards = catalogs.reduce((total, item) => total + item.cards.length, 0);
 const homepageCatalogs = catalogs.filter(item => !item.artist.hideFromHomepage);
 const homepageCardCount = homepageCatalogs.reduce((total, item) => total + item.cards.length, 0);
+const homeAlbumCards = renderAlbumCards(homepageCatalogs);
 const homePage = replaceTokens(homeTemplate, {
   CANONICAL_URL: escapeHtml(siteUrl + "/"),
   ARTIST_COUNT: homepageCatalogs.length,
   CARD_COUNT: homepageCardCount,
-  ARTIST_TILES: homepageCatalogs.map(item => renderTile(item.artist, item.cards)).join("\n          ")
+  ARTIST_TILES: homepageCatalogs.map(item => renderTile(item.artist, item.cards)).join("\n          "),
+  HOME_ALBUM_LEFT: homeAlbumCards.left,
+  HOME_ALBUM_RIGHT: homeAlbumCards.right
 });
 await writeFile(path.join(distDir, "index.html"), homePage);
 
