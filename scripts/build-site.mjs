@@ -59,7 +59,7 @@ function renderTile(artist, cards) {
 
 function renderSleepyPokemonTile() {
   return [
-    '<a class="artist-tile sleepy-promo-tile" href="https://sleepypokemon.com/" target="_blank" rel="noopener noreferrer" aria-label="Visit Sleepy Pokémon, a curated collection of Pokémon cards caught napping (opens in a new tab)">',
+    '<a class="artist-tile sleepy-promo-tile" href="https://sleepypokemon.com/?utm_source=pokechecklist&amp;utm_medium=referral&amp;utm_campaign=sister_project&amp;utm_content=homepage_tile" target="_blank" rel="noopener" referrerpolicy="strict-origin-when-cross-origin" aria-label="Visit Sleepy Pokémon, a curated collection of Pokémon cards caught napping (opens in a new tab)">',
       '<div class="tile-topline">',
         '<span class="tile-medium"><span aria-hidden="true">🌙</span> Sleepy Pokémon</span>',
         '<span class="tile-years">Sister project</span>',
