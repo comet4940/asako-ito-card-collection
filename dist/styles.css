@@ -190,19 +190,6 @@ h1 em { color: #6b8770; font-weight: 500; }
 .home-album-sleeve img { width: 100%; height: auto; display: block; border-radius: 4px; }
 .home-album-footer { padding: 8px 2px 0; border-top: 1px solid rgba(125, 111, 84, .25); }
 .home-album-footer span:last-child { color: #b88465; font-size: 12px; }
-.home-album-note {
-  position: absolute;
-  z-index: 2;
-  right: 1%;
-  bottom: 1px;
-  padding: 7px 10px;
-  border: 1px solid rgba(164, 148, 119, .3);
-  border-radius: 99px;
-  background: rgba(251, 250, 246, .92);
-  color: #788078;
-  font: 7px/1.2 "Space Mono", ui-monospace, monospace;
-  letter-spacing: .07em;
-}
 .yarn {
   position: absolute;
   width: 156px;
@@ -766,7 +753,6 @@ h2 { margin: 0; color: #304740; font-size: 25px; line-height: 1.15; }
   .home-album-heading, .home-album-footer { font-size: 6px; }
   .home-album-leaf { padding: 5px 8px; }
   .home-album-sleeve { width: min(100%, 96px); padding: 3px; }
-  .home-album-note { right: 0; bottom: -1px; padding: 6px 8px; font-size: 6px; }
   .yarn-one { width: 102px; height: 102px; top: 21px; right: 35px; box-shadow: inset 0 0 0 4px rgba(242,232,209,.7), inset 0 0 0 6px rgba(108,119,96,.25), inset 0 0 0 13px rgba(242,232,209,.6), inset 0 0 0 15px rgba(108,119,96,.22), inset 0 0 0 22px rgba(242,232,209,.6); }
   .yarn-two, .art-label { display: none; }
   .needle-one { width: 104px; top: 76px; right: 54px; }
