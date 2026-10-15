@@ -19,7 +19,7 @@ Asako Ito's existing card IDs remain stable so saved binder progress carries for
 
 ## Hosting
 
-The public site is deployed to [GitHub Pages](https://comet4940.github.io/poke-checklist/) by GitHub Actions whenever a commit is pushed to `main`. The workflow runs `node scripts/build-site.mjs` to generate the artist pages, canonical URLs, `sitemap.xml`, and `robots.txt`, then deploys the `dist/` folder. The generated artist URLs work directly at paths such as `/asako-ito/`, including on refresh. The build uses the current GitHub Pages address; once a custom domain is ready, set `POKECHECKLIST_SITE_URL` in the workflow to that domain and connect it in GitHub Pages settings.
+The public site is deployed to [pokechecklist.com](https://pokechecklist.com/) by GitHub Actions whenever a commit is pushed to `main`. The workflow runs `node scripts/build-site.mjs` with `POKECHECKLIST_SITE_URL=https://pokechecklist.com` to generate the artist pages, canonical URLs, `sitemap.xml`, and `robots.txt`, then deploys the `dist/` folder. The generated artist URLs work directly at paths such as `/asako-ito/`, including on refresh. To connect the domain, set `pokechecklist.com` as the custom domain in the repository's **Settings → Pages**. At the domain provider, point the apex (`@`) to GitHub Pages with A records `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, and `185.199.111.153`; point `www` to `comet4940.github.io` with a CNAME record. Once DNS is verified and GitHub Pages provisions the certificate, enable **Enforce HTTPS**.
 
 To preview the generated static files locally, run `node scripts/build-site.mjs` and serve the `dist/` directory with any static file server.
 
