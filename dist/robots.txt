@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://comet4940.github.io/asako-ito-card-collection/sitemap.xml
+Sitemap: https://comet4940.github.io/poke-checklist/sitemap.xml

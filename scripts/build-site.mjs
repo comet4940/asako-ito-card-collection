@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const distDir = path.join(projectRoot, "dist");
-const defaultSiteUrl = "https://comet4940.github.io/asako-ito-card-collection";
+const defaultSiteUrl = "https://comet4940.github.io/poke-checklist";
 const siteUrl = (process.env.POKECHECKLIST_SITE_URL || defaultSiteUrl).replace(/\/+$/, "");
 
 function escapeHtml(value) {
