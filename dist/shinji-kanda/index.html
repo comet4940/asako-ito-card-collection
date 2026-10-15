@@ -17,11 +17,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=7">
+  <link rel="stylesheet" href="styles.css?v=8">
   <script>window.CURRENT_ARTIST_ID = "shinji-kanda";</script>
   <script src="artists.js" defer></script>
   <script src="data/shinji-kanda.js" defer></script>
-  <script src="app.js?v=6" defer></script>
+  <script src="app.js?v=7" defer></script>
 </head>
 <body>
   <div class="site-shell">
@@ -68,6 +68,9 @@
         <div class="cards-heading">
           <div><p class="eyebrow muted">THE CHECKLIST</p><h2 id="cards-title">Find your next favorite</h2></div>
           <div class="list-tools">
+            <button class="sort-toggle" id="sort-toggle" type="button" aria-label="Cards are sorted oldest to newest. Activate to sort newest to oldest." title="Sort newest to oldest">
+              <span id="sort-label">Oldest first</span><span class="sort-toggle-icon" aria-hidden="true">↕</span>
+            </button>
             <label class="search-box"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Search Pokémon or set" aria-label="Search Pokémon or set"><kbd>⌘ K</kbd></label>
           </div>
         </div>
