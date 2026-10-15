@@ -395,6 +395,14 @@ h1 em { color: #6b8770; font-weight: 500; }
 .tile-lilac .tile-medium { background: #f2eef9; color: #584680; }
 .tile-gold .tile-medium { background: #f8f2df; color: #89620a; }
 .tile-sky .tile-medium { background: #edf2f6; color: #304c66; }
+.sleepy-promo-tile { background: linear-gradient(140deg, #fff 0%, #f7f3fb 100%); border-color: #e2d9ed; text-decoration: none; }
+.sleepy-promo-tile:hover { border-color: rgba(88, 70, 128, .42); box-shadow: 0 18px 40px rgba(65, 51, 91, .12); }
+.sleepy-promo-tile:focus-visible { outline: 3px solid rgba(88, 70, 128, .42); outline-offset: 3px; }
+.sleepy-promo-tile .tile-medium { background: #f1edf7; color: #584680; }
+.sleepy-promo-tile .tile-name { color: #433956; }
+.sleepy-promo-tile .tile-footer { margin-top: auto; border-color: #e4dced; }
+.sleepy-promo-tile .tile-action { color: #584680; }
+.sleepy-promo-tile:hover .tile-action { color: #3f315f; }
 .tile-name { margin: 12px 0 5px; color: #26231f; font: 600 32px/1.1 Fraunces, Georgia, serif; letter-spacing: -.035em; }
 .tile-description { margin: 0 0 13px; overflow: hidden; color: #5c5851; font-size: 13px; line-height: 1.5; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
 .tile-progress { margin-top: auto; padding: 11px 14px 10px; border-radius: 12px; background: #f3efea; }
