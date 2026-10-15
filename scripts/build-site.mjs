@@ -165,6 +165,7 @@ const homepageCardCount = homepageCatalogs.reduce((total, item) => total + item.
 const homeAlbumCards = renderAlbumCards();
 const homePage = replaceTokens(homeTemplate, {
   CANONICAL_URL: escapeHtml(siteUrl + "/"),
+  SOCIAL_PREVIEW_URL: escapeHtml(siteUrl + "/assets/pokechecklist-social-preview.jpg"),
   ARTIST_COUNT: homepageCatalogs.length,
   CARD_COUNT: homepageCardCount,
   ARTIST_TILES: homepageCatalogs.map(item => renderTile(item.artist, item.cards)).join("\n          "),
