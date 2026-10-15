@@ -28,7 +28,7 @@
   window.gtag("config", measurementId, configOptions);
 
   const commonParams = {
-    analytics_version: "pokechecklist_v1",
+    analytics_version: "pokechecklist_v2",
     page_type: pageType,
     page_path: pagePath
   };
@@ -46,6 +46,7 @@
   const allowedParams = {
     page_view: [],
     artist_tile_opened: ["target_artist_id"],
+    sleepy_pokemon_tile_opened: [],
     binder_card_toggled: ["action"],
     missing_filter_toggled: ["filter_state"],
     card_sort_changed: ["sort_order"],
@@ -88,6 +89,7 @@
       const targetArtistId = artistLink.closest(".artist-tile")?.dataset.artistId;
       track("artist_tile_opened", { target_artist_id: targetArtistId });
     }
+    if (target.closest("a.sleepy-promo-tile")) track("sleepy_pokemon_tile_opened");
     if (target.closest("#missing-filter-toggle")) {
       const enabled = document.getElementById("missing-filter-toggle")?.getAttribute("aria-pressed") === "true";
       track("missing_filter_toggled", { filter_state: enabled ? "enabled" : "disabled" });

@@ -57,6 +57,22 @@ function renderTile(artist, cards) {
   ].join("");
 }
 
+function renderSleepyPokemonTile() {
+  return [
+    '<a class="artist-tile sleepy-promo-tile" href="https://sleepypokemon.com/?utm_source=pokechecklist&amp;utm_medium=referral&amp;utm_campaign=sister_project&amp;utm_content=homepage_tile" target="_blank" rel="noopener" referrerpolicy="strict-origin-when-cross-origin" aria-label="Visit Sleepy Pokémon, a curated collection of Pokémon cards caught napping (opens in a new tab)">',
+      '<div class="tile-topline">',
+        '<span class="tile-medium"><span aria-hidden="true">🌙</span> Sleepy Pokémon</span>',
+        '<span class="tile-years">Sister project</span>',
+      '</div>',
+      '<h3 class="tile-name">Cards caught napping</h3>',
+      '<p class="tile-description">A cozy, hand-curated collection of Pokémon cards caught napping.</p>',
+      '<div class="tile-footer">',
+        '<span class="tile-action">Visit Sleepy Pokémon <span aria-hidden="true">↗</span></span>',
+      '</div>',
+    '</a>'
+  ].join("");
+}
+
 function renderAlbumCards() {
   const cardImages = [
     "assets/home-album-altaria-asako-ito.png",
@@ -172,7 +188,7 @@ const homePage = replaceTokens(homeTemplate, {
   SOCIAL_PREVIEW_URL: escapeHtml(siteUrl + "/assets/pokechecklist-social-preview.jpg"),
   ARTIST_COUNT: homepageCatalogs.length,
   CARD_COUNT: homepageCardCount,
-  ARTIST_TILES: homepageCatalogs.map(item => renderTile(item.artist, item.cards)).join("\n          "),
+  ARTIST_TILES: [...homepageCatalogs.map(item => renderTile(item.artist, item.cards)), renderSleepyPokemonTile()].join("\n          "),
   HOME_ALBUM_LEFT: homeAlbumCards.left,
   HOME_ALBUM_RIGHT: homeAlbumCards.right
 });

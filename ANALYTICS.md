@@ -18,7 +18,7 @@ Every event sent by the site includes:
 
 | Field | Meaning |
 | --- | --- |
-| `analytics_version` | Contract version, currently `pokechecklist_v1`. |
+| `analytics_version` | Contract version, currently `pokechecklist_v2`. |
 | `page_type` | `home` or `artist`. |
 | `page_path` | Pathname only, without query string or fragment. |
 | `artist_id` | Artist slug on artist pages only. |
@@ -32,6 +32,7 @@ The Google tag also receives the static page title. Google Signals and ad-person
 | --- | --- | --- |
 | `page_view` | Once when a tracked page loads. | None |
 | `artist_tile_opened` | A visitor follows an artist checklist link on the homepage. | `target_artist_id` |
+| `sleepy_pokemon_tile_opened` | A visitor follows the Sleepy Pokémon homepage tile. | None |
 | `binder_card_toggled` | A visitor checks or unchecks a card. | `action`: `added` or `removed` |
 | `missing_filter_toggled` | A visitor changes the missing-card filter. | `filter_state`: `enabled` or `disabled` |
 | `card_sort_changed` | A visitor changes card ordering. | `sort_order`: `oldest_first` or `newest_first` |
@@ -46,7 +47,7 @@ The Google tag also receives the static page title. Google Signals and ad-person
 
 ## Data that must never be sent
 
-Do not add or send names, email addresses, account IDs, user IDs, card IDs, card names, set names, collector numbers, raw search text, clipboard contents, shopping-list contents, outbound URLs, or query strings. Do not add user properties or ecommerce events. Do not place personal data in page titles, paths, or URLs.
+Do not send names, email addresses, account IDs, user IDs, card IDs, card names, set names, collector numbers, raw search text, clipboard contents, shopping-list contents, outbound URLs, or page query strings to Google Analytics. The Sleepy Pokémon referral link may include fixed campaign tags in its destination URL; the tracker never reads or sends those tags to Google Analytics. Do not add user properties or ecommerce events. Do not place personal data in page titles, paths, or URLs.
 
 Search tracking sends only a coarse query-length bucket, never typed text. Card checkboxes send only whether a card was added or removed, never which card. Shopping interactions send only the action and its source.
 
