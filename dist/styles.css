@@ -118,90 +118,23 @@ h1 em { color: #6b8770; font-weight: 500; }
 .meta-spark { color: #bf8870; font-size: 15px; }
 .meta-divider { color: #bdc1b5; }
 .hero-art { min-height: 255px; position: relative; }
-.home-album { min-height: 320px; height: min(34vw, 370px); display: grid; place-items: center; perspective: 1200px; }
-.home-album::before {
+.home-mascot { min-height: 320px; height: min(34vw, 370px); display: grid; place-items: center; }
+.home-mascot::before {
   content: "";
   position: absolute;
   z-index: -1;
-  inset: 16% 9% 5%;
+  inset: 19% 8% 6%;
   border-radius: 50%;
-  background: radial-gradient(ellipse, rgba(61, 78, 62, .18), rgba(61, 78, 62, 0) 70%);
-  filter: blur(17px);
+  background: radial-gradient(ellipse, rgba(194, 146, 108, .18), rgba(194, 146, 108, 0) 70%);
+  filter: blur(18px);
 }
-.home-album-cover {
-  width: min(100%, 460px);
-  height: 306px;
-  position: relative;
-  padding: 11px;
-  border: 1px solid rgba(40, 68, 51, .5);
-  border-radius: 15px 18px 18px 14px;
-  background: linear-gradient(135deg, #64836d, #405e4b 72%, #345342);
-  box-shadow: 0 24px 33px rgba(41, 55, 43, .2), 0 4px 7px rgba(41, 55, 43, .12), inset 0 1px rgba(255,255,255,.42);
-  transform: rotate(-3deg) rotateY(-7deg);
-  transform-style: preserve-3d;
-}
-.home-album-cover::after {
-  content: "";
-  position: absolute;
-  inset: 6px;
-  border: 1px solid rgba(241, 234, 210, .34);
-  border-radius: 10px 13px 13px 9px;
-  pointer-events: none;
-}
-.home-album-page {
-  height: 100%;
-  position: relative;
-  z-index: 1;
-  padding: 14px 14px 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  border: 1px solid #d9cdb6;
-  border-radius: 9px;
-  background: linear-gradient(90deg, #f7f0e2 0%, #fcf8ed 49%, #e2d7c4 50%, #fbf7eb 51%, #f7f0e2 100%);
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,.7), inset 0 0 20px rgba(123, 101, 69, .1);
-  transform: translateZ(5px);
-}
-.home-album-heading, .home-album-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  color: #788274;
-  font: 7px/1.2 "Space Mono", ui-monospace, monospace;
-  letter-spacing: .1em;
-}
-.home-album-heading { padding: 1px 2px 8px; border-bottom: 1px solid rgba(125, 111, 84, .25); }
-.home-album-heading span:first-child { color: #486b55; font-weight: 700; }
-.home-album-spread { min-height: 0; flex: 1; display: grid; grid-template-columns: 1fr 17px 1fr; align-items: stretch; }
-.home-album-leaf { min-width: 0; display: grid; place-items: center; padding: 7px 12px; }
-.home-album-binding { display: flex; flex-direction: column; align-items: center; justify-content: space-around; border-left: 1px solid rgba(117, 99, 69, .22); border-right: 1px solid rgba(255,255,255,.65); }
-.home-album-binding i { width: 9px; height: 9px; border: 2px solid #a48b60; border-radius: 50%; background: #f8f2e5; box-shadow: 0 1px 2px rgba(49, 44, 34, .18); }
-.home-album-sleeve {
-  width: min(100%, 112px);
-  position: relative;
-  padding: 4px;
-  border: 1px solid rgba(139, 121, 87, .45);
-  border-radius: 7px;
-  background: rgba(255, 255, 255, .63);
-  box-shadow: 0 4px 8px rgba(67, 56, 39, .15), inset 0 1px rgba(255,255,255,.9);
-  transform: rotate(-2deg);
-}
-.home-album-leaf:last-child .home-album-sleeve { transform: rotate(2deg); }
-.home-album-sleeve img { width: 100%; height: auto; display: block; border-radius: 4px; }
-.home-album-footer { padding: 8px 2px 0; border-top: 1px solid rgba(125, 111, 84, .25); }
-.home-album-footer span:last-child { color: #b88465; font-size: 12px; }
-.home-album-note {
-  position: absolute;
-  z-index: 2;
-  right: 1%;
-  bottom: 1px;
-  padding: 7px 10px;
-  border: 1px solid rgba(164, 148, 119, .3);
-  border-radius: 99px;
-  background: rgba(251, 250, 246, .92);
-  color: #788078;
-  font: 7px/1.2 "Space Mono", ui-monospace, monospace;
-  letter-spacing: .07em;
+.home-mascot img {
+  width: min(112%, 530px);
+  max-height: 355px;
+  display: block;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 7px rgba(80, 59, 43, .14)) drop-shadow(0 21px 19px rgba(80, 59, 43, .12)) drop-shadow(0 34px 28px rgba(80, 59, 43, .07));
+  transform: translateY(-3px) rotate(-1deg);
 }
 .yarn {
   position: absolute;
@@ -760,13 +693,8 @@ h2 { margin: 0; color: #304740; font-size: 25px; line-height: 1.15; }
   .hero-intro { max-width: 370px; margin: 14px 0 14px; font-size: 12px; }
   .home-hero h1 { font-size: 45px; }
   .hero-art { position: absolute; top: 2px; right: -2px; width: 155px; height: 167px; min-height: 0; opacity: .38; }
-  .hero-art.home-album { position: relative; top: auto; right: auto; width: 100%; height: 224px; min-height: 0; margin: 14px auto 0; opacity: 1; }
-  .home-album-cover { width: min(100%, 360px); height: 216px; padding: 8px; transform: rotate(-2deg) rotateY(-4deg); }
-  .home-album-page { padding: 9px 10px 7px; gap: 7px; }
-  .home-album-heading, .home-album-footer { font-size: 6px; }
-  .home-album-leaf { padding: 5px 8px; }
-  .home-album-sleeve { width: min(100%, 96px); padding: 3px; }
-  .home-album-note { right: 0; bottom: -1px; padding: 6px 8px; font-size: 6px; }
+  .hero-art.home-mascot { position: relative; top: auto; right: auto; width: 100%; height: 206px; min-height: 0; margin: 12px auto 0; opacity: 1; }
+  .home-mascot img { width: min(100%, 360px); max-height: 100%; transform: none; }
   .yarn-one { width: 102px; height: 102px; top: 21px; right: 35px; box-shadow: inset 0 0 0 4px rgba(242,232,209,.7), inset 0 0 0 6px rgba(108,119,96,.25), inset 0 0 0 13px rgba(242,232,209,.6), inset 0 0 0 15px rgba(108,119,96,.22), inset 0 0 0 22px rgba(242,232,209,.6); }
   .yarn-two, .art-label { display: none; }
   .needle-one { width: 104px; top: 76px; right: 54px; }
