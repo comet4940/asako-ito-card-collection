@@ -54,6 +54,18 @@ function renderTile(artist, cards) {
   ].join("");
 }
 
+function renderAlbumCards() {
+  const cardImages = [
+    "assets/home-album-altaria-asako-ito.png",
+    "assets/home-album-brute-bonnet-tomokazu-komiya.png"
+  ];
+  const renderCard = image => '<div class="home-album-sleeve"><img src="' + escapeHtml(image) + '" alt="" loading="eager" decoding="async"></div>';
+  return {
+    left: renderCard(cardImages[0]),
+    right: renderCard(cardImages[1])
+  };
+}
+
 function renderStandardHero(artist, cards) {
   return [
     '<section class="hero">',
@@ -148,11 +160,16 @@ for (const artist of artists) {
 }
 
 const totalCards = catalogs.reduce((total, item) => total + item.cards.length, 0);
+const homepageCatalogs = catalogs.filter(item => !item.artist.hideFromHomepage);
+const homepageCardCount = homepageCatalogs.reduce((total, item) => total + item.cards.length, 0);
+const homeAlbumCards = renderAlbumCards();
 const homePage = replaceTokens(homeTemplate, {
   CANONICAL_URL: escapeHtml(siteUrl + "/"),
-  ARTIST_COUNT: catalogs.length,
-  CARD_COUNT: totalCards,
-  ARTIST_TILES: catalogs.map(item => renderTile(item.artist, item.cards)).join("\n          ")
+  ARTIST_COUNT: homepageCatalogs.length,
+  CARD_COUNT: homepageCardCount,
+  ARTIST_TILES: homepageCatalogs.map(item => renderTile(item.artist, item.cards)).join("\n          "),
+  HOME_ALBUM_LEFT: homeAlbumCards.left,
+  HOME_ALBUM_RIGHT: homeAlbumCards.right
 });
 await writeFile(path.join(distDir, "index.html"), homePage);
 

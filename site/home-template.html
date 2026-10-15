@@ -15,7 +15,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=8">
+  <link rel="stylesheet" href="styles.css?v=13">
   <script src="artists.js" defer></script>
   <script src="home.js" defer></script>
 </head>
@@ -32,9 +32,9 @@
     <main>
       <section class="hero home-hero">
         <div class="hero-copy">
-          <p class="eyebrow"><span class="eyebrow-dot"></span> A Pokémon card checklist</p>
-          <h1>PokeChecklist<br><em>collect by artist</em></h1>
-          <p class="hero-intro">Find an illustrator, explore their Pokémon cards, and keep track of the ones in your binder. When you’re ready, send your missing cards to TCGplayer.</p>
+          <p class="eyebrow"><span class="eyebrow-dot"></span> Pokémon cards, by artist</p>
+          <h1>A binder of<br><em>little worlds</em></h1>
+          <p class="hero-intro">Explore Pokémon cards through the eyes of their illustrators, and curate the cards that bring you joy, one little world at a time.</p>
           <div class="hero-meta">
             <span class="meta-spark" aria-hidden="true">✳</span>
             <span>{{ARTIST_COUNT}} artist checklists</span>
@@ -42,8 +42,18 @@
             <span>{{CARD_COUNT}} cards to collect</span>
           </div>
         </div>
-        <div class="hero-art home-still-life" aria-hidden="true">
-          <img class="still-life-artwork" src="assets/homepage-art.png" alt="" fetchpriority="high" decoding="async">
+        <div class="hero-art home-album" aria-hidden="true">
+          <div class="home-album-cover">
+            <div class="home-album-page">
+              <div class="home-album-heading"><span>POKÉCHECKLIST</span><span>ARTIST INDEX</span></div>
+              <div class="home-album-spread">
+                <div class="home-album-leaf">{{HOME_ALBUM_LEFT}}</div>
+                <div class="home-album-binding"><i></i><i></i><i></i></div>
+                <div class="home-album-leaf">{{HOME_ALBUM_RIGHT}}</div>
+              </div>
+              <div class="home-album-footer"><span>COLLECT A LITTLE ART &amp; JOY</span><span>✳</span></div>
+            </div>
+          </div>
         </div>
       </section>
 
