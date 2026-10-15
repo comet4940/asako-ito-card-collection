@@ -10,6 +10,7 @@
   let cards = [];
   let owned = new Set();
   let showMissingOnly = false;
+  let newestFirst = false;
   let searchTerm = "";
   let toastTimeout;
 
@@ -137,7 +138,8 @@
 
   function renderList() {
     const query = searchTerm.trim().toLocaleLowerCase();
-    const filtered = cards.filter(card => {
+    const orderedCards = newestFirst ? cards.slice().reverse() : cards;
+    const filtered = orderedCards.filter(card => {
       const isOwned = owned.has(card.id);
       const matchesFilter = !showMissingOnly || !isOwned;
       const matchesSearch = !query ||
@@ -306,6 +308,15 @@
   document.getElementById("missing-filter-toggle").addEventListener("click", () => {
     showMissingOnly = !showMissingOnly;
     updateProgress();
+    renderList();
+  });
+  document.getElementById("sort-toggle").addEventListener("click", event => {
+    newestFirst = !newestFirst;
+    const currentDirection = newestFirst ? "newest to oldest" : "oldest to newest";
+    const nextDirection = newestFirst ? "oldest to newest" : "newest to oldest";
+    document.getElementById("sort-label").textContent = newestFirst ? "Newest first" : "Oldest first";
+    event.currentTarget.setAttribute("aria-label", "Cards are sorted " + currentDirection + ". Activate to sort " + nextDirection + ".");
+    event.currentTarget.title = "Sort " + nextDirection;
     renderList();
   });
   els.search.addEventListener("input", () => { searchTerm = els.search.value; renderList(); });
