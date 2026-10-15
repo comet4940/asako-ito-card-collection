@@ -19,6 +19,12 @@ if (!/^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(aki
 }
 await writeFile(path.join(distDir, "assets/akira-egawa-grand-canvases.jpg"), Buffer.from(akiraHeroBase64, "base64"));
 
+const akiraHeroWebpBase64 = (await readFile(path.join(projectRoot, "site/akira-egawa-grand-canvases-hero.webp.base64"), "utf8")).trim();
+if (!/^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(akiraHeroWebpBase64)) {
+  throw new Error("Akira Egawa transparent hero image source is not valid base64.");
+}
+await writeFile(path.join(distDir, "assets/akira-egawa-grand-canvases-hero.webp"), Buffer.from(akiraHeroWebpBase64, "base64"));
+
 function escapeHtml(value) {
   return String(value).replace(/[&<>"']/g, character => ({
     "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
