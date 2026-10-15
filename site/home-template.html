@@ -15,7 +15,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=8">
+  <link rel="stylesheet" href="styles.css?v=12">
   <script src="artists.js" defer></script>
   <script src="home.js" defer></script>
 </head>
@@ -32,9 +32,9 @@
     <main>
       <section class="hero home-hero">
         <div class="hero-copy">
-          <p class="eyebrow"><span class="eyebrow-dot"></span> A Pokémon card checklist</p>
-          <h1>PokeChecklist<br><em>collect by artist</em></h1>
-          <p class="hero-intro">Find an illustrator, explore their Pokémon cards, and keep track of the ones in your binder. When you’re ready, send your missing cards to TCGplayer.</p>
+          <p class="eyebrow"><span class="eyebrow-dot"></span> Pokémon cards, by artist</p>
+          <h1>A collection of<br><em>little worlds</em></h1>
+          <p class="hero-intro">Meet the illustrators behind your favorite cards. Explore their hand-stitched, sculpted, painted, and inked worlds, then keep track of the cards you’re collecting.</p>
           <div class="hero-meta">
             <span class="meta-spark" aria-hidden="true">✳</span>
             <span>{{ARTIST_COUNT}} artist checklists</span>
@@ -42,8 +42,12 @@
             <span>{{CARD_COUNT}} cards to collect</span>
           </div>
         </div>
-        <div class="hero-art home-still-life" aria-hidden="true">
-          <img class="still-life-artwork" src="assets/homepage-art.png" alt="" fetchpriority="high" decoding="async">
+        <div class="hero-art home-gallery" aria-hidden="true">
+          <img class="home-gallery-piece home-gallery-piece--fiber" src="assets/asako-ito-amigurumi-v2.png" alt="" fetchpriority="high" decoding="async">
+          <img class="home-gallery-piece home-gallery-piece--clay" src="assets/yuka-morii-clay-diorama-v2.png" alt="" decoding="async">
+          <img class="home-gallery-piece home-gallery-piece--ink" src="assets/shinji-kanda-ink-diorama.png" alt="" decoding="async">
+          <img class="home-gallery-piece home-gallery-piece--gouache" src="assets/tomokazu-komiya-gouache-cutout.png" alt="" decoding="async">
+          <span class="home-gallery-caption">FIBER · CLAY · INK · GOUACHE</span>
         </div>
       </section>
 

@@ -148,11 +148,13 @@ for (const artist of artists) {
 }
 
 const totalCards = catalogs.reduce((total, item) => total + item.cards.length, 0);
+const homepageCatalogs = catalogs.filter(item => !item.artist.hideFromHomepage);
+const homepageCardCount = homepageCatalogs.reduce((total, item) => total + item.cards.length, 0);
 const homePage = replaceTokens(homeTemplate, {
   CANONICAL_URL: escapeHtml(siteUrl + "/"),
-  ARTIST_COUNT: catalogs.length,
-  CARD_COUNT: totalCards,
-  ARTIST_TILES: catalogs.map(item => renderTile(item.artist, item.cards)).join("\n          ")
+  ARTIST_COUNT: homepageCatalogs.length,
+  CARD_COUNT: homepageCardCount,
+  ARTIST_TILES: homepageCatalogs.map(item => renderTile(item.artist, item.cards)).join("\n          ")
 });
 await writeFile(path.join(distDir, "index.html"), homePage);
 
