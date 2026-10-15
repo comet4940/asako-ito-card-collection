@@ -250,44 +250,31 @@ h1 em { color: #6b8770; font-weight: 500; }
 }
 
 .artist-profile--tomokazu-komiya {
-  border-color: #e7d8a9;
+  border-color: #e5ddd0;
   background:
-    radial-gradient(circle, rgba(179, 116, 48, .15) .7px, transparent .9px) 0 0 / 21px 21px,
-    #f5f0df;
+    radial-gradient(circle, rgba(160, 127, 83, .12) .7px, transparent .9px) 0 0 / 21px 21px,
+    #f3efe8;
 }
 .artist-profile--tomokazu-komiya h1 em { color: #b44f3c; }
 .artist-profile--tomokazu-komiya .profile-badge-medium {
-  border-color: #ead7a8;
-  background: #fff4d2;
+  border-color: #ead9b8;
+  background: #faf1dd;
   color: #8c5624;
 }
 .artist-profile--tomokazu-komiya .profile-feature {
-  position: relative;
-  z-index: 0;
-  width: min(100%, 450px);
+  width: min(100%, 470px);
   overflow: visible;
-  padding: 11px;
-  border: 1px solid #e8d9b9;
-  border-radius: 7px;
-  background: #fffaf0;
-  box-shadow: 0 13px 22px rgba(68, 54, 35, .15);
-  transform: rotate(-1deg);
-}
-.artist-profile--tomokazu-komiya .profile-feature::before {
-  position: absolute;
-  z-index: -1;
-  inset: 8px -9px -9px 8px;
-  border: 1px solid rgba(132, 91, 47, .2);
-  border-radius: 7px;
-  background: #e6bd73;
-  content: "";
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  transform: none;
 }
 .artist-profile--tomokazu-komiya .profile-feature-image {
   aspect-ratio: auto;
-  border: 1px solid rgba(91, 69, 38, .16);
-  border-radius: 2px;
+  border: 0;
+  border-radius: 0;
   object-fit: contain;
-  filter: none;
+  filter: drop-shadow(0 16px 18px rgba(76, 61, 37, .18));
 }
 
 .home-hero { min-height: 330px; background: #f3efea; }
