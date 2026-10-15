@@ -207,8 +207,8 @@ for (const { artist, cards } of catalogs) {
     CARD_LIST: renderCardIndex(cards),
     DESCRIPTION: escapeHtml(description),
     PAGE_TITLE: escapeHtml(pageTitle),
-    SOCIAL_PREVIEW_URL: escapeHtml(siteUrl + "/" + (artist.pageHeroAsset || "assets/pokechecklist-social-preview.jpg")),
-    SOCIAL_PREVIEW_ALT: escapeHtml(artist.pageHeroAlt || "A binder of little worlds with Pokémon cards by artist."),
+    SOCIAL_PREVIEW_URL: escapeHtml(siteUrl + "/" + (artist.pageSocialAsset || "assets/pokechecklist-social-preview.jpg")),
+    SOCIAL_PREVIEW_ALT: escapeHtml(artist.pageSocialAlt || (artist.pageSocialAsset ? artist.name + "’s " + artist.pageHeading + " artist page header." : "A binder of little worlds with Pokémon cards in the artist index.")),
     CANONICAL_URL: escapeHtml(pageUrl)
   });
   await writeFile(path.join(outputDir, "index.html"), page);
