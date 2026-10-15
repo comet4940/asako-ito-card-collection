@@ -105,19 +105,19 @@
     return url.toString();
   }
 
-  function renderAsakoOwnedStamp() {
+  function renderCaughtStamp() {
     return '<span class="owned-stamp caught-stamp" aria-hidden="true"><svg viewBox="0 0 100 100" focusable="false"><path class="ball-top" d="M14 50a36 36 0 0 1 72 0H14Z"></path><g class="ball-wear"><circle cx="25" cy="31" r="1.6"></circle><circle cx="34" cy="21" r="1.1"></circle><circle cx="46" cy="17" r="1.4"></circle><circle cx="68" cy="20" r="1.5"></circle><circle cx="78" cy="29" r="1.1"></circle><circle cx="19" cy="41" r="1"></circle><circle cx="60" cy="29" r="1"></circle><circle cx="39" cy="36" r=".8"></circle><path d="M28 26l2-1m31-8 2 1m13 14 2-1M45 22l1-2m-25 18 1-1"></path></g><path class="ball-band" d="M14 50h72"></path><path class="ball-outline" d="M50 14c20 0 36 16 36 36 0 19-16 36-36 36S14 69 14 50c0-20 16-36 36-36Z"></path><circle class="ball-button-ring" cx="50" cy="50" r="11"></circle><circle class="ball-button" cx="50" cy="50" r="4.5"></circle></svg></span>';
   }
 
   function renderCard(card) {
     const isOwned = owned.has(card.id);
-    const hasYarnStamp = currentArtist.id === "asako-ito";
+    const hasOwnedStamp = currentArtist.id === "asako-ito" || currentArtist.id === "yuka-morii";
     const imageAlt = card.name + " card from " + card.set;
     const image = card.image
       ? '<img class="card-image" src="' + escapeHtml(card.image) + '" alt="' + escapeHtml(imageAlt) + '" loading="lazy" decoding="async">'
       : '<span>Card image unavailable</span>';
-    const ownedStamp = hasYarnStamp && isOwned
-      ? renderAsakoOwnedStamp()
+    const ownedStamp = hasOwnedStamp && isOwned
+      ? renderCaughtStamp()
       : "";
     return '<article class="card-row ' + (isOwned ? "is-owned" : "") + '">' +
       '<label class="own-toggle card-own-toggle" aria-label="Mark ' + escapeHtml(card.name) + " as " + (isOwned ? "not owned" : "owned") + '">' +
@@ -191,11 +191,11 @@
       if (toggle) toggle.setAttribute("aria-label", "Mark " + card.name + " as " + (input.checked ? "not owned" : "owned"));
       const status = row.querySelector(".owned-tag");
       if (status) status.textContent = input.checked ? "In binder" : "Not in binder";
-      if (currentArtist.id === "asako-ito") {
+      if (currentArtist.id === "asako-ito" || currentArtist.id === "yuka-morii") {
         const frame = row.querySelector(".card-image-frame");
         const stamp = frame && frame.querySelector(".owned-stamp");
         if (input.checked && frame && !stamp) {
-          frame.insertAdjacentHTML("beforeend", renderAsakoOwnedStamp());
+          frame.insertAdjacentHTML("beforeend", renderCaughtStamp());
         } else if (!input.checked && stamp) {
           stamp.remove();
         }
