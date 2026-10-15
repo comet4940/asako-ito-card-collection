@@ -274,7 +274,8 @@ h1 em { color: #6b8770; font-weight: 500; }
   border: 0;
   border-radius: 0;
   object-fit: contain;
-  filter: drop-shadow(0 16px 18px rgba(76, 61, 37, .18));
+  transform: perspective(1000px) rotateY(-2deg) rotateX(1deg);
+  filter: drop-shadow(0 5px 4px rgba(76, 61, 37, .12)) drop-shadow(0 19px 14px rgba(76, 61, 37, .15)) drop-shadow(0 32px 25px rgba(76, 61, 37, .1));
 }
 
 .home-hero { min-height: 330px; background: #f3efea; }
