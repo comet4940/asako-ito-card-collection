@@ -642,22 +642,16 @@ h2 { margin: 0; color: #304740; font-size: 25px; line-height: 1.15; }
 .shopping-note p { max-width: 690px; margin: 0; color: #7d897e; font-size: 11px; line-height: 1.6; }
 .shopping-note .text-button { white-space: nowrap; }
 
-.footer { padding: 19px 0 27px; display: grid; grid-template-columns: auto minmax(0, 1fr); grid-template-rows: auto auto; gap: 9px 20px; align-items: center; border-top: 1px solid var(--line); color: #9ba29a; }
-.footer-brand { grid-column: 1; grid-row: 1; color: #718076; font-size: 10px; }
-.footer p { grid-column: 2; grid-row: 1 / 3; max-width: calc(100% - 150px); margin: 0; font-size: 9px; line-height: 1.5; }
-.footer-credit {
-  grid-column: 1;
-  grid-row: 2;
-  justify-self: start;
-  color: #7b887f;
-  font-size: 10px;
-  font-weight: 600;
-  text-decoration: none;
-  white-space: nowrap;
-}
+.footer { display: flex; flex-direction: column; align-items: stretch; gap: 0; padding: 19px 0 27px; border-top: 1px solid var(--line); color: #9ba29a; }
+.footer-top { display: flex; align-items: center; flex-wrap: wrap; column-gap: 10px; row-gap: 5px; }
+.footer-brand { color: #718076; font-size: 10px; letter-spacing: 0; }
+.footer-separator { color: #b3b5ab; font-size: 12px; }
+.footer-credit { color: #7b887f; font-size: 10px; font-weight: 600; text-decoration: none; white-space: normal; }
 .footer-credit:hover { color: var(--green-dark); text-decoration: underline; }
 .footer-credit-heart { color: var(--rose); }
 .footer-credit-name { color: var(--ink); font-weight: 700; }
+.footer-tagline { margin: 6px 0 0; color: #9ba29a; font-size: 9px; line-height: 1.5; }
+.footer-disclaimer { box-sizing: border-box; width: 100%; max-width: calc(100% - 170px); margin: 13px 0 0; padding-top: 11px; border-top: 1px solid var(--line); font-size: 9px; line-height: 1.5; }
 
 .shopping-dialog {
   width: min(555px, calc(100vw - 26px));
@@ -728,8 +722,6 @@ h2 { margin: 0; color: #304740; font-size: 25px; line-height: 1.15; }
   .profile-hero + .collection-panel .progress-layout { align-items: center; flex-direction: row; gap: 18px; }
   .progress-actions { justify-content: flex-end; }
   .card-list { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
-  .footer { grid-template-columns: auto minmax(0, 1fr); }
-  .footer p { order: initial; grid-column: 2; grid-row: 1 / 3; max-width: calc(100% - 150px); }
   .artist-grid { gap: 13px; }
   .artist-tile { min-height: 0; padding: 19px 20px 0; }
   .tile-name { font-size: 29px; }
@@ -830,9 +822,9 @@ h2 { margin: 0; color: #304740; font-size: 25px; line-height: 1.15; }
   .shopping-note h2 { font-size: 16px; }
   .shopping-note p { font-size: 10px; }
   .shopping-note .text-button { margin-left: 41px; }
-  .footer { display: flex; align-items: flex-start; flex-direction: column; gap: 9px; padding: 16px 0 23px; }
-  .footer-credit { order: 2; max-width: calc(100vw - 260px); white-space: normal; line-height: 1.45; }
-  .footer p { order: 3; max-width: calc(100vw - 260px); }
+  .footer { padding: 16px 0 23px; }
+  .footer-top { column-gap: 7px; }
+  .footer-disclaimer { max-width: calc(100% - 150px); }
   .dialog-content { padding: 30px 19px 23px; }
   .dialog-content h2 { font-size: 26px; }
   .dialog-actions { flex-direction: column; }
