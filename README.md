@@ -19,7 +19,7 @@ Asako Ito's existing card IDs remain stable so saved binder progress carries for
 
 ## Hosting
 
-The public site is deployed to [GitHub Pages](https://comet4940.github.io/asako-ito-card-collection/) by GitHub Actions whenever a commit is pushed to `main`. The workflow runs `node scripts/build-site.mjs` to generate the artist pages, canonical URLs, `sitemap.xml`, and `robots.txt`, then deploys the `dist/` folder. The generated artist URLs work directly at paths such as `/asako-ito/`, including on refresh. The build uses the current GitHub Pages address; once a custom domain is ready, set `POKECHECKLIST_SITE_URL` in the workflow to that domain and connect it in GitHub Pages settings.
+The public site is deployed to [GitHub Pages](https://comet4940.github.io/poke-checklist/) by GitHub Actions whenever a commit is pushed to `main`. The workflow runs `node scripts/build-site.mjs` to generate the artist pages, canonical URLs, `sitemap.xml`, and `robots.txt`, then deploys the `dist/` folder. The generated artist URLs work directly at paths such as `/asako-ito/`, including on refresh. The build uses the current GitHub Pages address; once a custom domain is ready, set `POKECHECKLIST_SITE_URL` in the workflow to that domain and connect it in GitHub Pages settings.
 
 To preview the generated static files locally, run `node scripts/build-site.mjs` and serve the `dist/` directory with any static file server.
 
