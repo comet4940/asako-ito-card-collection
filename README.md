@@ -1,34 +1,74 @@
 # PokeChecklist
 
-A fan-made Pokémon TCG checklist for collecting cards by illustrator. Browse artist pages, track your binder, download the cards you are missing, or send them to TCGplayer Mass Entry.
+**A binder of little worlds.** PokeChecklist is a fan-made Pokémon TCG checklist for exploring cards through the eyes of their illustrators. Browse artist pages, keep track of the cards in your binder, and make a list of the ones you are still looking for.
 
-## Current behavior
+**Live site:** [pokechecklist.com](https://pokechecklist.com/)
 
-- Browse artist checklists from the home page; every artist has a direct, shareable page and a separate saved binder.
-- Check and uncheck owned cards; progress is saved in the visitor's browser with local storage. Card art appears beside each card's set and collector number.
-- Search by Pokémon or set and filter to all, missing, or owned cards.
-- Download a CSV containing only missing cards, with their set, collector number, and TCGplayer search link.
-- Open TCGplayer Mass Entry with the missing-card list already filled in; copy and download the list are also available as fallbacks.
-- Sort cards by set release date from oldest to newest.
+## What you can do
 
-## Artist data
+- Browse a directory of illustrators, each with a shareable checklist page.
+- Mark cards as collected and see binder progress update as you go.
+- Search by Pokémon or set, filter to owned or missing cards, and sort by release date.
+- Download a CSV of missing cards, copy or download a shopping list, or open it in TCGplayer Mass Entry.
+- Share the homepage or an artist page with its own social preview and artist header image.
 
-The initial artists are Asako Ito, Yuka Morii, Akira Egawa, Tomokazu Komiya, and Shinji Kanda. English physical card catalogs use card, illustrator, image, and set-date data from [TCGdex](https://tcgdex.dev/), with the digital Pokémon TCG Pocket series excluded. Artist catalog files are kept separate in `dist/data/`; add an artist in its own change by adding one data file and one entry in `dist/artists.js`.
+## Your binder and privacy
 
-Asako Ito's existing card IDs remain stable so saved binder progress carries forward. Older local-storage values are migrated the first time her checklist is opened.
+Binder progress is saved in local storage in the browser you use. It is not synced to an account or across devices; clearing that browser's site data can erase it.
 
-## Hosting
+The site uses Google Analytics 4 to understand aggregate use of the artist directory and collection tools. Its versioned event contract limits what the site sends: it does not send card IDs or names, set names, raw search text, collection contents, or shopping-list contents. See [ANALYTICS.md](ANALYTICS.md) for the event list and privacy rules.
 
-The public site is deployed to [pokechecklist.com](https://pokechecklist.com/) by GitHub Actions whenever a commit is pushed to `main`. The workflow runs `node scripts/build-site.mjs` with `POKECHECKLIST_SITE_URL=https://pokechecklist.com` to generate the artist pages, canonical URLs, `sitemap.xml`, and `robots.txt`, then deploys the `dist/` folder. The generated artist URLs work directly at paths such as `/asako-ito/`, including on refresh. To connect the domain, set `pokechecklist.com` as the custom domain in the repository's **Settings → Pages**. At the domain provider, point the apex (`@`) to GitHub Pages with A records `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, and `185.199.111.153`; point `www` to `comet4940.github.io` with a CNAME record. Once DNS is verified and GitHub Pages provisions the certificate, enable **Enforce HTTPS**.
+## Card catalog
 
-To preview the generated static files locally, run `node scripts/build-site.mjs` and serve the `dist/` directory with any static file server.
+The catalog covers English physical Pokémon TCG cards and excludes the digital Pokémon TCG Pocket series. Card, illustrator, image, and set-date data are sourced from [TCGdex](https://tcgdex.dev/). Catalog files live in `dist/data/` and are registered in `dist/artists.js`.
 
-## Shopping and affiliate setup
+Card identifiers are used to remember binder selections. Keep existing IDs stable when refreshing catalog data so collectors' saved progress continues to match their cards.
 
-TCGplayer's [Mass Entry guide](https://help.tcgplayer.com/hc/en-us/articles/360055768913-Getting-Started-With-Mass-Entry) documents the list format and its card-set codes. The app hands the missing-card list to TCGplayer for inventory, condition, seller, and shipping choices.
+## Run a local preview
 
-After joining TCGplayer's Affiliate Program through Impact, set `AFFILIATE_MASS_ENTRY_URL` in `dist/artists.js` to the exact Impact-generated link whose destination is the Pokémon Mass Entry page. The shopping button will use that destination and display the affiliate disclosure. Do not use another site's tracking link.
+You need Node.js and Python 3. From the repository root, build the generated pages and serve `dist/`:
 
-## Data refresh
+```sh
+node scripts/build-site.mjs
+python3 -m http.server 8000 --directory dist
+```
 
-Artist card files are sorted by set release date. Add a new artist as a separate commit with a file under `dist/data/` and a matching registry entry in `dist/artists.js`.
+Then open [http://localhost:8000](http://localhost:8000). The preview includes the homepage and generated artist routes. Analytics is disabled on local hosts by default; the production site uses the configured GA4 measurement ID.
+
+## Project structure
+
+```text
+.github/workflows/deploy.yml  Builds and deploys the production site
+ANALYTICS.md                  GA4 event and privacy contract
+site/
+  home-template.html       Homepage template
+  artist-template.html     Artist checklist template
+scripts/
+  build-site.mjs           Generates artist pages, canonical URLs, and sitemap
+dist/
+  artists.js               Artist registry and page metadata
+  data/                    Artist card catalogs
+  assets/                  Illustrations, icons, and social preview images
+  *.js, *.css              Browser app and styles
+```
+
+The build renders the homepage and one route per registered artist into `dist/`. Artist pages have stable, direct URLs such as `/asako-ito/` and are included in the generated sitemap.
+
+## Add or update an artist
+
+1. Add or update that artist's catalog in `dist/data/`.
+2. Add the matching entry to `ARTIST_REGISTRY` in `dist/artists.js`, including the artist ID, name, description, and any header or social-preview assets.
+3. Keep card IDs stable for existing cards so saved binder progress is preserved.
+4. Run `node scripts/build-site.mjs` to regenerate the pages and sitemap.
+
+Keep each artist addition focused in its own change. The homepage can hide an artist tile while that artist's page remains in the catalog.
+
+## Deployment
+
+GitHub Actions builds and deploys `dist/` to GitHub Pages when changes are pushed to `main`. The live custom domain is [pokechecklist.com](https://pokechecklist.com/), served over HTTPS. The workflow sets `POKECHECKLIST_SITE_URL` and `POKECHECKLIST_GA_MEASUREMENT_ID` for the production build.
+
+## Shopping links and attribution
+
+PokeChecklist prepares missing-card lists for TCGplayer, but it does not show live inventory or prices and never places an order. Card matches, seller options, shipping, and checkout are handled by TCGplayer. Any affiliate link must be configured with the approved Impact-generated destination; the site displays a disclosure when an affiliate link is active.
+
+PokeChecklist is a fan-made project and is not affiliated with Pokémon or TCGplayer. Pokémon names and card artwork belong to their respective owners.
