@@ -92,8 +92,8 @@ function renderProfileHero(artist, cards) {
           '<span class="profile-badge"><span aria-hidden="true">🗂️</span> ' + cards.length + ' cards across ' + setCount + ' sets</span>',
         '</div>',
       '</div>',
-      '<div class="profile-feature" aria-hidden="true">',
-        '<img class="profile-feature-image" src="' + escapeHtml(artist.pageHeroAsset) + '" alt="" fetchpriority="high" decoding="async">',
+      '<div class="profile-feature">',
+        '<img class="profile-feature-image" src="' + escapeHtml(artist.pageHeroAsset) + '" alt="' + escapeHtml(artist.pageHeroAlt || "") + '" fetchpriority="high" decoding="async">',
       '</div>',
     '</section>'
   ].join("");

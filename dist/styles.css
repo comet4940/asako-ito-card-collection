@@ -207,8 +207,20 @@ h1 em { color: #6b8770; font-weight: 500; }
   background: #fbefea;
   color: #92523d;
 }
+.artist-profile--yuka-morii .profile-feature {
+  width: min(100%, 430px);
+  overflow: hidden;
+  border: 7px solid rgba(255, 255, 255, .88);
+  border-radius: 19px;
+  background: #fff;
+  box-shadow: 0 14px 26px rgba(106, 72, 52, .18);
+  transform: rotate(1deg);
+}
 .artist-profile--yuka-morii .profile-feature-image {
-  filter: drop-shadow(0 14px 16px rgba(106, 72, 52, .16));
+  aspect-ratio: 4 / 3;
+  border-radius: 11px;
+  object-fit: cover;
+  filter: none;
 }
 
 .home-hero { min-height: 330px; background: #f3efea; }
@@ -576,6 +588,7 @@ h2 { margin: 0; color: #304740; font-size: 25px; line-height: 1.15; }
   .profile-badges { gap: 6px; }
   .profile-badge { min-height: 29px; padding: 5px 9px; font-size: 10px; }
   .profile-feature { width: min(100%, 200px); margin-top: 10px; }
+  .artist-profile--yuka-morii .profile-feature { width: min(100%, 290px); }
   .hero-copy { position: relative; z-index: 1; max-width: 100%; }
   h1 { font-size: 49px; }
   .hero-intro { max-width: 370px; margin: 14px 0 14px; font-size: 12px; }
