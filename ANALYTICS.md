@@ -6,7 +6,7 @@ This document defines Google Analytics 4 events and privacy rules for PokeCheckl
 
 Measure aggregate use of the artist index and checklists so the project can improve navigation and collection tools.
 
-The deploy workflow reads the GitHub Actions repository variable `POKECHECKLIST_GA_MEASUREMENT_ID`. Set it to the GA4 web stream ID beginning with `G-`. This identifier is public site configuration, not a password or secret. If it is unset or malformed, the generated pages do not load the Google tag or send analytics events.
+The deploy workflow injects the verified GA4 web stream ID `G-BFDBZJF9KY` as build-time configuration. This identifier is public site configuration, not a password or secret. If the ID is unset or malformed in a build, the generated pages do not load the Google tag or send analytics events. To change the stream later, update `POKECHECKLIST_GA_MEASUREMENT_ID` in `.github/workflows/deploy.yml`.
 
 Use a dedicated GA4 property for PokeChecklist and one web stream for `https://pokechecklist.com`. A separate property under an existing Analytics account keeps this site's reports separate from another website.
 
