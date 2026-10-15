@@ -30,6 +30,7 @@ jobs:
       - name: Generate artist pages and sitemap
         env:
           POKECHECKLIST_SITE_URL: https://pokechecklist.com
+          POKECHECKLIST_GA_MEASUREMENT_ID: ${{ vars.POKECHECKLIST_GA_MEASUREMENT_ID }}
         run: node scripts/build-site.mjs
       - name: Upload site files
         uses: actions/upload-pages-artifact@v5
