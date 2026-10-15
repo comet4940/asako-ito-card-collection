@@ -26,11 +26,13 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=14">
+  <link rel="stylesheet" href="styles.css?v=18">
   <script>window.POKE_CHECKLIST_ANALYTICS = { measurementId: "{{GA_MEASUREMENT_ID}}", pageType: "home" };</script>
   <script src="analytics.js?v=1" defer></script>
   <script src="artists.js" defer></script>
   <script src="home.js" defer></script>
+  <!-- Buy Me a Coffee support widget -->
+  <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="cometakira" data-description="Leave a little treat for the binder." data-message="" data-color="#466F5D" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
 </head>
 <body class="home-page">
   <div class="site-shell">
@@ -90,8 +92,12 @@
     </main>
 
     <footer class="footer">
-      <div class="footer-brand"><img class="brand-mark small" src="assets/pokechecklist-icon.svg" alt=""><span>PokeChecklist</span></div>
-      <p>Fan-made checklists for collectors. Pokémon and card artwork belong to their respective owners. Not affiliated with Pokémon or TCGplayer.</p>
+      <div class="footer-top">
+        <div class="footer-brand"><img class="brand-mark small" src="assets/pokechecklist-icon.svg" alt=""><span>PokeChecklist</span></div>
+        <span class="footer-separator" aria-hidden="true">·</span>
+        <a class="footer-credit" href="https://semiseriousllc.com/" target="_blank" rel="noopener noreferrer" aria-label="Made with love by Semi Serious Labs (opens in a new tab)">Made with <span class="footer-credit-heart" aria-hidden="true">♥</span> by <span class="footer-credit-name">Semi Serious Labs</span></a>
+      </div>
+      <p class="footer-disclaimer">Fan-made collection checklist. Pokémon and card art belong to their respective owners. Not affiliated with Pokémon or TCGplayer.</p>
     </footer>
   </div>
 </body>
