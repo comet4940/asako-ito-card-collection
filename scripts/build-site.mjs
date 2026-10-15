@@ -54,22 +54,15 @@ function renderTile(artist, cards) {
   ].join("");
 }
 
-function renderAlbumCards(catalogs) {
-  const available = catalogs.filter(item => item.cards.some(card => card.image));
-  if (!available.length) return { left: "", right: "" };
-  const count = Math.min(2, available.length);
-  const indexes = count === 1
-    ? [0]
-    : Array.from({ length: count }, (_, index) => Math.round(index * (available.length - 1) / (count - 1)));
-  const samples = indexes.map(index => {
-    const cards = available[index].cards.filter(card => card.image);
-    return cards[Math.floor((cards.length - 1) * 0.62)];
-  }).filter(Boolean);
-  const renderCard = card => '<div class="home-album-sleeve"><img src="' + escapeHtml(card.image) + '" alt="" loading="eager" decoding="async"></div>';
-  const middle = Math.ceil(samples.length / 2);
+function renderAlbumCards() {
+  const cardImages = [
+    "assets/home-album-altaria-asako-ito.png",
+    "assets/home-album-brute-bonnet-tomokazu-komiya.png"
+  ];
+  const renderCard = image => '<div class="home-album-sleeve"><img src="' + escapeHtml(image) + '" alt="" loading="eager" decoding="async"></div>';
   return {
-    left: samples.slice(0, middle).map(renderCard).join(""),
-    right: samples.slice(middle).map(renderCard).join("")
+    left: renderCard(cardImages[0]),
+    right: renderCard(cardImages[1])
   };
 }
 
@@ -169,7 +162,7 @@ for (const artist of artists) {
 const totalCards = catalogs.reduce((total, item) => total + item.cards.length, 0);
 const homepageCatalogs = catalogs.filter(item => !item.artist.hideFromHomepage);
 const homepageCardCount = homepageCatalogs.reduce((total, item) => total + item.cards.length, 0);
-const homeAlbumCards = renderAlbumCards(homepageCatalogs);
+const homeAlbumCards = renderAlbumCards();
 const homePage = replaceTokens(homeTemplate, {
   CANONICAL_URL: escapeHtml(siteUrl + "/"),
   ARTIST_COUNT: homepageCatalogs.length,
