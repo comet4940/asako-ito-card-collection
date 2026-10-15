@@ -155,7 +155,7 @@ h1 em { color: #6b8770; font-weight: 500; }
 }
 .art-label b { color: #536f5d; font-size: 12px; }
 
-.asako-hero {
+.profile-hero {
   min-height: 0;
   padding: 18px 32px;
   grid-template-columns: minmax(0, 1.65fr) minmax(300px, .85fr);
@@ -167,33 +167,49 @@ h1 em { color: #6b8770; font-weight: 500; }
     radial-gradient(circle, rgba(162, 145, 119, .17) .7px, transparent .9px) 0 0 / 21px 21px,
     #f3efea;
 }
-.asako-hero::after { display: none; }
-.asako-copy { min-width: 0; }
-.asako-breadcrumbs { display: flex; align-items: center; flex-wrap: wrap; gap: 11px; color: #8c877e; font-size: 12px; }
-.asako-breadcrumbs a { color: inherit; text-decoration: none; }
-.asako-breadcrumbs a:hover { color: #3d7653; text-decoration: underline; }
-.asako-breadcrumbs span[aria-current="page"] { color: #26231f; font-weight: 700; }
-.asako-hero h1 { margin: 23px 0 0; color: #1e1c19; font-size: clamp(44px, 5vw, 66px); line-height: .98; }
-.asako-hero h1 span, .asako-hero h1 em { display: block; }
-.asako-hero h1 em { margin-top: 3px; color: #3d7653; font-weight: 500; }
-.asako-intro { max-width: 740px; margin: 21px 0 19px; color: #5c5851; font-size: clamp(15px, 1.35vw, 19px); line-height: 1.5; }
-.asako-badges { display: flex; flex-wrap: wrap; gap: 8px; }
-.asako-badge { min-height: 34px; padding: 7px 12px; display: inline-flex; align-items: center; gap: 5px; border: 1px solid #e8e2d7; border-radius: 999px; background: #fff; color: #5c5851; font-size: 11px; font-weight: 600; line-height: 1.3; }
-.asako-badge-medium { border-color: #d5e7d7; background: #edf5ed; color: #315d3e; }
-.asako-feature { width: min(100%, 410px); margin: 0 auto; }
-.asako-feature-image { width: 100%; height: auto; display: block; object-fit: contain; filter: drop-shadow(0 12px 14px rgba(50, 45, 37, .09)); }
-.asako-hero h1 { margin-top: 14px; font-size: clamp(40px, 4.3vw, 56px); }
-.asako-intro { margin: 10px 0 11px; line-height: 1.45; }
-.asako-hero + .collection-panel { padding: 13px 20px; }
-.asako-hero + .collection-panel .panel-heading { margin-bottom: 8px; }
-.asako-hero + .collection-panel .panel-heading .eyebrow { display: none; }
-.asako-hero + .collection-panel h2 { font-size: 21px; }
-.asako-hero + .collection-panel .progress-numbers { margin-bottom: 6px; }
-.asako-hero + .collection-panel .progress-numbers strong { font-size: 23px; }
-.asako-hero + .collection-panel .progress-numbers small { font-size: 13px; }
-.asako-hero + .collection-panel .progress-caption { margin-top: 5px; }
-.asako-hero + .collection-panel + .cards-section { padding-top: 24px; }
-.asako-hero + .collection-panel + .cards-section .cards-heading h2 { font-size: 27px; }
+.profile-hero::after { display: none; }
+.profile-copy { min-width: 0; }
+.profile-breadcrumbs { display: flex; align-items: center; flex-wrap: wrap; gap: 11px; color: #8c877e; font-size: 12px; }
+.profile-breadcrumbs a { color: inherit; text-decoration: none; }
+.profile-breadcrumbs a:hover { color: #3d7653; text-decoration: underline; }
+.profile-breadcrumbs span[aria-current="page"] { color: #26231f; font-weight: 700; }
+.profile-hero h1 { margin: 23px 0 0; color: #1e1c19; font-size: clamp(44px, 5vw, 66px); line-height: .98; }
+.profile-hero h1 span, .profile-hero h1 em { display: block; }
+.profile-hero h1 em { margin-top: 3px; color: #3d7653; font-weight: 500; }
+.profile-intro { max-width: 740px; margin: 21px 0 19px; color: #5c5851; font-size: clamp(15px, 1.35vw, 19px); line-height: 1.5; }
+.profile-badges { display: flex; flex-wrap: wrap; gap: 8px; }
+.profile-badge { min-height: 34px; padding: 7px 12px; display: inline-flex; align-items: center; gap: 5px; border: 1px solid #e8e2d7; border-radius: 999px; background: #fff; color: #5c5851; font-size: 11px; font-weight: 600; line-height: 1.3; }
+.profile-badge-medium { border-color: #d5e7d7; background: #edf5ed; color: #315d3e; }
+.profile-feature { width: min(100%, 410px); margin: 0 auto; }
+.profile-feature-image { width: 100%; height: auto; display: block; object-fit: contain; filter: drop-shadow(0 12px 14px rgba(50, 45, 37, .09)); }
+.profile-hero h1 { margin-top: 14px; font-size: clamp(40px, 4.3vw, 56px); }
+.profile-intro { margin: 10px 0 11px; line-height: 1.45; }
+.profile-hero + .collection-panel { padding: 13px 20px; }
+.profile-hero + .collection-panel .panel-heading { margin-bottom: 8px; }
+.profile-hero + .collection-panel .panel-heading .eyebrow { display: none; }
+.profile-hero + .collection-panel h2 { font-size: 21px; }
+.profile-hero + .collection-panel .progress-numbers { margin-bottom: 6px; }
+.profile-hero + .collection-panel .progress-numbers strong { font-size: 23px; }
+.profile-hero + .collection-panel .progress-numbers small { font-size: 13px; }
+.profile-hero + .collection-panel .progress-caption { margin-top: 5px; }
+.profile-hero + .collection-panel + .cards-section { padding-top: 24px; }
+.profile-hero + .collection-panel + .cards-section .cards-heading h2 { font-size: 27px; }
+
+.artist-profile--yuka-morii {
+  border-color: #eadbd0;
+  background:
+    radial-gradient(circle, rgba(171, 115, 86, .13) .7px, transparent .9px) 0 0 / 21px 21px,
+    #f5eee8;
+}
+.artist-profile--yuka-morii h1 em { color: #a95f47; }
+.artist-profile--yuka-morii .profile-badge-medium {
+  border-color: #ead4c9;
+  background: #fbefea;
+  color: #92523d;
+}
+.artist-profile--yuka-morii .profile-feature-image {
+  filter: drop-shadow(0 14px 16px rgba(106, 72, 52, .16));
+}
 
 .home-hero { min-height: 330px; background: #f3efea; }
 .home-hero::after { display: none; }
@@ -527,13 +543,13 @@ h2 { margin: 0; color: #304740; font-size: 25px; line-height: 1.15; }
 @media (max-width: 900px) {
   .site-shell { padding: 0 26px; }
   .hero { padding: 38px 38px; grid-template-columns: 1fr .65fr; }
-  .asako-hero { padding: 18px 25px; gap: 25px; }
+  .profile-hero { padding: 18px 25px; gap: 25px; }
   .yarn-one { right: 74px; }
   .yarn-two { right: 8px; }
   .needle-one { right: 87px; }
   .needle-two { right: 62px; }
   .progress-layout { align-items: stretch; flex-direction: column; gap: 17px; }
-  .asako-hero + .collection-panel .progress-layout { align-items: center; flex-direction: row; gap: 18px; }
+  .profile-hero + .collection-panel .progress-layout { align-items: center; flex-direction: row; gap: 18px; }
   .progress-actions { justify-content: flex-end; }
   .card-list { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
   .footer { grid-template-columns: 1fr 1fr; }
@@ -553,13 +569,13 @@ h2 { margin: 0; color: #304740; font-size: 25px; line-height: 1.15; }
   .topbar-note { font-size: 9px; }
   .topbar-link { font-size: 10px; }
   .hero { min-height: 0; margin-top: 18px; padding: 31px 24px 27px; display: block; }
-  .asako-hero { margin: 18px 0 14px; padding: 21px 18px 16px; }
-  .asako-breadcrumbs { gap: 8px; font-size: 10px; }
-  .asako-hero h1 { margin-top: 14px; font-size: clamp(37px, 10vw, 46px); }
-  .asako-intro { margin: 12px 0 12px; font-size: 14px; line-height: 1.45; }
-  .asako-badges { gap: 6px; }
-  .asako-badge { min-height: 29px; padding: 5px 9px; font-size: 10px; }
-  .asako-feature { width: min(100%, 200px); margin-top: 10px; }
+  .profile-hero { margin: 18px 0 14px; padding: 21px 18px 16px; }
+  .profile-breadcrumbs { gap: 8px; font-size: 10px; }
+  .profile-hero h1 { margin-top: 14px; font-size: clamp(37px, 10vw, 46px); }
+  .profile-intro { margin: 12px 0 12px; font-size: 14px; line-height: 1.45; }
+  .profile-badges { gap: 6px; }
+  .profile-badge { min-height: 29px; padding: 5px 9px; font-size: 10px; }
+  .profile-feature { width: min(100%, 200px); margin-top: 10px; }
   .hero-copy { position: relative; z-index: 1; max-width: 100%; }
   h1 { font-size: 49px; }
   .hero-intro { max-width: 370px; margin: 14px 0 14px; font-size: 12px; }
@@ -588,19 +604,19 @@ h2 { margin: 0; color: #304740; font-size: 25px; line-height: 1.15; }
   .tile-tcg { min-height: 32px; padding: 5px 10px; font-size: 10px; }
   .home-note { margin: 23px 0 28px; padding: 14px; }
   .collection-panel { padding: 14px 15px 13px; }
-  .asako-hero + .collection-panel { padding: 14px 15px 13px; }
+  .profile-hero + .collection-panel { padding: 14px 15px 13px; }
   .panel-heading { align-items: center; margin-bottom: 10px; }
   .panel-heading .eyebrow { display: none; }
   .panel-heading h2 { font-size: 18px; }
-  .asako-hero + .collection-panel h2 { font-size: 18px; }
+  .profile-hero + .collection-panel h2 { font-size: 18px; }
   .save-note { margin-top: 0; font-size: 9px; white-space: nowrap; }
   .progress-layout { gap: 10px; }
-  .asako-hero + .collection-panel .progress-layout { align-items: stretch; flex-direction: column; gap: 10px; }
+  .profile-hero + .collection-panel .progress-layout { align-items: stretch; flex-direction: column; gap: 10px; }
   .progress-numbers { margin-bottom: 6px; }
   .progress-numbers strong { font-size: 21px; }
   .progress-numbers small { font-size: 12px; }
-  .asako-hero + .collection-panel .progress-numbers strong { font-size: 21px; }
-  .asako-hero + .collection-panel .progress-numbers small { font-size: 12px; }
+  .profile-hero + .collection-panel .progress-numbers strong { font-size: 21px; }
+  .profile-hero + .collection-panel .progress-numbers small { font-size: 12px; }
   .progress-track { height: 7px; }
   .progress-caption { margin-top: 5px; }
   .progress-note { display: none; }
@@ -609,11 +625,11 @@ h2 { margin: 0; color: #304740; font-size: 25px; line-height: 1.15; }
   .progress-actions { display: grid; grid-template-columns: 1fr 1fr; }
   .button { min-height: 36px; padding: 0 7px; font-size: 9px; }
   .cards-section { padding-top: 24px; }
-  .asako-hero + .collection-panel + .cards-section { padding-top: 24px; }
+  .profile-hero + .collection-panel + .cards-section { padding-top: 24px; }
   .cards-heading { align-items: stretch; flex-direction: column; gap: 8px; }
   .cards-heading .eyebrow { margin-bottom: 3px; }
   .cards-heading h2 { font-size: 23px; }
-  .asako-hero + .collection-panel + .cards-section .cards-heading h2 { font-size: 23px; }
+  .profile-hero + .collection-panel + .cards-section .cards-heading h2 { font-size: 23px; }
   .search-box { width: 100%; }
   .list-tools { width: 100%; }
   .card-list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
