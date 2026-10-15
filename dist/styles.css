@@ -407,8 +407,6 @@ h1 em { color: #6b8770; font-weight: 500; }
 .tile-action { color: #27241f; text-decoration: none; font-size: 13px; font-weight: 700; }
 .tile-action:hover { color: #3d7653; }
 .tile-action span { margin-left: 3px; font-size: 16px; }
-.tile-tcg { min-height: 34px; padding: 6px 13px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid #e8e2d7; border-radius: 10px; color: #5c5851; background: #fff; text-decoration: none; font-size: 11px; font-weight: 700; white-space: nowrap; }
-.tile-tcg:hover { border-color: #3d7653; color: #315d3e; }
 .home-note { margin: 31px 0 35px; padding: 17px 20px; display: flex; align-items: center; gap: 12px; border: 1px solid var(--line); border-radius: 9px; background: #fff; }
 .home-note-mark { color: #bb8b71; font-size: 18px; }
 .home-note p { margin: 0; color: var(--muted); font-size: 11px; }
@@ -771,7 +769,6 @@ h2 { margin: 0; color: #304740; font-size: 25px; line-height: 1.15; }
   .tile-progress-numbers { font-size: 11px; }
   .tile-footer { min-height: 52px; margin-top: 10px; }
   .tile-action { font-size: 11px; }
-  .tile-tcg { min-height: 32px; padding: 5px 10px; font-size: 10px; }
   .home-note { margin: 23px 0 28px; padding: 14px; }
   .collection-panel { padding: 14px 15px 13px; }
   .profile-hero + .collection-panel { padding: 14px 15px 13px; }

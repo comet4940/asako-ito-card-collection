@@ -48,7 +48,6 @@ function renderTile(artist, cards) {
       '</div>',
       '<div class="tile-footer">',
         '<a class="tile-action" href="' + escapeHtml(artist.id) + '/">View collection checklist <span aria-hidden="true">→</span></a>',
-        '<a class="tile-tcg" href="' + escapeHtml(artist.id) + '/?shop=1" aria-label="Shop missing ' + escapeHtml(artist.name) + ' cards on TCGplayer">TCGplayer</a>',
       '</div>',
     '</article>'
   ].join("");
