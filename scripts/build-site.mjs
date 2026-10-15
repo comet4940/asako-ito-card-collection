@@ -165,6 +165,7 @@ const homepageCardCount = homepageCatalogs.reduce((total, item) => total + item.
 const homeAlbumCards = renderAlbumCards();
 const homePage = replaceTokens(homeTemplate, {
   CANONICAL_URL: escapeHtml(siteUrl + "/"),
+  SOCIAL_PREVIEW_URL: escapeHtml(siteUrl + "/assets/pokechecklist-social-preview.jpg"),
   ARTIST_COUNT: homepageCatalogs.length,
   CARD_COUNT: homepageCardCount,
   ARTIST_TILES: homepageCatalogs.map(item => renderTile(item.artist, item.cards)).join("\n          "),
@@ -206,6 +207,8 @@ for (const { artist, cards } of catalogs) {
     CARD_LIST: renderCardIndex(cards),
     DESCRIPTION: escapeHtml(description),
     PAGE_TITLE: escapeHtml(pageTitle),
+    SOCIAL_PREVIEW_URL: escapeHtml(siteUrl + "/" + (artist.pageHeroAsset || "assets/pokechecklist-social-preview.jpg")),
+    SOCIAL_PREVIEW_ALT: escapeHtml(artist.pageHeroAlt || "A binder of little worlds with Pokémon cards by artist."),
     CANONICAL_URL: escapeHtml(pageUrl)
   });
   await writeFile(path.join(outputDir, "index.html"), page);
