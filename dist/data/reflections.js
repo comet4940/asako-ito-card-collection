@@ -28,6 +28,58 @@ window.ARTIST_CARD_DATA = {
       "reflectionNote": "Water reflection"
     },
     {
+      "name": "Natu",
+      "set": "Skyridge",
+      "no": "080/144",
+      "year": 2003,
+      "illustrator": "Miki Tanaka",
+      "tcgCode": "SK",
+      "tcgNumber": "080/144",
+      "image": "https://assets.tcgdex.net/en/ecard/ecard3/80/low.webp",
+      "id": "natu-skyridge-080-144",
+      "themeFit": "scene",
+      "reflectionNote": "Reflective water beside Natu"
+    },
+    {
+      "name": "Mom's Kindness",
+      "set": "Majestic Dawn",
+      "no": "083/100",
+      "year": 2008,
+      "illustrator": "Ken Sugimori",
+      "tcgCode": "MD",
+      "tcgNumber": "083/100",
+      "image": "https://assets.tcgdex.net/en/dp/dp5/83/low.webp",
+      "id": "moms-kindness-majestic-dawn-083-100",
+      "themeFit": "scene",
+      "reflectionNote": "A mirror reflects the family scene"
+    },
+    {
+      "name": "Oddish",
+      "set": "Legends Awakened",
+      "no": "111/146",
+      "year": 2008,
+      "illustrator": "Hiroki Fuchino",
+      "tcgCode": "LA",
+      "tcgNumber": "111/146",
+      "image": "https://assets.tcgdex.net/en/dp/dp6/111/low.webp",
+      "id": "oddish-legends-awakened-111-146",
+      "themeFit": "scene",
+      "reflectionNote": "Reflective water in the streambed"
+    },
+    {
+      "name": "Larvitar",
+      "set": "Stormfront",
+      "no": "063/100",
+      "year": 2008,
+      "illustrator": "Yuka Morii",
+      "tcgCode": "SF",
+      "tcgNumber": "063/100",
+      "image": "https://assets.tcgdex.net/en/dp/dp7/63/low.webp",
+      "id": "larvitar-stormfront-063-100",
+      "themeFit": "clear",
+      "reflectionNote": "Water reflection"
+    },
+    {
       "name": "Pachirisu",
       "set": "Phantom Forces",
       "no": "025/119",
@@ -54,6 +106,32 @@ window.ARTIST_CARD_DATA = {
       "reflectionNote": "Reflective surfaces in the scene"
     },
     {
+      "name": "Chikorita",
+      "set": "BREAKpoint",
+      "no": "001/122",
+      "year": 2016,
+      "illustrator": "Akira Komayama",
+      "tcgCode": "BKP",
+      "tcgNumber": "001/122",
+      "image": "https://assets.tcgdex.net/en/xy/xy9/1/low.webp",
+      "id": "chikorita-breakpoint-001-122",
+      "themeFit": "scene",
+      "reflectionNote": "A building reflected in the water"
+    },
+    {
+      "name": "Shroomish",
+      "set": "Generations",
+      "no": "RC2/RC32",
+      "year": 2016,
+      "illustrator": "Miki Tanaka",
+      "tcgCode": "GEN",
+      "tcgNumber": "RC2/RC32",
+      "image": "https://assets.tcgdex.net/en/xy/g1/RC2/low.webp",
+      "id": "shroomish-generations-rc2-rc32",
+      "themeFit": "clear",
+      "reflectionNote": "Water reflection"
+    },
+    {
       "name": "Delcatty",
       "set": "Darkness Ablaze",
       "no": "142/189",
@@ -65,6 +143,19 @@ window.ARTIST_CARD_DATA = {
       "id": "delcatty-darkness-ablaze-142-189",
       "themeFit": "scene",
       "reflectionNote": "A reflective indoor scene"
+    },
+    {
+      "name": "Applin",
+      "set": "Evolving Skies",
+      "no": "017/203",
+      "year": 2021,
+      "illustrator": "Miki Tanaka",
+      "tcgCode": "EVS",
+      "tcgNumber": "017/203",
+      "image": "https://assets.tcgdex.net/en/swsh/swsh7/17/low.webp",
+      "id": "applin-evolving-skies-017-203",
+      "themeFit": "clear",
+      "reflectionNote": "Water reflection"
     },
     {
       "name": "Ponyta",
@@ -327,6 +418,19 @@ window.ARTIST_CARD_DATA = {
       "reflectionNote": "Water reflection"
     },
     {
+      "name": "Perrin",
+      "set": "Twilight Masquerade",
+      "no": "220/167",
+      "year": 2024,
+      "illustrator": "GIDORA",
+      "tcgCode": "TWM",
+      "tcgNumber": "220/167",
+      "image": "https://assets.tcgdex.net/en/sv/sv06/220/low.webp",
+      "id": "perrin-twilight-masquerade-220-167",
+      "themeFit": "scene",
+      "reflectionNote": "Growlithe reflected in Perrin's camera lens"
+    },
+    {
       "name": "Dwebble",
       "set": "Black Bolt",
       "no": "129/086",
@@ -338,6 +442,19 @@ window.ARTIST_CARD_DATA = {
       "id": "dwebble-black-bolt-129-086",
       "themeFit": "clear",
       "reflectionNote": "Reflection in a bottle"
+    },
+    {
+      "name": "Yanma",
+      "set": "SVP Black Star Promos",
+      "no": "185",
+      "year": 2025,
+      "illustrator": "Dsuke",
+      "tcgCode": "SVP",
+      "tcgNumber": "185",
+      "image": "https://assets.tcgdex.net/en/sv/svp/185/low.webp",
+      "id": "yanma-svp-185",
+      "themeFit": "clear",
+      "reflectionNote": "Pond reflection"
     },
     {
       "name": "Yanma",
