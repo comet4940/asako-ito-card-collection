@@ -249,7 +249,7 @@ const homePage = replaceTokens(homeTemplate, {
   GA_MEASUREMENT_ID: gaMeasurementId,
   SOCIAL_PREVIEW_URL: escapeHtml(siteUrl + "/assets/pokechecklist-social-preview.jpg"),
   ARTIST_COUNT: homepageArtists.length,
-  THEME_COUNT: homepageThemes.length,
+  THEME_COUNT_LABEL: `${homepageThemes.length} community theme${homepageThemes.length === 1 ? "" : "s"}`,
   CARD_COUNT: homepageCardCount,
   ARTIST_TILES: [...homepageCatalogs.map(item => renderTile(item.artist, item.cards)), renderSleepyPokemonTile()].join("\n          "),
   HOME_ALBUM_LEFT: homeAlbumCards.left,
