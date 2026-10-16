@@ -38,7 +38,7 @@ window.ARTIST_CARD_DATA = {
       "image": "https://assets.tcgdex.net/en/ecard/ecard3/80/low.webp",
       "id": "natu-skyridge-080-144",
       "themeFit": "scene",
-      "reflectionNote": "Reflective water beside Natu"
+      "reflectionNote": "Reflective surface behind natu"
     },
     {
       "name": "Mom's Kindness",
