@@ -209,11 +209,14 @@ function renderProfileHero(artist, cards) {
 
 function renderThemeScope(artist) {
   if (artist.id !== "pokemon-card-reflections") {
+    const sourceNote = artist.themeScopeSourceUrl && artist.themeScopeSourceLabel
+      ? '<p class="community-theme-sources">A community-started list, with its first cards drawn from the <a href="' + escapeHtml(artist.themeScopeSourceUrl) + '" target="_blank" rel="noopener noreferrer">' + escapeHtml(artist.themeScopeSourceLabel) + '</a>. Card choices can grow as collectors suggest more examples.</p>'
+      : "";
     return [
       '<section class="community-theme-scope northern-lights-scope" aria-labelledby="theme-scope-title">',
         '<div class="community-theme-scope-heading"><p class="eyebrow muted">HOW THIS CHECKLIST IS CURATED</p><h2 id="theme-scope-title">' + escapeHtml(artist.themeScopeHeading || "What belongs in this collection?") + '</h2></div>',
         '<p class="community-theme-scope-copy">' + escapeHtml(artist.themeScopeBlurb || "Cards are included when the theme is clearly visible in the illustration.") + '</p>',
-        '<p class="community-theme-sources">A community-started list, with its first cards drawn from the <a href="' + escapeHtml(artist.themeScopeSourceUrl || "https://staiz.io/collection/northern-lights") + '" target="_blank" rel="noopener noreferrer">' + escapeHtml(artist.themeScopeSourceLabel || "Staiz Northern Lights collection") + '</a>. Card choices can grow as collectors suggest more examples.</p>',
+        sourceNote,
       '</section>'
     ].join("");
   }
