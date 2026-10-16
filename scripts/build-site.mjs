@@ -144,7 +144,7 @@ function renderThemeHero(artist, cards) {
           '<span class="profile-badge">🗂️ ' + cards.length + ' cards · ' + setCount + ' sets</span>',
         '</div>',
       '</div>',
-      '<div class="profile-feature reflection-feature" aria-hidden="true">' + featuredImage + '<span class="reflection-feature-label">LOOK AGAIN</span></div>',
+      '<div class="profile-feature reflection-feature" aria-hidden="true">' + featuredImage + '</div>',
     '</section>'
   ].join("");
 }
