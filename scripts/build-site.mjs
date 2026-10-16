@@ -190,11 +190,11 @@ function renderThemeScope() {
   ].join("");
 }
 
-function renderCardIndex(cards) {
+function renderCardIndex(cards, includeYearHeadings = true) {
   let previousYear = null;
   return cards.map(card => {
     const pieces = [];
-    if (card.year !== previousYear) {
+    if (includeYearHeadings && card.year !== previousYear) {
       previousYear = card.year;
       pieces.push('<div class="year-heading"><span>' + escapeHtml(card.year) + '</span><i></i></div>');
     }
@@ -289,7 +289,7 @@ for (const { artist, cards } of catalogs) {
     ARTIST_HERO: artist.isTheme ? renderThemeHero(artist, cards) : artist.pageHeroAsset ? renderProfileHero(artist, cards) : renderStandardHero(artist, cards),
     COLLECTION_NOTE: artist.isTheme ? renderThemeScope() : "",
     CARD_COUNT: cards.length,
-    CARD_LIST: renderCardIndex(cards),
+    CARD_LIST: renderCardIndex(cards, !artist.isTheme),
     DESCRIPTION: escapeHtml(description),
     PAGE_TITLE: escapeHtml(pageTitle),
     SOCIAL_PREVIEW_URL: escapeHtml(siteUrl + "/" + (artist.pageSocialAsset || "assets/pokechecklist-social-preview.jpg")),
