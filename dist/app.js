@@ -128,7 +128,8 @@
       '<div class="card-image-frame' + (card.image ? '' : ' image-unavailable') + '">' + image + ownedStamp + "</div>" +
       '<div class="card-info">' +
         '<div class="card-copy"><div class="card-title-line"><h3>' + escapeHtml(card.name) + '</h3><span class="owned-tag">' + (isOwned ? "In binder" : "Not in binder") + "</span></div>" +
-          "<p>" + escapeHtml(card.set) + ' <span class="row-dot">·</span> ' + escapeHtml(card.year) + "</p></div>" +
+          "<p>" + escapeHtml(card.set) + ' <span class="row-dot">·</span> ' + escapeHtml(card.year) + (card.illustrator ? ' <span class="row-dot">·</span> ' + escapeHtml(card.illustrator) : "") + "</p>" +
+          (card.themeFit ? '<p class="theme-card-note"><span class="reflection-fit reflection-fit--' + escapeHtml(card.themeFit) + '">' + (card.themeFit === "clear" ? "Clear self-reflection" : "Related reflection scene") + "</span> · " + escapeHtml(card.reflectionNote || "") + "</p>" : "") + "</div>" +
         '<div class="collector-number">' + escapeHtml(card.no) + "</div>" +
       "</div>" +
       '<div class="card-links">' +
@@ -143,7 +144,7 @@
       const isOwned = owned.has(card.id);
       const matchesFilter = !showMissingOnly || !isOwned;
       const matchesSearch = !query ||
-        (card.name + " " + card.set + " " + card.no).toLocaleLowerCase().includes(query);
+        (card.name + " " + card.set + " " + card.no + " " + (card.illustrator || "") + " " + (card.reflectionNote || "")).toLocaleLowerCase().includes(query);
       return matchesFilter && matchesSearch;
     });
 
@@ -352,7 +353,7 @@
     els.list.hidden = true;
     els.empty.hidden = false;
     els.empty.querySelector("h3").textContent = "This checklist isn’t available";
-    els.empty.querySelector("p").textContent = "Return to the artist directory and choose another collection.";
+    els.empty.querySelector("p").textContent = "Return to the checklist directory and choose another collection.";
   } else {
     cards = catalog.cards;
     owned = readOwned(currentArtist, cards);

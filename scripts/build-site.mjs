@@ -51,20 +51,25 @@ function renderTile(artist, cards) {
   const lastYear = years.length ? Math.max(...years) : null;
   const yearRange = firstYear === null ? "" : firstYear === lastYear ? String(firstYear) : firstYear + "–" + lastYear;
   const cardIds = JSON.stringify(cards.map(card => card.id)).replace(/</g, "\\u003c");
+  const isTheme = Boolean(artist.isTheme);
+  const tileLabel = artist.tileLabel || artist.medium;
+  const tileName = artist.tileName || artist.name;
+  const tileSummary = isTheme ? cards.length + " cards in this theme" : yearRange;
+  const tileSummaryLabel = isTheme ? cards.length + " reflection cards" : "Cards from " + (firstYear || "") + " to " + (lastYear || "");
   return [
-    '<article class="artist-tile tile-' + escapeHtml(artist.mediumTone) + '" data-artist-id="' + escapeHtml(artist.id) + '" data-card-ids="' + escapeHtml(cardIds) + '">',
+    '<article class="artist-tile tile-' + escapeHtml(artist.mediumTone) + (isTheme ? ' reflection-theme-tile' : '') + '" data-artist-id="' + escapeHtml(artist.id) + '" data-card-ids="' + escapeHtml(cardIds) + '">',
       '<div class="tile-topline">',
-        '<span class="tile-medium"><span aria-hidden="true">' + escapeHtml(artist.mediumIcon) + '</span> ' + escapeHtml(artist.medium) + '</span>',
-        '<span class="tile-years" aria-label="Cards from ' + escapeHtml(firstYear || "") + ' to ' + escapeHtml(lastYear || "") + '">' + escapeHtml(yearRange) + '</span>',
+        '<span class="tile-medium"><span aria-hidden="true">' + escapeHtml(artist.mediumIcon) + '</span> ' + escapeHtml(tileLabel) + '</span>',
+        '<span class="tile-years" aria-label="' + escapeHtml(tileSummaryLabel) + '">' + escapeHtml(tileSummary) + '</span>',
       '</div>',
-      '<h3 class="tile-name">' + escapeHtml(artist.name) + '</h3>',
+      '<h3 class="tile-name">' + escapeHtml(tileName) + '</h3>',
       '<p class="tile-description">' + escapeHtml(artist.description) + '</p>',
       '<div class="tile-progress" aria-label="Collection progress">',
         '<div class="tile-progress-numbers"><span><strong class="tile-owned-count">0</strong> / <span class="tile-total-count">' + cards.length + '</span> collected</span><strong class="tile-percent">0%</strong></div>',
-        '<div class="tile-progress-track" role="progressbar" aria-label="' + escapeHtml(artist.name) + ' collection progress" aria-valuemin="0" aria-valuemax="' + cards.length + '" aria-valuenow="0"><span class="tile-progress-fill"></span></div>',
+        '<div class="tile-progress-track" role="progressbar" aria-label="' + escapeHtml(tileName) + ' collection progress" aria-valuemin="0" aria-valuemax="' + cards.length + '" aria-valuenow="0"><span class="tile-progress-fill"></span></div>',
       '</div>',
       '<div class="tile-footer">',
-        '<a class="tile-action" href="' + escapeHtml(artist.id) + '/">View collection checklist <span aria-hidden="true">→</span></a>',
+        '<a class="tile-action" href="' + escapeHtml(artist.id) + '/">' + (isTheme ? 'Explore theme checklist' : 'View collection checklist') + ' <span aria-hidden="true">→</span></a>',
       '</div>',
     '</article>'
   ].join("");
@@ -116,7 +121,36 @@ function renderStandardHero(artist, cards) {
   ].join("\n");
 }
 
+function renderThemeHero(artist, cards) {
+  const setCount = new Set(cards.map(card => card.set)).size;
+  const clearCount = cards.filter(card => card.themeFit === "clear").length;
+  const sceneCount = cards.length - clearCount;
+  const featured = cards.find(card => card.themeFit === "clear" && card.image) || cards.find(card => card.image);
+  const featuredImage = featured
+    ? '<img class="profile-feature-image" src="' + escapeHtml(featured.image) + '" alt="" fetchpriority="high" decoding="async">'
+    : '<div class="reflection-mirror" aria-hidden="true"></div>';
+  return [
+    '<section class="hero profile-hero reflection-theme-hero" aria-labelledby="artist-title">',
+      '<div class="profile-copy">',
+        '<nav class="profile-breadcrumbs" aria-label="Breadcrumb">',
+          '<a href="./">Collections</a><span aria-hidden="true">/</span><span>' + escapeHtml(artist.pageCategory || "Community theme") + '</span><span aria-hidden="true">/</span><span aria-current="page">' + escapeHtml(artist.name) + '</span>',
+        '</nav>',
+        '<p class="eyebrow reflection-eyebrow"><span class="eyebrow-dot"></span> A community-curated checklist</p>',
+        '<h1 id="artist-title"><span>Pokémon and</span><em>their reflections</em></h1>',
+        '<p class="profile-intro">' + escapeHtml(artist.pageBlurb) + '</p>',
+        '<div class="profile-badges">',
+          '<span class="profile-badge">🪞 Clear reflections · ' + clearCount + '</span>',
+          '<span class="profile-badge">💧 Related scenes · ' + sceneCount + '</span>',
+          '<span class="profile-badge">🗂️ ' + cards.length + ' cards · ' + setCount + ' sets</span>',
+        '</div>',
+      '</div>',
+      '<div class="profile-feature reflection-feature" aria-hidden="true">' + featuredImage + '<span class="reflection-feature-label">LOOK AGAIN</span></div>',
+    '</section>'
+  ].join("");
+}
+
 function renderProfileHero(artist, cards) {
+  if (artist.isTheme) return renderThemeHero(artist, cards);
   const years = cards.map(card => Number(card.year)).filter(Number.isFinite);
   const earliestYear = years.length ? Math.min(...years) : "";
   const setCount = new Set(cards.map(card => card.set)).size;
@@ -143,6 +177,19 @@ function renderProfileHero(artist, cards) {
   ].join("");
 }
 
+function renderThemeScope() {
+  return [
+    '<section class="reflection-scope" aria-labelledby="reflection-scope-title">',
+      '<div class="reflection-scope-heading"><p class="eyebrow muted">HOW THIS CHECKLIST IS CURATED</p><h2 id="reflection-scope-title">Two ways reflections appear</h2></div>',
+      '<div class="reflection-scope-grid">',
+        '<p><strong>Clear self-reflections</strong><br>The Pokémon’s own image is visible in a mirror, glass, or reflective water.</p>',
+        '<p><strong>Related reflection scenes</strong><br>Reflections shape the art, but the Pokémon’s own image may not be clearly shown.</p>',
+      '</div>',
+      '<p class="reflection-sources">A visual, community-built list inspired by a <a href="https://www.threads.com/share/_8oPxnQs4/" target="_blank" rel="noopener noreferrer">collector’s reflection-card post on Threads</a>, with more ideas from the <a href="https://staiz.io/collection/reflections" target="_blank" rel="noopener noreferrer">Staiz Reflections gallery</a> and <a href="https://www.reddit.com/r/PokemonTCG/comments/1m7xzs5/any_more_cards_with_a_pokemon_reflection_in_water/" target="_blank" rel="noopener noreferrer">collector discussion</a>. Card fit is subjective; a card name, set, and number make future additions easier to verify.</p>',
+    '</section>'
+  ].join("");
+}
+
 function renderCardIndex(cards) {
   let previousYear = null;
   return cards.map(card => {
@@ -164,7 +211,7 @@ function renderCardIndex(cards) {
         '</label>',
         '<div class="card-image-frame' + (card.image ? '' : ' image-unavailable') + '">' + image + '</div>',
         '<div class="card-info">',
-          '<div class="card-copy"><div class="card-title-line"><h3>' + escapeHtml(card.name) + '</h3><span class="owned-tag">Not in binder</span></div><p>' + escapeHtml(card.set) + ' <span class="row-dot">·</span> ' + escapeHtml(card.year) + '</p></div>',
+          '<div class="card-copy"><div class="card-title-line"><h3>' + escapeHtml(card.name) + '</h3><span class="owned-tag">Not in binder</span></div><p>' + escapeHtml(card.set) + ' <span class="row-dot">·</span> ' + escapeHtml(card.year) + (card.illustrator ? ' <span class="row-dot">·</span> ' + escapeHtml(card.illustrator) : '') + '</p>' + (card.themeFit ? '<p class="theme-card-note"><span class="reflection-fit reflection-fit--' + escapeHtml(card.themeFit) + '">' + (card.themeFit === "clear" ? 'Clear self-reflection' : 'Related reflection scene') + '</span> · ' + escapeHtml(card.reflectionNote || "") + '</p>' : '') + '</div>',
           '<div class="collector-number">' + escapeHtml(card.no) + '</div>',
         '</div>',
         '<div class="card-links"><a href="' + escapeHtml(shopUrl) + '" target="_blank" rel="noopener noreferrer" title="Shop for ' + escapeHtml(card.name) + ' on TCGplayer">Shop on TCGplayer <span aria-hidden="true">↗</span></a></div>',
@@ -193,13 +240,16 @@ for (const artist of artists) {
 
 const totalCards = catalogs.reduce((total, item) => total + item.cards.length, 0);
 const homepageCatalogs = catalogs.filter(item => !item.artist.hideFromHomepage);
-const homepageCardCount = homepageCatalogs.reduce((total, item) => total + item.cards.length, 0);
+const homepageArtists = homepageCatalogs.filter(item => !item.artist.isTheme);
+const homepageThemes = homepageCatalogs.filter(item => item.artist.isTheme);
+const homepageCardCount = homepageArtists.reduce((total, item) => total + item.cards.length, 0);
 const homeAlbumCards = renderAlbumCards();
 const homePage = replaceTokens(homeTemplate, {
   CANONICAL_URL: escapeHtml(siteUrl + "/"),
   GA_MEASUREMENT_ID: gaMeasurementId,
   SOCIAL_PREVIEW_URL: escapeHtml(siteUrl + "/assets/pokechecklist-social-preview.jpg"),
-  ARTIST_COUNT: homepageCatalogs.length,
+  ARTIST_COUNT: homepageArtists.length,
+  THEME_COUNT: homepageThemes.length,
   CARD_COUNT: homepageCardCount,
   ARTIST_TILES: [...homepageCatalogs.map(item => renderTile(item.artist, item.cards)), renderSleepyPokemonTile()].join("\n          "),
   HOME_ALBUM_LEFT: homeAlbumCards.left,
@@ -228,7 +278,7 @@ for (const entry of oldEntries) {
 
 for (const { artist, cards } of catalogs) {
   const description = artist.pageBlurb || ("Browse the " + artist.name + " Pokémon card checklist with " + cards.length + " cards. Track your collection and make a list of the cards you still need.");
-  const pageTitle = artist.name + " Pokémon Card Checklist | PokeChecklist";
+  const pageTitle = artist.pageTitle || artist.name + " Pokémon Card Checklist | PokeChecklist";
   const pageUrl = siteUrl + "/" + artist.id + "/";
   const outputDir = path.join(distDir, artist.id);
   await mkdir(outputDir, { recursive: true });
@@ -236,7 +286,8 @@ for (const { artist, cards } of catalogs) {
     ARTIST_ID: escapeHtml(artist.id),
     GA_MEASUREMENT_ID: gaMeasurementId,
     ARTIST_NAME: escapeHtml(artist.name),
-    ARTIST_HERO: artist.pageHeroAsset ? renderProfileHero(artist, cards) : renderStandardHero(artist, cards),
+    ARTIST_HERO: artist.isTheme ? renderThemeHero(artist, cards) : artist.pageHeroAsset ? renderProfileHero(artist, cards) : renderStandardHero(artist, cards),
+    COLLECTION_NOTE: artist.isTheme ? renderThemeScope() : "",
     CARD_COUNT: cards.length,
     CARD_LIST: renderCardIndex(cards),
     DESCRIPTION: escapeHtml(description),
@@ -256,4 +307,4 @@ const sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n' +
 await writeFile(path.join(distDir, "sitemap.xml"), sitemap);
 await writeFile(path.join(distDir, "robots.txt"), "User-agent: *\nAllow: /\nSitemap: " + siteUrl + "/sitemap.xml\n");
 
-console.log("Built " + catalogs.length + " artist pages containing " + totalCards + " cards.");
+console.log("Built " + catalogs.filter(item => !item.artist.isTheme).length + " artist pages and " + catalogs.filter(item => item.artist.isTheme).length + " theme pages containing " + totalCards + " checklist entries.");
