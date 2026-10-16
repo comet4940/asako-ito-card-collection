@@ -423,11 +423,13 @@ h1 em { color: #6b8770; font-weight: 500; }
   border: 1px solid #e8e2d7;
   border-radius: 19px;
   color: #1e1c19;
+  text-decoration: none;
   background: #fff;
   box-shadow: 0 6px 22px rgba(50, 45, 37, .035);
   transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
 }
 .artist-tile:hover { transform: translateY(-3px); border-color: rgba(61, 118, 83, .32); box-shadow: 0 18px 40px rgba(49, 61, 53, .09); }
+.artist-tile:focus-visible { outline: 3px solid rgba(61, 118, 83, .5); outline-offset: 3px; }
 .tile-topline { min-height: 31px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
 .tile-medium { display: inline-flex; align-items: center; gap: 5px; max-width: 78%; padding: 5px 11px; border-radius: 9px; font-size: 12px; font-weight: 700; line-height: 1.2; }
 .tile-medium span { font-size: 13px; }
@@ -546,7 +548,6 @@ h1 em { color: #6b8770; font-weight: 500; }
 .tile-action { color: #27241f; text-decoration: none; font-size: 13px; font-weight: 700; }
 .tile-action:hover { color: #3d7653; }
 .tile-action span { margin-left: 3px; font-size: 16px; }
-.tile-action::after { content: ""; position: absolute; inset: 0; cursor: pointer; }
 .home-note { margin: 31px 0 35px; padding: 17px 20px; display: flex; align-items: center; gap: 12px; border: 1px solid var(--line); border-radius: 9px; background: #fff; }
 .home-note-mark { color: #bb8b71; font-size: 18px; }
 .home-note p { margin: 0; color: var(--muted); font-size: 11px; }
