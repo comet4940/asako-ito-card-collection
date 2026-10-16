@@ -525,7 +525,7 @@ h2 { margin: 0; color: #304740; font-size: 25px; line-height: 1.15; }
 .button-secondary:hover { background: #f6f8f4; border-color: #c5d4c6; }
 
 .cards-section { padding: 55px 0 25px; }
-.cards-heading { display: flex; justify-content: space-between; align-items: end; gap: 20px; }
+.cards-heading { margin-bottom: 16px; display: flex; justify-content: space-between; align-items: end; gap: 20px; }
 .cards-heading .eyebrow { margin-bottom: 7px; }
 .cards-heading h2 { font-size: 30px; }
 .list-tools { display: flex; align-items: center; gap: 10px; }
