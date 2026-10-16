@@ -69,7 +69,7 @@ function renderTile(artist, cards) {
         '<div class="tile-progress-track" role="progressbar" aria-label="' + escapeHtml(tileName) + ' collection progress" aria-valuemin="0" aria-valuemax="' + cards.length + '" aria-valuenow="0"><span class="tile-progress-fill"></span></div>',
       '</div>',
       '<div class="tile-footer">',
-        '<a class="tile-action" href="' + escapeHtml(artist.id) + '/">' + (isTheme ? 'Explore theme checklist' : 'View collection checklist') + ' <span aria-hidden="true">→</span></a>',
+        '<a class="tile-action" href="' + escapeHtml(artist.id) + '/">' + (isTheme ? 'Explore Pokémon card reflections' : 'View collection checklist') + ' <span aria-hidden="true">→</span></a>',
       '</div>',
     '</article>'
   ].join("");
@@ -136,7 +136,7 @@ function renderThemeHero(artist, cards) {
           '<a href="./">Collections</a><span aria-hidden="true">/</span><span>' + escapeHtml(artist.pageCategory || "Community theme") + '</span><span aria-hidden="true">/</span><span aria-current="page">' + escapeHtml(artist.name) + '</span>',
         '</nav>',
         '<p class="eyebrow reflection-eyebrow"><span class="eyebrow-dot"></span> A community-curated checklist</p>',
-        '<h1 id="artist-title"><span>Pokémon and</span><em>their reflections</em></h1>',
+        '<h1 id="artist-title"><span>Pokémon cards with</span><em>reflections</em></h1>',
         '<p class="profile-intro">' + escapeHtml(artist.pageBlurb) + '</p>',
         '<div class="profile-badges">',
           '<span class="profile-badge">🪞 Clear reflections · ' + clearCount + '</span>',
@@ -190,11 +190,11 @@ function renderThemeScope() {
   ].join("");
 }
 
-function renderCardIndex(cards, includeYearHeadings = true) {
+function renderCardIndex(cards) {
   let previousYear = null;
   return cards.map(card => {
     const pieces = [];
-    if (includeYearHeadings && card.year !== previousYear) {
+    if (card.year !== previousYear) {
       previousYear = card.year;
       pieces.push('<div class="year-heading"><span>' + escapeHtml(card.year) + '</span><i></i></div>');
     }
@@ -277,7 +277,7 @@ for (const entry of oldEntries) {
 }
 
 for (const { artist, cards } of catalogs) {
-  const description = artist.pageBlurb || ("Browse the " + artist.name + " Pokémon card checklist with " + cards.length + " cards. Track your collection and make a list of the cards you still need.");
+  const description = artist.pageMetaDescription || artist.pageBlurb || ("Browse the " + artist.name + " Pokémon card checklist with " + cards.length + " cards. Track your collection and make a list of the cards you still need.");
   const pageTitle = artist.pageTitle || artist.name + " Pokémon Card Checklist | PokeChecklist";
   const pageUrl = siteUrl + "/" + artist.id + "/";
   const outputDir = path.join(distDir, artist.id);
@@ -289,7 +289,7 @@ for (const { artist, cards } of catalogs) {
     ARTIST_HERO: artist.isTheme ? renderThemeHero(artist, cards) : artist.pageHeroAsset ? renderProfileHero(artist, cards) : renderStandardHero(artist, cards),
     COLLECTION_NOTE: artist.isTheme ? renderThemeScope() : "",
     CARD_COUNT: cards.length,
-    CARD_LIST: renderCardIndex(cards, !artist.isTheme),
+    CARD_LIST: renderCardIndex(cards),
     DESCRIPTION: escapeHtml(description),
     PAGE_TITLE: escapeHtml(pageTitle),
     SOCIAL_PREVIEW_URL: escapeHtml(siteUrl + "/" + (artist.pageSocialAsset || "assets/pokechecklist-social-preview.jpg")),
@@ -308,3 +308,4 @@ await writeFile(path.join(distDir, "sitemap.xml"), sitemap);
 await writeFile(path.join(distDir, "robots.txt"), "User-agent: *\nAllow: /\nSitemap: " + siteUrl + "/sitemap.xml\n");
 
 console.log("Built " + catalogs.filter(item => !item.artist.isTheme).length + " artist pages and " + catalogs.filter(item => item.artist.isTheme).length + " theme pages containing " + totalCards + " checklist entries.");
+
