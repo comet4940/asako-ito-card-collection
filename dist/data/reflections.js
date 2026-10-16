@@ -51,7 +51,7 @@ window.ARTIST_CARD_DATA = {
       "image": "https://assets.tcgdex.net/en/dp/dp5/83/low.webp",
       "id": "moms-kindness-majestic-dawn-083-100",
       "themeFit": "scene",
-      "reflectionNote": "A mirror reflects the family scene"
+      "reflectionNote": "Mirror reflection"
     },
     {
       "name": "Oddish",
@@ -90,7 +90,7 @@ window.ARTIST_CARD_DATA = {
       "image": "https://images.pokemontcg.io/xy4/25.png",
       "id": "pachirisu-phantom-forces-025-119",
       "themeFit": "clear",
-      "reflectionNote": "Water reflection"
+      "reflectionNote": "Window reflection"
     },
     {
       "name": "Elgyem",
@@ -103,7 +103,7 @@ window.ARTIST_CARD_DATA = {
       "image": "https://images.pokemontcg.io/xy8/73.png",
       "id": "elgyem-breakthrough-073-162",
       "themeFit": "scene",
-      "reflectionNote": "Reflective surfaces in the scene"
+      "reflectionNote": "Mirror reflection"
     },
     {
       "name": "Chikorita",
@@ -116,7 +116,7 @@ window.ARTIST_CARD_DATA = {
       "image": "https://assets.tcgdex.net/en/xy/xy9/1/low.webp",
       "id": "chikorita-breakpoint-001-122",
       "themeFit": "scene",
-      "reflectionNote": "A building reflected in the water"
+      "reflectionNote": "A dimensional mirror"
     },
     {
       "name": "Shroomish",
@@ -168,7 +168,7 @@ window.ARTIST_CARD_DATA = {
       "image": "https://images.pokemontcg.io/swsh10/21.png",
       "id": "ponyta-astral-radiance-021-189",
       "themeFit": "scene",
-      "reflectionNote": "Reflection in the water"
+      "reflectionNote": "Water reflection"
     },
     {
       "name": "Manaphy",
@@ -181,7 +181,7 @@ window.ARTIST_CARD_DATA = {
       "image": "https://images.pokemontcg.io/swsh9/41.png",
       "id": "manaphy-brilliant-stars-041-172",
       "themeFit": "scene",
-      "reflectionNote": "Water reflects the color of the sky"
+      "reflectionNote": "Water reflection"
     },
     {
       "name": "Oddish",
@@ -233,7 +233,7 @@ window.ARTIST_CARD_DATA = {
       "image": "https://images.pokemontcg.io/sv3pt5/176.png",
       "id": "poliwhirl-151-176-165",
       "themeFit": "clear",
-      "reflectionNote": "Reflected image in glass"
+      "reflectionNote": "Water reflection"
     },
     {
       "name": "Lunatone",
@@ -246,7 +246,7 @@ window.ARTIST_CARD_DATA = {
       "image": "https://images.pokemontcg.io/swsh12pt5/62.png",
       "id": "lunatone-crown-zenith-062-159",
       "themeFit": "clear",
-      "reflectionNote": "Dark reflective surface"
+      "reflectionNote": "Water reflection"
     },
     {
       "name": "Cleffa",
@@ -272,7 +272,7 @@ window.ARTIST_CARD_DATA = {
       "image": "https://images.pokemontcg.io/sv3/5.png",
       "id": "shuckle-obsidian-flames-005-197",
       "themeFit": "scene",
-      "reflectionNote": "Reflective water in the scene"
+      "reflectionNote": "Water reflection"
     },
     {
       "name": "Quaquaval ex",
@@ -298,7 +298,7 @@ window.ARTIST_CARD_DATA = {
       "image": "https://images.pokemontcg.io/sv2/206.png",
       "id": "quaxly-paldea-evolved-206-193",
       "themeFit": "clear",
-      "reflectionNote": "Water reflection"
+      "reflectionNote": "Bathroom mirror"
     },
     {
       "name": "Quaxwell",
@@ -350,7 +350,7 @@ window.ARTIST_CARD_DATA = {
       "image": "https://images.pokemontcg.io/sv6pt5/78.png",
       "id": "persian-shrouded-fable-078-064",
       "themeFit": "clear",
-      "reflectionNote": "Reflection in the nighttime scene"
+      "reflectionNote": "Window reflection"
     },
     {
       "name": "Froakie",
@@ -363,7 +363,7 @@ window.ARTIST_CARD_DATA = {
       "image": "https://images.pokemontcg.io/sv7/39.png",
       "id": "froakie-stellar-crown-039-142",
       "themeFit": "scene",
-      "reflectionNote": "Reflective water in the scene"
+      "reflectionNote": "Water reflection"
     },
     {
       "name": "Fuecoco",
