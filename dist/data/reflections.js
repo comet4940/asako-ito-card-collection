@@ -67,19 +67,6 @@ window.ARTIST_CARD_DATA = {
       "reflectionNote": "Reflective water in the streambed"
     },
     {
-      "name": "Larvitar",
-      "set": "Stormfront",
-      "no": "063/100",
-      "year": 2008,
-      "illustrator": "Yuka Morii",
-      "tcgCode": "SF",
-      "tcgNumber": "063/100",
-      "image": "https://assets.tcgdex.net/en/dp/dp7/63/low.webp",
-      "id": "larvitar-stormfront-063-100",
-      "themeFit": "clear",
-      "reflectionNote": "Water reflection"
-    },
-    {
       "name": "Pachirisu",
       "set": "Phantom Forces",
       "no": "025/119",
@@ -182,19 +169,6 @@ window.ARTIST_CARD_DATA = {
       "id": "manaphy-brilliant-stars-041-172",
       "themeFit": "scene",
       "reflectionNote": "Water reflection"
-    },
-    {
-      "name": "Oddish",
-      "set": "Lost Origin",
-      "no": "001/196",
-      "year": 2022,
-      "illustrator": "Miki Tanaka",
-      "tcgCode": "LOR",
-      "tcgNumber": "001/196",
-      "image": "https://images.pokemontcg.io/swsh11/1.png",
-      "id": "oddish-lost-origin-001-196",
-      "themeFit": "scene",
-      "reflectionNote": "Reflective ground in the scene"
     },
     {
       "name": "Flaaffy",
