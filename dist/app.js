@@ -11,7 +11,6 @@
   let owned = new Set();
   let showMissingOnly = false;
   let newestFirst = false;
-  let searchTerm = "";
   let toastTimeout;
 
   const els = {
@@ -138,15 +137,15 @@
   }
 
   function renderList() {
-    const query = searchTerm.trim().toLocaleLowerCase();
-    const orderedCards = newestFirst ? cards.slice().reverse() : cards;
-    const filtered = orderedCards.filter(card => {
+    const query = els.search.value.trim().toLocaleLowerCase();
+    const filtered = cards.filter(card => {
       const isOwned = owned.has(card.id);
       const matchesFilter = !showMissingOnly || !isOwned;
       const matchesSearch = !query ||
         (card.name + " " + card.set + " " + card.no + " " + (card.illustrator || "") + " " + (card.reflectionNote || "")).toLocaleLowerCase().includes(query);
       return matchesFilter && matchesSearch;
     });
+    if (newestFirst) filtered.reverse();
 
     let currentYear = null;
     const chunks = [];
@@ -320,10 +319,9 @@
     event.currentTarget.title = "Sort " + nextDirection;
     renderList();
   });
-  els.search.addEventListener("input", () => { searchTerm = els.search.value; renderList(); });
+  els.search.addEventListener("input", renderList);
   document.getElementById("clear-search").addEventListener("click", () => {
     els.search.value = "";
-    searchTerm = "";
     renderList();
     els.search.focus();
   });
