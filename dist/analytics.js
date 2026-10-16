@@ -90,7 +90,7 @@
     const target = event.target instanceof Element ? event.target : null;
     if (!target) return;
 
-    const collectionLink = target.closest("a.tile-action");
+    const collectionLink = target.closest("a.artist-tile[data-collection-type]");
     if (collectionLink) {
       const tile = collectionLink.closest(".artist-tile");
       if (tile?.dataset.collectionType === "theme") {

@@ -79,10 +79,11 @@ function renderTile(artist, cards) {
   const tileClass = artist.tileClass || (isTheme ? "reflection-theme-tile" : "");
   const tileLabel = artist.tileLabel || artist.medium;
   const tileName = artist.tileName || artist.name;
+  const tileAction = artist.tileAction || (isTheme ? 'Explore community theme' : 'View collection checklist');
   const tileSummary = isTheme ? cards.length + " cards in this theme" : yearRange;
   const tileSummaryLabel = isTheme ? cards.length + " " + (artist.tileSummaryNoun || "community theme") + " cards" : "Cards from " + (firstYear || "") + " to " + (lastYear || "");
   return [
-    '<article class="artist-tile tile-' + escapeHtml(artist.mediumTone) + (tileClass ? ' ' + escapeHtml(tileClass) : '') + '" data-collection-type="' + (isTheme ? 'theme' : 'artist') + '" data-artist-id="' + escapeHtml(artist.id) + '"' + (isTheme ? ' data-theme-id="' + escapeHtml(artist.id) + '"' : '') + ' data-card-ids="' + escapeHtml(cardIds) + '">',
+    '<a class="artist-tile tile-' + escapeHtml(artist.mediumTone) + (tileClass ? ' ' + escapeHtml(tileClass) : '') + '" href="' + escapeHtml(artist.id) + '/" aria-label="' + escapeHtml(tileName + ': ' + tileAction) + '" data-collection-type="' + (isTheme ? 'theme' : 'artist') + '" data-artist-id="' + escapeHtml(artist.id) + '"' + (isTheme ? ' data-theme-id="' + escapeHtml(artist.id) + '"' : '') + ' data-card-ids="' + escapeHtml(cardIds) + '">',
       '<div class="tile-topline">',
         '<span class="tile-medium"><span aria-hidden="true">' + escapeHtml(artist.mediumIcon) + '</span> ' + escapeHtml(tileLabel) + '</span>',
         '<span class="tile-years" aria-label="' + escapeHtml(tileSummaryLabel) + '">' + escapeHtml(tileSummary) + '</span>',
@@ -94,9 +95,9 @@ function renderTile(artist, cards) {
         '<div class="tile-progress-track" role="progressbar" aria-label="' + escapeHtml(tileName) + ' collection progress" aria-valuemin="0" aria-valuemax="' + cards.length + '" aria-valuenow="0"><span class="tile-progress-fill"></span></div>',
       '</div>',
       '<div class="tile-footer">',
-        '<a class="tile-action" href="' + escapeHtml(artist.id) + '/">' + escapeHtml(artist.tileAction || (isTheme ? 'Explore community theme' : 'View collection checklist')) + ' <span aria-hidden="true">→</span></a>',
+        '<span class="tile-action">' + escapeHtml(tileAction) + ' <span aria-hidden="true">→</span></span>',
       '</div>',
-    '</article>'
+    '</a>'
   ].join("");
 }
 
