@@ -31,6 +31,12 @@ if (!/^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(ref
 }
 await writeFile(path.join(distDir, "assets/ditto-reflections-pond.webp"), Buffer.from(reflectionsHeroBase64, "base64"));
 
+const reflectionsSocialBase64 = (await readFile(path.join(projectRoot, "site/reflections-social-preview.jpg.base64"), "utf8")).trim();
+if (!/^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(reflectionsSocialBase64)) {
+  throw new Error("Pokémon reflections social preview source is not valid base64.");
+}
+await writeFile(path.join(distDir, "assets/reflections-social-preview.jpg"), Buffer.from(reflectionsSocialBase64, "base64"));
+
 function escapeHtml(value) {
   return String(value).replace(/[&<>"']/g, character => ({
     "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
