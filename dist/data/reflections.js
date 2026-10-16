@@ -1,5 +1,5 @@
 window.ARTIST_CARD_DATA = {
-  "artistId": "reflections",
+  "artistId": "pokemon-card-reflections",
   "cards": [
     {
       "name": "Psyduck",
@@ -458,3 +458,4 @@ window.ARTIST_CARD_DATA = {
     }
   ]
 };
+
