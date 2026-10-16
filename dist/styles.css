@@ -437,11 +437,50 @@ h1 em { color: #6b8770; font-weight: 500; }
 .tile-lilac .tile-medium { background: #f2eef9; color: #584680; }
 .tile-gold .tile-medium { background: #f8f2df; color: #89620a; }
 .tile-sky .tile-medium { background: #edf2f6; color: #304c66; }
-.reflection-theme-tile { background: linear-gradient(145deg, #fff 0%, #f1f5f1 52%, #e8f0ee 100%); border-color: #cfddd7; }
-.reflection-theme-tile .tile-medium { background: #e8f0ec; color: #3d6857; }
-.reflection-theme-tile .tile-name { color: #304f45; }
-.reflection-theme-tile .tile-footer { border-color: #dce8e1; }
-.reflection-theme-tile:hover { border-color: rgba(61, 104, 87, .42); }
+.reflection-theme-tile {
+  isolation: isolate;
+  background:
+    radial-gradient(ellipse at 86% 3%, rgba(173, 210, 204, .3), transparent 36%),
+    radial-gradient(ellipse at 77% 95%, rgba(135, 179, 194, .15), transparent 43%),
+    linear-gradient(145deg, #fcfcf8 0%, #f0f5f3 53%, #eaf2f3 100%);
+  border-color: #cfdddc;
+}
+.reflection-theme-tile::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  top: -63px;
+  right: -22px;
+  width: 57%;
+  height: 202px;
+  border-radius: 50%;
+  background: linear-gradient(116deg, transparent 12%, rgba(255, 255, 255, .62) 25%, rgba(161, 207, 207, .28) 41%, rgba(130, 174, 190, .16) 56%, rgba(230, 245, 241, .2) 68%, transparent 86%);
+  filter: blur(12px);
+  transform: rotate(-11deg) skewX(-14deg);
+  pointer-events: none;
+}
+.reflection-theme-tile::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  top: 45%;
+  right: -18px;
+  width: 42%;
+  height: 112px;
+  border-radius: 50%;
+  border: 1px solid rgba(81, 140, 153, .16);
+  background: radial-gradient(ellipse at 50% 50%, rgba(160, 205, 206, .17), transparent 68%);
+  box-shadow: 0 0 0 8px rgba(255, 255, 255, .2), 0 0 0 9px rgba(81, 140, 153, .1), 0 0 0 19px rgba(255, 255, 255, .15), 0 0 0 20px rgba(81, 140, 153, .07);
+  transform: rotate(-12deg) scaleY(.62);
+  pointer-events: none;
+}
+.reflection-theme-tile > * { position: relative; z-index: 1; }
+.reflection-theme-tile .tile-medium { background: #e6f0ed; color: #3b6b69; }
+.reflection-theme-tile .tile-name { color: #365654; }
+.reflection-theme-tile .tile-footer { border-color: #d9e6e5; }
+.reflection-theme-tile .tile-action { color: #3b6b69; }
+.reflection-theme-tile:hover { border-color: rgba(68, 130, 136, .46); box-shadow: 0 18px 40px rgba(58, 102, 109, .1); }
+.reflection-theme-tile:hover .tile-action { color: #315b5f; }
 .northern-lights-theme-tile {
   isolation: isolate;
   background:
