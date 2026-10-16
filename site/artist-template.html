@@ -22,15 +22,15 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=18">
+  <link rel="stylesheet" href="styles.css?v=19">
   <script>
     window.CURRENT_ARTIST_ID = "{{ARTIST_ID}}";
     window.POKE_CHECKLIST_ANALYTICS = { measurementId: "{{GA_MEASUREMENT_ID}}", pageType: "artist", artistId: "{{ARTIST_ID}}" };
   </script>
   <script src="analytics.js?v=2" defer></script>
   <script src="artists.js" defer></script>
-  <script src="data/{{ARTIST_ID}}.js" defer></script>
-  <script src="app.js?v=7" defer></script>
+  <script src="{{DATA_FILE}}" defer></script>
+  <script src="app.js?v=8" defer></script>
   <!-- Buy Me a Coffee support widget -->
   <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="cometakira" data-description="Leave a little treat for the binder." data-message="" data-color="#466F5D" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
 </head>
@@ -41,11 +41,12 @@
         <img class="brand-mark" src="assets/pokechecklist-icon.svg" alt="">
         <span>PokeChecklist</span>
       </a>
-      <a class="topbar-link" href="./">Browse artists <span aria-hidden="true">↗</span></a>
+      <a class="topbar-link" href="./">Browse checklists <span aria-hidden="true">↗</span></a>
     </header>
 
     <main>
       {{ARTIST_HERO}}
+      {{COLLECTION_NOTE}}
 
       <section class="collection-panel" aria-labelledby="collection-title">
         <div class="panel-heading">
@@ -82,7 +83,7 @@
             <button class="sort-toggle" id="sort-toggle" type="button" aria-label="Cards are sorted oldest to newest. Activate to sort newest to oldest." title="Sort newest to oldest">
               <span id="sort-label">Oldest first</span><span class="sort-toggle-icon" aria-hidden="true">↕</span>
             </button>
-            <label class="search-box"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Search Pokémon or set" aria-label="Search Pokémon or set"><kbd>⌘ K</kbd></label>
+            <label class="search-box"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Search Pokémon, set, or illustrator" aria-label="Search Pokémon, set, or illustrator"><kbd>⌘ K</kbd></label>
           </div>
         </div>
         <div id="card-list" class="card-list" aria-live="polite">{{CARD_LIST}}</div>
@@ -137,3 +138,4 @@
   <div id="toast" role="status" aria-live="polite" class="toast"></div>
 </body>
 </html>
+

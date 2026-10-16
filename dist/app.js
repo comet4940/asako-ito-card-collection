@@ -11,7 +11,6 @@
   let owned = new Set();
   let showMissingOnly = false;
   let newestFirst = false;
-  let searchTerm = "";
   let toastTimeout;
 
   const els = {
@@ -128,7 +127,8 @@
       '<div class="card-image-frame' + (card.image ? '' : ' image-unavailable') + '">' + image + ownedStamp + "</div>" +
       '<div class="card-info">' +
         '<div class="card-copy"><div class="card-title-line"><h3>' + escapeHtml(card.name) + '</h3><span class="owned-tag">' + (isOwned ? "In binder" : "Not in binder") + "</span></div>" +
-          "<p>" + escapeHtml(card.set) + ' <span class="row-dot">·</span> ' + escapeHtml(card.year) + "</p></div>" +
+          "<p>" + escapeHtml(card.set) + ' <span class="row-dot">·</span> ' + escapeHtml(card.year) + (card.illustrator ? ' <span class="row-dot">·</span> ' + escapeHtml(card.illustrator) : "") + "</p>" +
+          (card.themeFit ? '<p class="theme-card-note"><span class="reflection-fit reflection-fit--' + escapeHtml(card.themeFit) + '">' + (card.themeFit === "clear" ? "Clear self-reflection" : "Related reflection scene") + "</span> · " + escapeHtml(card.reflectionNote || "") + "</p>" : "") + "</div>" +
         '<div class="collector-number">' + escapeHtml(card.no) + "</div>" +
       "</div>" +
       '<div class="card-links">' +
@@ -137,20 +137,20 @@
   }
 
   function renderList() {
-    const query = searchTerm.trim().toLocaleLowerCase();
-    const orderedCards = newestFirst ? cards.slice().reverse() : cards;
-    const filtered = orderedCards.filter(card => {
+    const query = els.search.value.trim().toLocaleLowerCase();
+    const filtered = cards.filter(card => {
       const isOwned = owned.has(card.id);
       const matchesFilter = !showMissingOnly || !isOwned;
       const matchesSearch = !query ||
-        (card.name + " " + card.set + " " + card.no).toLocaleLowerCase().includes(query);
+        (card.name + " " + card.set + " " + card.no + " " + (card.illustrator || "") + " " + (card.reflectionNote || "")).toLocaleLowerCase().includes(query);
       return matchesFilter && matchesSearch;
     });
+    if (newestFirst) filtered.reverse();
 
     let currentYear = null;
     const chunks = [];
     for (const card of filtered) {
-      if (card.year !== currentYear) {
+      if (!currentArtist.isTheme && card.year !== currentYear) {
         currentYear = card.year;
         chunks.push('<div class="year-heading"><span>' + escapeHtml(card.year) + "</span><i></i></div>");
       }
@@ -319,10 +319,9 @@
     event.currentTarget.title = "Sort " + nextDirection;
     renderList();
   });
-  els.search.addEventListener("input", () => { searchTerm = els.search.value; renderList(); });
+  els.search.addEventListener("input", renderList);
   document.getElementById("clear-search").addEventListener("click", () => {
     els.search.value = "";
-    searchTerm = "";
     renderList();
     els.search.focus();
   });
@@ -352,7 +351,7 @@
     els.list.hidden = true;
     els.empty.hidden = false;
     els.empty.querySelector("h3").textContent = "This checklist isn’t available";
-    els.empty.querySelector("p").textContent = "Return to the artist directory and choose another collection.";
+    els.empty.querySelector("p").textContent = "Return to the checklist directory and choose another collection.";
   } else {
     cards = catalog.cards;
     owned = readOwned(currentArtist, cards);

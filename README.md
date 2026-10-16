@@ -6,7 +6,7 @@
 
 ## What you can do
 
-- Browse a directory of illustrators, each with a shareable checklist page.
+- Browse illustrators and curated card themes, each with a shareable checklist page.
 - Mark cards as collected and see binder progress update as you go.
 - Search by Pokémon or set, filter to owned or missing cards, and sort by release date.
 - Download a CSV of missing cards, copy or download a shopping list, or open it in TCGplayer Mass Entry.
@@ -20,7 +20,7 @@ The site uses Google Analytics 4 to understand aggregate use of the artist direc
 
 ## Card catalog
 
-The catalog covers English physical Pokémon TCG cards and excludes the digital Pokémon TCG Pocket series. Card, illustrator, image, and set-date data are sourced from [TCGdex](https://tcgdex.dev/). Catalog files live in `dist/data/` and are registered in `dist/artists.js`.
+The catalog covers English physical Pokémon TCG cards and excludes the digital Pokémon TCG Pocket series. Card, illustrator, image, and set-date data are sourced from [TCGdex](https://tcgdex.dev/). Catalog files live in `dist/data/` and are registered in `dist/artists.js`. The registry can also include cross-artist themed checklists.
 
 Card identifiers are used to remember binder selections. Keep existing IDs stable when refreshing catalog data so collectors' saved progress continues to match their cards.
 
