@@ -37,6 +37,18 @@ if (!/^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(ref
 }
 await writeFile(path.join(distDir, "assets/reflections-social-preview.jpg"), Buffer.from(reflectionsSocialBase64, "base64"));
 
+const northernLightsHeroBase64 = (await readFile(path.join(projectRoot, "site/northern-lights-aurorus-hero.webp.base64"), "utf8")).trim();
+if (!/^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(northernLightsHeroBase64)) {
+  throw new Error("Northern Lights transparent hero image source is not valid base64.");
+}
+await writeFile(path.join(distDir, "assets/northern-lights-aurorus-hero.webp"), Buffer.from(northernLightsHeroBase64, "base64"));
+
+const northernLightsSocialBase64 = (await readFile(path.join(projectRoot, "site/northern-lights-social-preview.jpg.base64"), "utf8")).trim();
+if (!/^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(northernLightsSocialBase64)) {
+  throw new Error("Northern Lights social preview image source is not valid base64.");
+}
+await writeFile(path.join(distDir, "assets/northern-lights-social-preview.jpg"), Buffer.from(northernLightsSocialBase64, "base64"));
+
 function escapeHtml(value) {
   return String(value).replace(/[&<>"']/g, character => ({
     "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
@@ -64,12 +76,13 @@ function renderTile(artist, cards) {
   const yearRange = firstYear === null ? "" : firstYear === lastYear ? String(firstYear) : firstYear + "–" + lastYear;
   const cardIds = JSON.stringify(cards.map(card => card.id)).replace(/</g, "\\u003c");
   const isTheme = Boolean(artist.isTheme);
+  const tileClass = artist.tileClass || (isTheme ? "reflection-theme-tile" : "");
   const tileLabel = artist.tileLabel || artist.medium;
   const tileName = artist.tileName || artist.name;
   const tileSummary = isTheme ? cards.length + " cards in this theme" : yearRange;
-  const tileSummaryLabel = isTheme ? cards.length + " reflection cards" : "Cards from " + (firstYear || "") + " to " + (lastYear || "");
+  const tileSummaryLabel = isTheme ? cards.length + " " + (artist.tileSummaryNoun || "community theme") + " cards" : "Cards from " + (firstYear || "") + " to " + (lastYear || "");
   return [
-    '<article class="artist-tile tile-' + escapeHtml(artist.mediumTone) + (isTheme ? ' reflection-theme-tile' : '') + '" data-artist-id="' + escapeHtml(artist.id) + '" data-card-ids="' + escapeHtml(cardIds) + '">',
+    '<article class="artist-tile tile-' + escapeHtml(artist.mediumTone) + (tileClass ? ' ' + escapeHtml(tileClass) : '') + '" data-collection-type="' + (isTheme ? 'theme' : 'artist') + '" data-artist-id="' + escapeHtml(artist.id) + '"' + (isTheme ? ' data-theme-id="' + escapeHtml(artist.id) + '"' : '') + ' data-card-ids="' + escapeHtml(cardIds) + '">',
       '<div class="tile-topline">',
         '<span class="tile-medium"><span aria-hidden="true">' + escapeHtml(artist.mediumIcon) + '</span> ' + escapeHtml(tileLabel) + '</span>',
         '<span class="tile-years" aria-label="' + escapeHtml(tileSummaryLabel) + '">' + escapeHtml(tileSummary) + '</span>',
@@ -81,7 +94,7 @@ function renderTile(artist, cards) {
         '<div class="tile-progress-track" role="progressbar" aria-label="' + escapeHtml(tileName) + ' collection progress" aria-valuemin="0" aria-valuemax="' + cards.length + '" aria-valuenow="0"><span class="tile-progress-fill"></span></div>',
       '</div>',
       '<div class="tile-footer">',
-        '<a class="tile-action" href="' + escapeHtml(artist.id) + '/">' + (isTheme ? 'Explore Pokémon card reflections' : 'View collection checklist') + ' <span aria-hidden="true">→</span></a>',
+        '<a class="tile-action" href="' + escapeHtml(artist.id) + '/">' + escapeHtml(artist.tileAction || (isTheme ? 'Explore community theme' : 'View collection checklist')) + ' <span aria-hidden="true">→</span></a>',
       '</div>',
     '</article>'
   ].join("");
@@ -138,27 +151,30 @@ function renderThemeHero(artist, cards) {
   const clearCount = cards.filter(card => card.themeFit === "clear").length;
   const sceneCount = cards.length - clearCount;
   const featured = cards.find(card => card.themeFit === "clear" && card.image) || cards.find(card => card.image);
+  const themeClass = artist.themeClass || "reflection-theme-hero";
+  const reflectionTheme = artist.id === "pokemon-card-reflections";
   const featuredImage = artist.pageHeroAsset
     ? '<img class="profile-feature-image" src="' + escapeHtml(artist.pageHeroAsset) + '" alt="" fetchpriority="high" decoding="async">'
     : featured
       ? '<img class="profile-feature-image" src="' + escapeHtml(featured.image) + '" alt="" fetchpriority="high" decoding="async">'
       : '<div class="reflection-mirror" aria-hidden="true"></div>';
+  const badges = artist.id === "pokemon-card-reflections"
+    ? ["🪞 " + (artist.pageBadgeOne || "Clear reflections") + " · " + clearCount, "💧 " + (artist.pageBadgeTwo || "Related scenes") + " · " + sceneCount, "🗂️ " + cards.length + " cards · " + setCount + " sets"]
+    : [escapeHtml(artist.pageBadgeIcon || "✧") + " " + (artist.pageBadgeOne || "Aurora scenes"), "🗂️ " + cards.length + " cards · " + setCount + " sets", "🎨 " + new Set(cards.map(card => card.illustrator).filter(Boolean)).size + " illustrators"];
   return [
-    '<section class="hero profile-hero reflection-theme-hero" aria-labelledby="artist-title">',
+    '<section class="hero profile-hero community-theme-hero ' + escapeHtml(themeClass) + '" aria-labelledby="artist-title">',
       '<div class="profile-copy">',
         '<nav class="profile-breadcrumbs" aria-label="Breadcrumb">',
           '<a href="./">Collections</a><span aria-hidden="true">/</span><span>' + escapeHtml(artist.pageCategory || "Community theme") + '</span><span aria-hidden="true">/</span><span aria-current="page">' + escapeHtml(artist.name) + '</span>',
         '</nav>',
-        '<p class="eyebrow reflection-eyebrow"><span class="eyebrow-dot"></span> A community-curated checklist</p>',
-        '<h1 id="artist-title"><span>Pokémon cards with</span><em>reflections</em></h1>',
+        '<p class="eyebrow community-theme-eyebrow' + (reflectionTheme ? ' reflection-eyebrow' : '') + '"><span class="eyebrow-dot"></span> A community-curated checklist</p>',
+        '<h1 id="artist-title"><span>' + escapeHtml(artist.pageHeadingLead || "Pokémon cards with") + '</span><em>' + escapeHtml(artist.pageHeadingAccent || artist.name) + '</em></h1>',
         '<p class="profile-intro">' + escapeHtml(artist.pageBlurb) + '</p>',
         '<div class="profile-badges">',
-          '<span class="profile-badge">🪞 Clear reflections · ' + clearCount + '</span>',
-          '<span class="profile-badge">💧 Related scenes · ' + sceneCount + '</span>',
-          '<span class="profile-badge">🗂️ ' + cards.length + ' cards · ' + setCount + ' sets</span>',
+          badges.map(label => '<span class="profile-badge">' + escapeHtml(label) + '</span>').join(""),
         '</div>',
       '</div>',
-      '<div class="profile-feature reflection-feature" aria-hidden="true">' + featuredImage + '</div>',
+      '<div class="profile-feature community-theme-feature ' + escapeHtml(artist.featureClass || "") + '" aria-hidden="true">' + featuredImage + '</div>',
     '</section>'
   ].join("");
 }
@@ -191,7 +207,16 @@ function renderProfileHero(artist, cards) {
   ].join("");
 }
 
-function renderThemeScope() {
+function renderThemeScope(artist) {
+  if (artist.id !== "pokemon-card-reflections") {
+    return [
+      '<section class="community-theme-scope northern-lights-scope" aria-labelledby="theme-scope-title">',
+        '<div class="community-theme-scope-heading"><p class="eyebrow muted">HOW THIS CHECKLIST IS CURATED</p><h2 id="theme-scope-title">' + escapeHtml(artist.themeScopeHeading || "What belongs in this collection?") + '</h2></div>',
+        '<p class="community-theme-scope-copy">' + escapeHtml(artist.themeScopeBlurb || "Cards are included when the theme is clearly visible in the illustration.") + '</p>',
+        '<p class="community-theme-sources">A community-started list, with its first cards drawn from the <a href="' + escapeHtml(artist.themeScopeSourceUrl || "https://staiz.io/collection/northern-lights") + '" target="_blank" rel="noopener noreferrer">' + escapeHtml(artist.themeScopeSourceLabel || "Staiz Northern Lights collection") + '</a>. Card choices can grow as collectors suggest more examples.</p>',
+      '</section>'
+    ].join("");
+  }
   return [
     '<section class="reflection-scope" aria-labelledby="reflection-scope-title">',
       '<div class="reflection-scope-heading"><p class="eyebrow muted">HOW THIS CHECKLIST IS CURATED</p><h2 id="reflection-scope-title">Two ways reflections appear</h2></div>',
@@ -227,7 +252,7 @@ function renderCardIndex(cards, includeYearHeadings = true) {
         '</label>',
         '<div class="card-image-frame' + (card.image ? '' : ' image-unavailable') + '">' + image + '</div>',
         '<div class="card-info">',
-          '<div class="card-copy"><div class="card-title-line"><h3>' + escapeHtml(card.name) + '</h3><span class="owned-tag">Not in binder</span></div><p>' + escapeHtml(card.set) + ' <span class="row-dot">·</span> ' + escapeHtml(card.year) + (card.illustrator ? ' <span class="row-dot">·</span> ' + escapeHtml(card.illustrator) : '') + '</p>' + (card.themeFit ? '<p class="theme-card-note"><span class="reflection-fit reflection-fit--' + escapeHtml(card.themeFit) + '">' + (card.themeFit === "clear" ? 'Clear self-reflection' : 'Related reflection scene') + '</span> · ' + escapeHtml(card.reflectionNote || "") + '</p>' : '') + '</div>',
+          '<div class="card-copy"><div class="card-title-line"><h3>' + escapeHtml(card.name) + '</h3><span class="owned-tag">Not in binder</span></div><p>' + escapeHtml(card.set) + ' <span class="row-dot">·</span> ' + escapeHtml(card.year) + (card.illustrator ? ' <span class="row-dot">·</span> ' + escapeHtml(card.illustrator) : '') + '</p>' + (card.themeFit ? '<p class="theme-card-note"><span class="reflection-fit reflection-fit--' + escapeHtml(card.themeFit) + '">' + (card.themeFit === "clear" ? 'Clear self-reflection' : 'Related reflection scene') + '</span> · ' + escapeHtml(card.reflectionNote || "") + '</p>' : card.themeNote ? '<p class="theme-card-note">' + escapeHtml(card.themeNote) + '</p>' : '') + '</div>',
           '<div class="collector-number">' + escapeHtml(card.no) + '</div>',
         '</div>',
         '<div class="card-links"><a href="' + escapeHtml(shopUrl) + '" target="_blank" rel="noopener noreferrer" title="Shop for ' + escapeHtml(card.name) + ' on TCGplayer">Shop on TCGplayer <span aria-hidden="true">↗</span></a></div>',
@@ -311,7 +336,8 @@ for (const { artist, cards } of catalogs) {
     GA_MEASUREMENT_ID: gaMeasurementId,
     ARTIST_NAME: escapeHtml(artist.name),
     ARTIST_HERO: artist.isTheme ? renderThemeHero(artist, cards) : artist.pageHeroAsset ? renderProfileHero(artist, cards) : renderStandardHero(artist, cards),
-    COLLECTION_NOTE: artist.isTheme ? renderThemeScope() : "",
+    COLLECTION_NOTE: artist.isTheme ? renderThemeScope(artist) : "",
+    PAGE_TYPE: artist.isTheme ? "theme" : "artist",
     CARD_COUNT: cards.length,
     CARD_LIST: renderCardIndex(cards, !artist.isTheme),
     DESCRIPTION: escapeHtml(description),

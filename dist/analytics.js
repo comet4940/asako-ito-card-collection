@@ -6,9 +6,12 @@
 
   if (!/^G-[A-Z0-9]+$/i.test(measurementId) || (!isProductionHost && !debugMode)) return;
 
-  const pageType = config.pageType === "artist" ? "artist" : "home";
+  const pageType = ["artist", "theme"].includes(config.pageType) ? config.pageType : "home";
   const artistId = typeof config.artistId === "string" && /^[a-z0-9-]{1,60}$/.test(config.artistId)
     ? config.artistId
+    : "";
+  const themeId = typeof config.themeId === "string" && /^[a-z0-9-]{1,60}$/.test(config.themeId)
+    ? config.themeId
     : "";
   const pagePath = window.location.pathname || "/";
   const pageLocation = window.location.origin + pagePath;
@@ -33,9 +36,11 @@
     page_path: pagePath
   };
   if (pageType === "artist" && artistId) commonParams.artist_id = artistId;
+  if (pageType === "theme" && themeId) commonParams.theme_id = themeId;
 
   const validators = {
     target_artist_id: value => typeof value === "string" && /^[a-z0-9-]{1,60}$/.test(value),
+    target_theme_id: value => typeof value === "string" && /^[a-z0-9-]{1,60}$/.test(value),
     action: value => ["added", "removed"].includes(value),
     filter_state: value => ["enabled", "disabled"].includes(value),
     sort_order: value => ["oldest_first", "newest_first"].includes(value),
@@ -46,6 +51,7 @@
   const allowedParams = {
     page_view: [],
     artist_tile_opened: ["target_artist_id"],
+    theme_tile_opened: ["target_theme_id"],
     sleepy_pokemon_tile_opened: [],
     binder_card_toggled: ["action"],
     missing_filter_toggled: ["filter_state"],
@@ -84,10 +90,14 @@
     const target = event.target instanceof Element ? event.target : null;
     if (!target) return;
 
-    const artistLink = target.closest("a.tile-action");
-    if (artistLink) {
-      const targetArtistId = artistLink.closest(".artist-tile")?.dataset.artistId;
-      track("artist_tile_opened", { target_artist_id: targetArtistId });
+    const collectionLink = target.closest("a.tile-action");
+    if (collectionLink) {
+      const tile = collectionLink.closest(".artist-tile");
+      if (tile?.dataset.collectionType === "theme") {
+        track("theme_tile_opened", { target_theme_id: tile.dataset.themeId });
+      } else if (tile) {
+        track("artist_tile_opened", { target_artist_id: tile.dataset.artistId });
+      }
     }
     if (target.closest("a.sleepy-promo-tile")) track("sleepy_pokemon_tile_opened");
     if (target.closest("#missing-filter-toggle")) {
@@ -144,3 +154,4 @@
   script.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(measurementId);
   document.head.appendChild(script);
 })();
+

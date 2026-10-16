@@ -275,6 +275,25 @@ h1 em { color: #6b8770; font-weight: 500; }
 .profile-badge-medium { border-color: #d5e7d7; background: #edf5ed; color: #315d3e; }
 .profile-feature { width: min(100%, 410px); margin: 0 auto; }
 .profile-feature-image { width: 100%; height: auto; display: block; object-fit: contain; filter: drop-shadow(0 12px 14px rgba(50, 45, 37, .09)); }
+.northern-lights-theme-hero {
+  border-color: #d5e0de;
+  background:
+    radial-gradient(ellipse at 82% 27%, rgba(110, 190, 176, .16), transparent 31%),
+    radial-gradient(circle, rgba(82, 121, 136, .14) .7px, transparent .9px) 0 0 / 21px 21px,
+    #f1f2ef;
+}
+.northern-lights-theme-hero h1 em { color: #397a78; }
+.northern-lights-theme-hero .community-theme-eyebrow { color: #557b79; }
+.northern-lights-theme-hero .eyebrow-dot { background: #77a697; }
+.northern-lights-theme-hero .profile-badge { border-color: #d9e3df; background: rgba(255, 255, 255, .84); }
+.northern-lights-theme-hero .community-theme-feature { width: min(100%, 470px); overflow: visible; }
+.northern-lights-theme-hero .profile-feature-image { aspect-ratio: auto; border-radius: 0; object-fit: contain; transform: perspective(1000px) rotateY(-2deg) rotateX(1deg); filter: drop-shadow(0 10px 10px rgba(37, 66, 77, .12)) drop-shadow(0 22px 20px rgba(37, 66, 77, .17)); }
+.community-theme-scope { margin: 14px 0 27px; padding: 24px 30px 21px; border: 1px solid #dce5e1; border-radius: 17px; background: linear-gradient(120deg, #f2f6f3, #edf3f4); }
+.community-theme-scope-heading h2 { margin: 0 0 10px; color: #334f50; font-size: 25px; }
+.community-theme-scope-copy { max-width: 900px; margin: 0; color: #5d6b68; font-size: 13px; line-height: 1.65; }
+.community-theme-sources { margin: 13px 0 0; color: #778682; font-size: 10px; line-height: 1.65; }
+.community-theme-sources a { color: #416f6c; font-weight: 700; text-decoration: none; }
+.community-theme-sources a:hover { text-decoration: underline; }
 .profile-hero h1 { margin-top: 14px; font-size: clamp(40px, 4.3vw, 56px); }
 .profile-intro { margin: 10px 0 11px; line-height: 1.45; }
 .profile-hero + .collection-panel { padding: 13px 20px; }
@@ -525,7 +544,7 @@ h2 { margin: 0; color: #304740; font-size: 25px; line-height: 1.15; }
 
 .cards-section { padding: 55px 0 25px; }
 .cards-heading { display: flex; justify-content: space-between; align-items: end; gap: 20px; }
-.reflection-theme-hero ~ .cards-section .cards-heading { margin-bottom: 16px; }
+.community-theme-hero ~ .cards-section .cards-heading { margin-bottom: 16px; }
 .cards-heading .eyebrow { margin-bottom: 7px; }
 .cards-heading h2 { font-size: 30px; }
 .list-tools { display: flex; align-items: center; gap: 10px; }
@@ -751,6 +770,7 @@ h2 { margin: 0; color: #304740; font-size: 25px; line-height: 1.15; }
   .hero { padding: 38px 38px; grid-template-columns: 1fr .65fr; }
   .profile-hero { padding: 18px 25px; gap: 25px; }
   .reflection-theme-hero .reflection-feature { width: min(100%, 400px); }
+  .northern-lights-theme-hero .community-theme-feature { width: min(100%, 420px); }
   .yarn-one { right: 74px; }
   .yarn-two { right: 8px; }
   .needle-one { right: 87px; }
@@ -776,7 +796,9 @@ h2 { margin: 0; color: #304740; font-size: 25px; line-height: 1.15; }
   .hero { min-height: 0; margin-top: 18px; padding: 31px 24px 27px; display: block; }
   .profile-hero { margin: 18px 0 14px; padding: 21px 18px 16px; }
   .reflection-theme-hero .reflection-feature { width: min(100%, 330px); margin: 8px auto 0; }
+  .northern-lights-theme-hero .community-theme-feature { width: min(100%, 360px); margin: 8px auto 0; }
   .reflection-scope { padding: 20px 17px 17px; }
+  .community-theme-scope { padding: 20px 17px 17px; }
   .reflection-scope-grid { grid-template-columns: 1fr; gap: 9px; }
   .profile-breadcrumbs { gap: 8px; font-size: 10px; }
   .profile-hero h1 { margin-top: 14px; font-size: clamp(37px, 10vw, 46px); }
