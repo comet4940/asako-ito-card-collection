@@ -442,6 +442,50 @@ h1 em { color: #6b8770; font-weight: 500; }
 .reflection-theme-tile .tile-name { color: #304f45; }
 .reflection-theme-tile .tile-footer { border-color: #dce8e1; }
 .reflection-theme-tile:hover { border-color: rgba(61, 104, 87, .42); }
+.northern-lights-theme-tile {
+  isolation: isolate;
+  background:
+    radial-gradient(ellipse at 86% 0%, rgba(104, 197, 171, .2), transparent 37%),
+    radial-gradient(ellipse at 72% 20%, rgba(144, 132, 199, .15), transparent 44%),
+    linear-gradient(145deg, #fcfbf7 0%, #f0f6f1 53%, #edf1f6 100%);
+  border-color: #d1dfd9;
+}
+.northern-lights-theme-tile::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  top: -64px;
+  right: -28px;
+  width: 56%;
+  height: 205px;
+  border-radius: 50%;
+  background: linear-gradient(112deg, transparent 8%, rgba(77, 165, 141, .08) 24%, rgba(106, 199, 167, .28) 39%, rgba(148, 130, 202, .2) 54%, rgba(119, 170, 186, .1) 69%, transparent 86%);
+  filter: blur(13px);
+  opacity: .9;
+  transform: rotate(-13deg) skewX(-15deg);
+  pointer-events: none;
+}
+.northern-lights-theme-tile::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  top: -37px;
+  right: 12%;
+  width: 31%;
+  height: 170px;
+  border-radius: 50%;
+  background: linear-gradient(112deg, transparent 10%, rgba(81, 167, 151, .1) 36%, rgba(124, 195, 181, .2) 49%, rgba(156, 138, 204, .13) 63%, transparent 83%);
+  filter: blur(16px);
+  transform: rotate(12deg) skewX(-19deg);
+  pointer-events: none;
+}
+.northern-lights-theme-tile > * { position: relative; z-index: 1; }
+.northern-lights-theme-tile .tile-medium { background: #e8f2ed; color: #3c6b62; }
+.northern-lights-theme-tile .tile-name { color: #344f50; }
+.northern-lights-theme-tile .tile-footer { border-color: #dce7e3; }
+.northern-lights-theme-tile .tile-action { color: #3d6c62; }
+.northern-lights-theme-tile:hover { border-color: rgba(74, 139, 127, .48); box-shadow: 0 18px 40px rgba(59, 95, 94, .11); }
+.northern-lights-theme-tile:hover .tile-action { color: #315d59; }
 .sleepy-promo-tile { background: linear-gradient(140deg, #fff 0%, #f7f3fb 100%); border-color: #e2d9ed; text-decoration: none; }
 .sleepy-promo-tile:hover { border-color: rgba(88, 70, 128, .42); box-shadow: 0 18px 40px rgba(65, 51, 91, .12); }
 .sleepy-promo-tile:focus-visible { outline: 3px solid rgba(88, 70, 128, .42); outline-offset: 3px; }
