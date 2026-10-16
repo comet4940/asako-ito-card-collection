@@ -376,7 +376,7 @@ window.ARTIST_CARD_DATA = {
       "image": "https://images.pokemontcg.io/sv8/29.png",
       "id": "fuecoco-surging-sparks-029-191",
       "themeFit": "scene",
-      "reflectionNote": "Reflection in the scene"
+      "reflectionNote": "Water reflection"
     },
     {
       "name": "Bronzor",
@@ -454,7 +454,7 @@ window.ARTIST_CARD_DATA = {
       "image": "https://assets.tcgdex.net/en/sv/svp/185/low.webp",
       "id": "yanma-svp-185",
       "themeFit": "clear",
-      "reflectionNote": "Pond reflection"
+      "reflectionNote": "Water reflection"
     },
     {
       "name": "Yanma",
@@ -467,7 +467,7 @@ window.ARTIST_CARD_DATA = {
       "image": "https://images.pokemontcg.io/sv10/183.png",
       "id": "yanma-destined-rivals-183-182",
       "themeFit": "clear",
-      "reflectionNote": "Pond reflection"
+      "reflectionNote": "Water reflection"
     },
     {
       "name": "Blitzle",
