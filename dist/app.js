@@ -151,7 +151,7 @@
     let currentYear = null;
     const chunks = [];
     for (const card of filtered) {
-      if (card.year !== currentYear) {
+      if (!currentArtist.isTheme && card.year !== currentYear) {
         currentYear = card.year;
         chunks.push('<div class="year-heading"><span>' + escapeHtml(card.year) + "</span><i></i></div>");
       }
