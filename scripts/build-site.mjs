@@ -25,6 +25,12 @@ if (!/^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(aki
 }
 await writeFile(path.join(distDir, "assets/akira-egawa-grand-canvases-hero.webp"), Buffer.from(akiraHeroWebpBase64, "base64"));
 
+const reflectionsHeroBase64 = (await readFile(path.join(projectRoot, "site/ditto-reflections-pond.webp.base64"), "utf8")).trim();
+if (!/^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(reflectionsHeroBase64)) {
+  throw new Error("Pokémon reflections hero image source is not valid base64.");
+}
+await writeFile(path.join(distDir, "assets/ditto-reflections-pond.webp"), Buffer.from(reflectionsHeroBase64, "base64"));
+
 function escapeHtml(value) {
   return String(value).replace(/[&<>"']/g, character => ({
     "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
@@ -126,9 +132,11 @@ function renderThemeHero(artist, cards) {
   const clearCount = cards.filter(card => card.themeFit === "clear").length;
   const sceneCount = cards.length - clearCount;
   const featured = cards.find(card => card.themeFit === "clear" && card.image) || cards.find(card => card.image);
-  const featuredImage = featured
-    ? '<img class="profile-feature-image" src="' + escapeHtml(featured.image) + '" alt="" fetchpriority="high" decoding="async">'
-    : '<div class="reflection-mirror" aria-hidden="true"></div>';
+  const featuredImage = artist.pageHeroAsset
+    ? '<img class="profile-feature-image" src="' + escapeHtml(artist.pageHeroAsset) + '" alt="" fetchpriority="high" decoding="async">'
+    : featured
+      ? '<img class="profile-feature-image" src="' + escapeHtml(featured.image) + '" alt="" fetchpriority="high" decoding="async">'
+      : '<div class="reflection-mirror" aria-hidden="true"></div>';
   return [
     '<section class="hero profile-hero reflection-theme-hero" aria-labelledby="artist-title">',
       '<div class="profile-copy">',
@@ -201,7 +209,9 @@ function renderCardIndex(cards, includeYearHeadings = true) {
     const image = card.image
       ? '<img class="card-image" src="' + escapeHtml(card.image) + '" alt="' + escapeHtml(card.name + ' Pokémon card from ' + card.set) + '" loading="lazy" decoding="async">'
       : '<span>Card image unavailable</span>';
-    const searchQuery = card.name + " " + card.set + " " + card.no.replace("#", "");
+    const searchQuery = includeYearHeadings
+      ? card.name + " " + card.set + " " + card.no.replace("#", "")
+      : (card.tcgSearchQuery || card.name + " " + normalizeCollectorNumber(card.no.replace("#", "")));
     const shopUrl = "https://www.tcgplayer.com/search/pokemon/product?productLineName=pokemon&q=" + encodeURIComponent(searchQuery) + "&view=grid";
     pieces.push([
       '<article class="card-row">',
@@ -219,6 +229,13 @@ function renderCardIndex(cards, includeYearHeadings = true) {
     ].join(""));
     return pieces.join("");
   }).join("");
+}
+
+function normalizeCollectorNumber(value) {
+  return String(value || "").split("/").map(part => {
+    if (!/^\d+$/.test(part)) return part;
+    return String(Number(part));
+  }).join("/");
 }
 
 const registrySource = await readFile(path.join(distDir, "artists.js"), "utf8");
@@ -309,4 +326,5 @@ await writeFile(path.join(distDir, "sitemap.xml"), sitemap);
 await writeFile(path.join(distDir, "robots.txt"), "User-agent: *\nAllow: /\nSitemap: " + siteUrl + "/sitemap.xml\n");
 
 console.log("Built " + catalogs.filter(item => !item.artist.isTheme).length + " artist pages and " + catalogs.filter(item => item.artist.isTheme).length + " theme pages containing " + totalCards + " checklist entries.");
+
 
