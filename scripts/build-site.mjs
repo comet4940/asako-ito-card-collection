@@ -43,11 +43,11 @@ if (!/^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(nor
 }
 await writeFile(path.join(distDir, "assets/northern-lights-aurorus-hero.webp"), Buffer.from(northernLightsHeroBase64, "base64"));
 
-const northernLightsSocialBase64 = (await readFile(path.join(projectRoot, "site/northern-lights-social-preview.jpg.base64"), "utf8")).trim();
+const northernLightsSocialBase64 = (await readFile(path.join(projectRoot, "site/northern-lights-social-preview-v2.jpg.base64"), "utf8")).trim();
 if (!/^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(northernLightsSocialBase64)) {
-  throw new Error("Northern Lights social preview image source is not valid base64.");
+  throw new Error("Northern Lights social preview v2 image source is not valid base64.");
 }
-await writeFile(path.join(distDir, "assets/northern-lights-social-preview.jpg"), Buffer.from(northernLightsSocialBase64, "base64"));
+await writeFile(path.join(distDir, "assets/northern-lights-social-preview-v2.jpg"), Buffer.from(northernLightsSocialBase64, "base64"));
 
 function escapeHtml(value) {
   return String(value).replace(/[&<>"']/g, character => ({
